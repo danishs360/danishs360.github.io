@@ -37,6 +37,11 @@ jobs:
 
       - name: Build site
         run: pnpm run build
+        env:
+          # PUBLIC_* env vars get inlined into the client bundle at build time.
+          # Set a repo variable of the same name (Settings → Variables → Actions)
+          # to override, otherwise this falls back to the deployed Worker URL.
+          PUBLIC_CHAT_API_URL: ${{ vars.PUBLIC_CHAT_API_URL || 'https://portfolio-chat.danishs.workers.dev' }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
