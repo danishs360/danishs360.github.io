@@ -1,0 +1,215 @@
+---
+// Floating chatbot widget. Talks to the Cloudflare Worker defined in
+// PUBLIC_CHAT_API_URL. Falls back to a polite "not configured" message in dev
+// when the env var is missing.
+const apiUrl = import.meta.env.PUBLIC_CHAT_API_URL ?? "";
+---
+
+<div id="chatbot-root" data-api-url={apiUrl}>
+  <button
+    id="chatbot-toggle"
+    type="button"
+    aria-label="Open chat about Danish"
+    class="fixed bottom-5 right-5 z-40 btn btn-primary btn-circle shadow-lg w-14 h-14"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4-.8L3 20l1-4.2A7.94 7.94 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+  </button>
+
+  <div
+    id="chatbot-panel"
+    class="fixed bottom-5 right-5 z-50 hidden flex-col w-[min(92vw,380px)] h-[min(70vh,560px)] rounded-2xl bg-base-200 border border-base-300 shadow-2xl overflow-hidden"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between px-4 py-3 border-b border-base-300 bg-base-300/60">
+      <div class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+        </span>
+        <div>
+          <div class="text-sm font-semibold leading-none">Ask about Danish</div>
+          <div class="text-[10px] uppercase tracking-wider text-base-content/60 mt-0.5">Powered by Llama 3.3</div>
+        </div>
+      </div>
+      <button id="chatbot-close" type="button" aria-label="Close chat" class="btn btn-ghost btn-sm btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div id="chatbot-messages" class="flex-1 overflow-y-auto p-4 space-y-3 text-sm"></div>
+
+    <!-- Suggestions -->
+    <div id="chatbot-suggestions" class="px-3 pb-2 flex flex-wrap gap-1.5">
+      <button class="chatbot-suggestion btn btn-xs btn-outline" type="button">What does Danish do?</button>
+      <button class="chatbot-suggestion btn btn-xs btn-outline" type="button">Show me his AI projects</button>
+      <button class="chatbot-suggestion btn btn-xs btn-outline" type="button">What's his tech stack?</button>
+    </div>
+
+    <!-- Input -->
+    <form id="chatbot-form" class="flex items-end gap-2 p-3 border-t border-base-300 bg-base-300/40">
+      <textarea
+        id="chatbot-input"
+        rows="1"
+        placeholder="Ask me anything about Danish…"
+        class="textarea textarea-bordered textarea-sm flex-1 resize-none max-h-32 text-sm"
+      ></textarea>
+      <button id="chatbot-send" type="submit" class="btn btn-primary btn-sm" aria-label="Send">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  type Role = "user" | "model";
+  interface Msg { role: Role; content: string; }
+
+  const root = document.getElementById("chatbot-root") as HTMLElement | null;
+  if (root) {
+    const apiUrl = root.dataset.apiUrl ?? "";
+    const toggleBtn = document.getElementById("chatbot-toggle") as HTMLButtonElement;
+    const closeBtn = document.getElementById("chatbot-close") as HTMLButtonElement;
+    const panel = document.getElementById("chatbot-panel") as HTMLElement;
+    const messagesEl = document.getElementById("chatbot-messages") as HTMLElement;
+    const form = document.getElementById("chatbot-form") as HTMLFormElement;
+    const input = document.getElementById("chatbot-input") as HTMLTextAreaElement;
+    const sendBtn = document.getElementById("chatbot-send") as HTMLButtonElement;
+    const suggestions = document.getElementById("chatbot-suggestions") as HTMLElement;
+
+    const history: Msg[] = [];
+    let pending = false;
+
+    const escapeHtml = (s: string) =>
+      s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+
+    function render(role: Role | "system", text: string, opts: { typing?: boolean } = {}): HTMLElement {
+      const wrap = document.createElement("div");
+      wrap.className = role === "user" ? "flex justify-end" : "flex justify-start";
+
+      const bubble = document.createElement("div");
+      bubble.className =
+        role === "user"
+          ? "max-w-[85%] bg-primary text-primary-content rounded-2xl rounded-br-md px-3 py-2 whitespace-pre-wrap break-words"
+          : "max-w-[85%] bg-base-100 border border-base-300 rounded-2xl rounded-bl-md px-3 py-2 whitespace-pre-wrap break-words";
+
+      if (opts.typing) {
+        bubble.innerHTML =
+          '<span class="inline-flex gap-1"><span class="w-1.5 h-1.5 bg-base-content/50 rounded-full animate-bounce"></span><span class="w-1.5 h-1.5 bg-base-content/50 rounded-full animate-bounce" style="animation-delay:0.15s"></span><span class="w-1.5 h-1.5 bg-base-content/50 rounded-full animate-bounce" style="animation-delay:0.3s"></span></span>';
+      } else {
+        bubble.innerHTML = escapeHtml(text);
+      }
+
+      wrap.appendChild(bubble);
+      messagesEl.appendChild(wrap);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return bubble;
+    }
+
+    function greet() {
+      if (messagesEl.children.length === 0) {
+        render(
+          "model",
+          "Hey! I'm Danish's portfolio bot. Ask me about his work, projects, experience, or what he's building at Kindred.",
+        );
+      }
+    }
+
+    function openPanel() {
+      panel.classList.remove("hidden");
+      panel.classList.add("flex");
+      toggleBtn.classList.add("hidden");
+      greet();
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closePanel() {
+      panel.classList.add("hidden");
+      panel.classList.remove("flex");
+      toggleBtn.classList.remove("hidden");
+    }
+
+    toggleBtn.addEventListener("click", openPanel);
+    closeBtn.addEventListener("click", closePanel);
+
+    suggestions.querySelectorAll<HTMLButtonElement>(".chatbot-suggestion").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (pending) return;
+        input.value = btn.textContent ?? "";
+        form.requestSubmit();
+      });
+    });
+
+    input.addEventListener("input", () => {
+      input.style.height = "auto";
+      input.style.height = Math.min(input.scrollHeight, 128) + "px";
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+
+    async function send(message: string) {
+      if (pending) return;
+      const text = message.trim();
+      if (!text) return;
+
+      if (!apiUrl) {
+        render("model", "Chat is not configured yet. The API URL is missing — set PUBLIC_CHAT_API_URL.");
+        return;
+      }
+
+      pending = true;
+      sendBtn.disabled = true;
+      input.disabled = true;
+      suggestions.classList.add("hidden");
+
+      render("user", text);
+      history.push({ role: "user", content: text });
+
+      const typing = render("model", "", { typing: true });
+
+      try {
+        const res = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history }),
+        });
+        const data = (await res.json().catch(() => ({}))) as { reply?: string; error?: string };
+        if (!res.ok || !data.reply) {
+          typing.innerHTML = escapeHtml(
+            data.error
+              ? `Sorry — ${data.error}`
+              : "Sorry, something went wrong. Try again in a moment.",
+          );
+        } else {
+          typing.innerHTML = escapeHtml(data.reply);
+          history.push({ role: "model", content: data.reply });
+        }
+      } catch {
+        typing.innerHTML = escapeHtml("Network error. Check your connection and try again.");
+      } finally {
+        pending = false;
+        sendBtn.disabled = false;
+        input.disabled = false;
+        input.value = "";
+        input.style.height = "auto";
+        input.focus();
+      }
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      void send(input.value);
+    });
+  }
+</script>

@@ -5,5 +5,8 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: 'https://danishs360.github.io',
   base: '/',
-  integrations: [mdx(), tailwind()]
+  integrations: [mdx(), tailwind()],
+  image: {
+    domains: ['images.unsplash.com'],
+  },
 });

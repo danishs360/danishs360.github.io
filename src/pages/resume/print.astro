@@ -1,0 +1,388 @@
+---
+const contacts = [
+  {
+    text: "idanishsiddique@gmail.com",
+    href: "mailto:idanishsiddique@gmail.com",
+    path: "M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z",
+  },
+  {
+    text: "+92 311 5238087",
+    href: null,
+    path: "M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z",
+  },
+  {
+    text: "danishs360.github.io",
+    href: "https://danishs360.github.io",
+    path: "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z",
+  },
+  {
+    text: "linkedin.com/in/sudodanish",
+    href: "https://linkedin.com/in/sudodanish",
+    path: "M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z",
+  },
+  {
+    text: "github.com/danishs360",
+    href: "https://github.com/danishs360",
+    path: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
+  },
+  {
+    text: "Islamabad, Pakistan",
+    href: null,
+    path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Danish Siddique — Resume</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <style is:inline>
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+        color: #111827;
+        font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .toolbar {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+        display: flex;
+        gap: 8px;
+      }
+      .toolbar button,
+      .toolbar a {
+        background: #0F2A4A;
+        color: white;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+      .toolbar a.secondary {
+        background: white;
+        color: #0F2A4A;
+        border: 1px solid #D1D5DB;
+      }
+      .toolbar button:hover { background: #14365a; }
+
+      .resume {
+        max-width: 8.5in;
+        margin: 32px auto;
+        background: white;
+        color: #111827;
+        padding: 0.6in;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        border-radius: 4px;
+      }
+
+      .serif { font-family: "Newsreader", ui-serif, Georgia, serif; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; }
+
+      .header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+        border-bottom: 1px solid #E5E5E5;
+      }
+      .header-name { font-family: "Newsreader", serif; font-weight: 600; font-size: 28px; line-height: 1.1; color: #0F2A4A; margin: 0; }
+      .header-role { font-family: "Newsreader", serif; font-style: italic; font-size: 12.5px; color: #525252; margin: 2px 0 0 0; }
+      .contact-col { display: flex; flex-direction: column; gap: 3px; font-size: 10.5px; color: #525252; align-items: flex-end; }
+      .contact-line { display: flex; align-items: center; gap: 6px; color: inherit; text-decoration: none; }
+      .contact-line svg { width: 11px; height: 11px; flex-shrink: 0; fill: currentColor; }
+      a.contact-line { color: #0F2A4A; }
+
+
+      .section-label {
+        font-family: "Newsreader", serif;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #0F2A4A;
+        border-bottom: 1px solid #E5E5E5;
+        padding-bottom: 4px;
+        margin: 0 0 10px 0;
+      }
+
+      section { margin-bottom: 18px; }
+      .summary p { font-size: 12px; line-height: 1.55; color: #1f2937; margin: 0; }
+      .navy { color: #0F2A4A; font-weight: 500; }
+      strong, b { font-weight: 600; }
+
+      .role { margin-bottom: 14px; page-break-inside: avoid; break-inside: avoid; }
+      .role-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+      .role-company { font-family: "Newsreader", serif; font-weight: 600; font-size: 13.5px; color: #111827; }
+      .role-company .mute { font-weight: 400; color: #525252; }
+      .role-meta { font-size: 10.5px; color: #525252; white-space: nowrap; }
+      .role-title { font-style: italic; font-size: 11.5px; color: #374151; margin-bottom: 1px; }
+      .role-stack { font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: #525252; margin-bottom: 6px; }
+
+      ul {
+        list-style: none;
+        margin: 4px 0 0 0;
+        padding-left: 0;
+        font-size: 11.5px;
+        line-height: 1.45;
+        color: #1f2937;
+      }
+      ul li {
+        padding-left: 14px;
+        text-indent: -14px;
+        margin-bottom: 3px;
+      }
+      ul li::before {
+        content: "\2022\00a0\00a0";
+        font-weight: 700;
+        color: #1f2937;
+      }
+
+      .projects-list > div { margin-bottom: 6px; }
+      .project-name { font-family: "Newsreader", serif; font-weight: 600; }
+      .project-meta { font-size: 10.5px; color: #525252; }
+      .project-desc { color: #374151; font-size: 11.5px; line-height: 1.4; }
+      a.project-link { color: #0F2A4A; text-decoration: none; font-size: 10.5px; }
+      a.project-link:hover { text-decoration: underline; }
+
+      .skills { font-size: 11.5px; line-height: 1.55; color: #1f2937; }
+      .skills > div { margin-bottom: 2px; }
+      .skill-label { color: #0F2A4A; font-weight: 600; }
+
+      .edu-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; font-size: 11.5px; }
+      .edu-row .degree { font-family: "Newsreader", serif; font-weight: 600; color: #111827; }
+      .edu-row .school { color: #374151; }
+      .edu-row .place { color: #525252; }
+      .edu-row .date { font-size: 10.5px; color: #525252; white-space: nowrap; }
+
+      @media print {
+        @page { size: letter; margin: 0.5in; }
+        html, body { background: white !important; }
+        .toolbar { display: none !important; }
+        .resume {
+          margin: 0 !important;
+          padding: 0 !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          max-width: none !important;
+          width: 100% !important;
+        }
+        /* Force header horizontal regardless of print viewport width */
+        .header {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: flex-start !important;
+          justify-content: space-between !important;
+          gap: 16px !important;
+        }
+        .contact-col {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: flex-end !important;
+        }
+        a { color: inherit !important; text-decoration: none !important; }
+        a[href]::after { content: "" !important; }
+        section, .role, ul, li { page-break-inside: avoid; break-inside: avoid; }
+        *, *::before, *::after {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+
+      /* Mobile/narrow-screen layout — explicitly scoped to "screen" so it never affects print */
+      @media screen and (max-width: 600px) {
+        .header { flex-direction: column; }
+        .contact-col { align-items: flex-start; }
+        .resume { margin: 16px; padding: 24px; }
+        .toolbar { top: 10px; right: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <a href="/resume" class="secondary">← Back</a>
+      <button id="print-btn">Save as PDF</button>
+    </div>
+
+    <article class="resume">
+      <header class="header">
+        <div>
+          <h1 class="header-name">Danish Siddique</h1>
+          <p class="header-role">Senior Software Engineer</p>
+        </div>
+        <div class="contact-col">
+          {
+            contacts.map((c) =>
+              c.href ? (
+                <a class="contact-line" href={c.href}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d={c.path} />
+                  </svg>
+                  <span>{c.text}</span>
+                </a>
+              ) : (
+                <span class="contact-line">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d={c.path} />
+                  </svg>
+                  <span>{c.text}</span>
+                </span>
+              )
+            )
+          }
+        </div>
+      </header>
+
+      <section class="summary">
+        <p>
+          Senior software engineer at <span class="navy">Kindred</span>. I build AI-powered
+          products, engineering automation, and full-stack applications end-to-end. Five years of
+          experience across healthcare SaaS and AI. Background in machine learning research, well
+          before the current AI wave.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-label">Experience</h2>
+
+        <div class="role">
+          <div class="role-header">
+            <div class="role-company">Kindred <span class="mute">(formerly Mynd)</span></div>
+            <div class="role-meta">Sept 2023 – Present · Remote</div>
+          </div>
+          <div class="role-title">Senior Full-Stack Engineer</div>
+          <div class="role-stack">TypeScript · Node.js · Django · AWS Lambda · React · LangChain · Goose · Inngest · LiveKit · Deepgram</div>
+          <ul>
+            <li>Currently shipping <b>Kindred Workplace</b>, an emotional-intelligence platform for teams. Own product engineering across React, Node.js (TypeScript), and Django, including embedded AI features.</li>
+            <li>Built <b>Kindred Practice (formerly Mynd)</b>, an AI-driven practice management platform for therapists. Scaled to 1,000+ users. Owned scheduling, billing, clinical documentation, and AI features end-to-end.</li>
+            <li>Shipped <b>developer-loop automations</b> across the engineering org. Sentry incidents and Gleap support tickets route through <b>Goose</b> agents that reproduce, implement, and open ready-to-review pull requests, cutting incident-to-fix time substantially.</li>
+            <li>Built a <b>universal in-app AI agent</b> capable of executing arbitrary product actions through tool calls, with structured outputs, scoped permissions, and per-call guardrails.</li>
+            <li>Deployed multiple <b>production RAG pipelines</b> across clinical context, customer support, and internal knowledge surfaces. Pgvector storage, custom chunking strategies, eval-driven iteration.</li>
+            <li>Treat AI as core engineering infrastructure: authored team-wide <b>Cursor rules</b> and <b>Claude Code</b> skills encoding Kindred's codebase conventions, sustaining ~2–3× shipping velocity on new features and cutting new-hire ramp from weeks to days.</li>
+            <li>Designed event-driven backend on Node.js (TypeScript), Django, and AWS Lambda. Integrated real-time video, transcription, and chat via LiveKit, AWS Chime, and Deepgram.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-header">
+            <div class="role-company">Extendly</div>
+            <div class="role-meta">Apr 2023 – May 2024 · Remote</div>
+          </div>
+          <div class="role-title">Full-Stack Developer</div>
+          <div class="role-stack">Python · OpenAI · FastAPI · PostgreSQL · React · AWS Lambda</div>
+          <ul>
+            <li>Built a <b>RAG-powered customer support chatbot</b> on OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load.</li>
+            <li>Designed and shipped cross-platform React interfaces for the SaaS product.</li>
+            <li>Integrated third-party APIs into SaaS workflows on AWS Lambda using a serverless architecture, enabling automation and data sync across platforms.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-header">
+            <div class="role-company">Zaytrics Pvt Ltd</div>
+            <div class="role-meta">Sep 2020 – Apr 2023 · Islamabad</div>
+          </div>
+          <div class="role-title">Full-Stack Developer</div>
+          <div class="role-stack">Node.js · React · Flask · PostgreSQL · MongoDB · TensorFlow</div>
+          <ul>
+            <li>Built an <b>ML-based trademark infringement detection</b> system on logos. Reached 85%+ accuracy. Reduced manual review effort by ~70%.</li>
+            <li>Delivered multiple applications across Node.js, React, Flask, and PostgreSQL for legal and marketing automation.</li>
+            <li>Refactored PostgreSQL and MongoDB databases. Improved query performance and scalability under growing data loads.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">Selected Projects</h2>
+        <div class="projects-list">
+          <div>
+            <span class="project-name">Kindred Workplace</span>
+            <span class="project-meta"> · </span>
+            <a class="project-link" href="https://kindredworkplace.com">kindredworkplace.com</a>
+            <div class="project-desc">Emotional-intelligence platform for teams. Full-stack delivery, real-time features, and embedded AI.</div>
+          </div>
+          <div>
+            <span class="project-name">Kindred Practice</span>
+            <span class="project-meta"> · </span>
+            <a class="project-link" href="https://kindredpractice.com">kindredpractice.com</a>
+            <span class="project-meta"> (formerly mynd.app)</span>
+            <div class="project-desc">AI-powered practice management platform for therapists. Video, automated note-taking, RAG-based chat, scheduling, billing.</div>
+          </div>
+          <div>
+            <span class="project-name">Developer-Loop Automations</span>
+            <span class="project-meta"> · internal · Goose-based agents</span>
+            <div class="project-desc">Sentry incidents and Gleap tickets routed to Goose agents that scope, implement, and open pull requests.</div>
+          </div>
+          <div>
+            <span class="project-name">Medimap</span>
+            <span class="project-meta"> · </span>
+            <a class="project-link" href="https://medimap.ca">medimap.ca</a>
+            <div class="project-desc">Healthcare platform helping patients find nearby walk-in clinics and providers in real time.</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">Skills</h2>
+        <div class="skills">
+          <div><span class="skill-label">Languages</span> · TypeScript, Python, JavaScript</div>
+          <div><span class="skill-label">Backend</span> · Node.js, Django, FastAPI, Flask, Fastify</div>
+          <div><span class="skill-label">Frontend</span> · React, Vue, Tailwind CSS, Chakra UI</div>
+          <div><span class="skill-label">Data</span> · PostgreSQL, MongoDB, DynamoDB, Elasticsearch, pgvector</div>
+          <div><span class="skill-label">Cloud</span> · AWS (Lambda, Chime), GCP</div>
+          <div><span class="skill-label">AI stack</span> · Claude Code, Cursor, Goose, MCP, LangChain, Inngest, GPT, Gemini, RAG, vector search, evals, Deepgram, LiveKit</div>
+        </div>
+      </section>
+
+      <section style="margin-bottom: 0;">
+        <h2 class="section-label">Education</h2>
+        <div class="edu-row">
+          <div>
+            <span class="degree">BS Computer Science</span>,
+            <span class="school">Air University</span>,
+            <span class="place">Islamabad, Pakistan</span>
+          </div>
+          <div class="date">Sep 2017 – Jun 2021</div>
+        </div>
+      </section>
+    </article>
+
+    <script is:inline>
+      document.getElementById("print-btn").addEventListener("click", () => window.print());
+
+      // Auto-trigger print if ?auto=1 in URL (used when "Save as PDF" is clicked from /resume)
+      if (new URLSearchParams(location.search).get("auto") === "1") {
+        // Wait for fonts to load, then print
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => setTimeout(() => window.print(), 200));
+        } else {
+          window.addEventListener("load", () => setTimeout(() => window.print(), 600));
+        }
+      }
+    </script>
+  </body>
+</html>

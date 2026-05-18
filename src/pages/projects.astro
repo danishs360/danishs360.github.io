@@ -6,43 +6,85 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 <BaseLayout title="Projects" sideBarActiveItemID="projects">
   <div class="mb-8">
     <h1 class="text-4xl font-bold mb-2">Projects</h1>
-    <p class="text-base-content/60">Products, AI systems, and automations I've built and shipped.</p>
+    <p class="text-base-content/60">Products, AI systems, and automations I have built and shipped.</p>
   </div>
 
   <!-- PRODUCTS -->
   <div class="mb-4">
     <h2 class="text-2xl font-bold mb-1">Products</h2>
-    <p class="text-sm text-base-content/60 mb-4">Full-stack platforms led end-to-end.</p>
+    <p class="text-sm text-base-content/60 mb-4">Full-stack platforms I've built end-to-end.</p>
   </div>
 
   <HorizontalCard
     title="Kindred Workplace"
-    img="/post_img.webp"
-    desc="Emotional-intelligence platform for teams. Currently leading engineering across full-stack systems, real-time features, and embedded AI."
+    img="/projects/kindred-workplace.png"
+    desc="Emotional-intelligence platform for teams. Currently the product engineer on Kindred Workplace, building full-stack systems, real-time features, and embedded AI."
     url="https://kindredworkplace.com"
-    badge="CURRENT"
+    badge="Current"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
     title="Kindred Practice (formerly Mynd)"
-    img="/post_img.webp"
-    desc="AI-powered practice management platform for 200+ therapists. Video sessions, automated note-taking with GPT/Gemini, RAG-based clinical chat, multi-agent workflow automation with LangChain + Inngest, scheduling, billing. Built on Node.js (TypeScript), Django, AWS Lambda, React."
-    url="https://mynd.app"
-    badge="LIVE"
+    img="/projects/kindred-practice.png"
+    desc="AI-powered practice management platform for therapists. Video sessions, automated note-taking with GPT and Gemini, RAG-based clinical chat, multi-agent workflow automation via LangChain and Inngest, scheduling, and billing. Built on Node.js (TypeScript), Django, AWS Lambda, and React."
+    url="https://kindredpractice.com"
+    badge="Live"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
     title="Medimap"
-    img="/post_img.webp"
+    img="/projects/medimap.png"
     desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
     url="https://medimap.ca/"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
     title="KindlMedia Chat System"
-    img="/post_img.webp"
     desc="Custom real-time chat system supporting direct communication between clients and businesses, with reliable delivery and live presence."
     url="https://kb.mycrmsupport.com/kindlmedia1"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="TM Inspector"
+    desc="Trademark inspection and monitoring platform. Automated similarity search, watch-listing, and infringement alerts over global trademark registries."
+    url="#"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="ViseWealth"
+    desc="Personal wealth and portfolio tracking platform. Aggregates accounts, computes returns, and surfaces allocation insights with clean, fast dashboards."
+    url="#"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="WowNFT"
+    desc="NFT marketplace and minting platform. Wallet-based auth, on-chain minting flows, listing/auction support, and a responsive collection browser."
+    url="#"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Liver Tumor Detection in CT Images"
+    desc="Final-year project. Deep-learning pipeline for automatic liver and tumor segmentation in CT scans using a U-Net based architecture, with preprocessing, augmentation, and evaluation against radiologist-labeled ground truth."
+    url="#"
+    badge="FYP"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Real-Time Collaborative Whiteboard"
+    desc="Multi-user drawing and brainstorming canvas with low-latency sync, presence, and shape primitives. Built on WebSockets with CRDT-style conflict resolution."
+    url="#"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="URL Shortener with Analytics"
+    desc="Self-hosted link shortener with click tracking, referrer breakdown, and per-link dashboards. Built for speed with edge redirects and aggregated analytics."
+    url="#"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Markdown Notes App"
+    desc="Local-first markdown note-taking app with tags, full-text search, and seamless sync. Keyboard-driven UX inspired by Obsidian and Bear."
+    url="#"
   />
 
   <!-- AI & AUTOMATION -->
@@ -52,54 +94,48 @@ import HorizontalCard from "../components/HorizontalCard.astro";
   </div>
 
   <HorizontalCard
-    title="Sentry → GitHub PR (Goose agents)"
-    img="/post_img.webp"
-    desc="Production-error-to-merged-fix automation. Goose agents listen to Sentry, reproduce in a sandboxed checkout, and open ready-to-review PRs with the patch. Engineers go from triage to merge in minutes."
+    title="Sentry → GitHub Pull Request (Goose agents)"
+    desc="Production-incident-to-merged-fix automation. Goose agents subscribe to Sentry, reproduce errors in a sandboxed checkout, and open ready-to-review pull requests with the patch."
     url="#"
-    badge="DEV-LOOP"
+    badge="Developer-loop"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Gleap ticket → GitHub PR (Goose agents)"
-    img="/post_img.webp"
-    desc="User-reported issues from Gleap flow into Goose agents that scope the change, implement the fix, and open a PR. Bug reports become draft fixes on their own."
+    title="Gleap Ticket → GitHub Pull Request (Goose agents)"
+    desc="User-reported issues from Gleap routed to Goose agents that scope the change, implement the fix, and open a draft pull request, turning bug reports into engineer-reviewable diffs."
     url="#"
-    badge="DEV-LOOP"
+    badge="Developer-loop"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Universal in-app AI agent"
-    img="/post_img.webp"
-    desc="A chatbot that can take any action available in the app — not just retrieve, but do. Tool-using agent with structured outputs, fine-grained permissions, and guardrails on every call."
+    title="Universal In-App AI Agent"
+    desc="A conversational agent capable of executing any action available within the product. Not just retrieving information, but operating on it. Tool-using agent backed by structured outputs, fine-grained permissions, and guardrails on every call."
     url="#"
-    badge="PRODUCT AI"
+    badge="Product AI"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Production RAG pipelines"
-    img="/post_img.webp"
-    desc="Multiple RAG systems shipped: clinical context for therapists, customer support grounding, internal knowledge search. Vector search, chunking strategies, and eval-driven iteration."
+    title="Production RAG Pipelines"
+    desc="Multiple RAG systems in production: clinical context for therapists, customer-support grounding, and internal knowledge search. Vector search, deliberate chunking strategies, and eval-driven iteration."
     url="#"
     badge="RAG"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
     title="RAG-Powered Customer Support Chatbot (Extendly)"
-    img="/post_img.webp"
-    desc="Contextual customer support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by grounding answers in customer-specific docs."
+    desc="Contextual customer-support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by grounding answers in customer-specific documentation."
     url="#"
   />
 
   <!-- EARLIER -->
   <div class="mb-4 mt-12">
     <h2 class="text-2xl font-bold mb-1">Earlier work</h2>
-    <p class="text-sm text-base-content/60 mb-4">Selected projects from before Kindred.</p>
+    <p class="text-sm text-base-content/60 mb-4">Selected projects from prior roles.</p>
   </div>
 
   <HorizontalCard
     title="Trademark Infringement Detection (Zaytrics)"
-    img="/post_img.webp"
-    desc="ML-based logo similarity system for detecting trademark infringement. Reached 85%+ accuracy and cut manual review effort by ~70%."
+    desc="ML-based logo similarity system for detecting trademark infringement. Reached 85%+ accuracy and reduced manual review effort by approximately 70%."
     url="#"
   />
 </BaseLayout>

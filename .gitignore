@@ -26,3 +26,8 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Wrangler / Cloudflare Worker
+worker/node_modules/
+worker/.wrangler/
+worker/dist/

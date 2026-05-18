@@ -1,13 +1,13 @@
 ---
-title: "Hello, world"
-description: "Quick intro — who I am and what you'll find here."
+title: "Welcome"
+description: "A short introduction and what to expect from this blog."
 pubDate: "May 18 2026"
-heroImage: "/post_img.webp"
+heroImage: "/profile.webp"
 tags: ["intro"]
 ---
 
-I'm Danish — a Senior Software Engineer with 5 years of experience building scalable SaaS and AI-driven platforms. Lately I'm spending most of my time on LLM agents, RAG pipelines, and the messy, interesting parts of putting AI into real-world products.
+I'm Danish Siddique, a Senior Software Engineer with 5+ years of experience building AI-driven SaaS products. Most of my recent work centers on LLM agents, RAG pipelines, and the practical engineering required to put AI into reliable, production-grade systems.
 
-This blog is where I'll write up things I've learned along the way — patterns that worked, things that surprised me, and short notes on tools I keep reaching for. More to come soon.
+This blog is where I plan to share what I learn along the way: engineering patterns that have held up under real load, observations from shipping AI features to production, and short technical write-ups on the tools I rely on day to day. More to follow.
 
-In the meantime, check out the [projects](/projects) page or grab my [CV](/cv).
+In the meantime, take a look at the [projects](/projects) page or my [resume](/resume).

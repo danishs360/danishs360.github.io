@@ -1,0 +1,10 @@
+name = "portfolio-chat"
+main = "src/index.ts"
+compatibility_date = "2025-05-01"
+
+# Set with: wrangler secret put GROQ_API_KEY
+# Get a free key at https://console.groq.com/keys
+
+# Optional: restrict which origins can call the API.
+# [vars]
+# ALLOWED_ORIGINS = "https://danishs360.github.io,http://localhost:4321"
