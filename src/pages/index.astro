@@ -4,52 +4,268 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 ---
 
 <BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-xl py-1">Hey there 👋</div>
-    <div class="text-5xl font-bold">I'm Danish Siddique</div>
-    <div class="text-3xl py-3 font-bold">Senior Software Engineer · AI &amp; Full Stack</div>
-    <div class="py-2">
-      <text class="text-lg">
-        I build scalable SaaS products and AI-driven systems end-to-end. Over the last 5 years
-        I've led the development of platforms powering hundreds of users, with recent focus on
-        <b>LLM agents</b>, <b>RAG pipelines</b>, and <b>real-time systems</b>. I work across
-        the stack with Node.js (TypeScript), Django, React, and AWS.
-      </text>
+  <!-- HERO -->
+  <section class="pt-2 pb-14">
+    <div class="inline-flex items-center gap-2 text-sm px-3 py-1 rounded-full bg-base-200 border border-base-300 mb-6 fade-in-up">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+      </span>
+      <span class="text-base-content/80">Currently shipping at <span class="font-semibold">Kindred</span></span>
     </div>
-    <div class="mt-8">
-      <a class="btn" href="https://linkedin.com/in/sudodanish" target="_blank">Let's connect</a>
-      <a href="/projects" class="btn btn-outline ml-5">
-        See my work
-      </a>
-      <a href="/danish-siddique-resume.pdf" target="_blank" class="btn btn-outline ml-5">
-        Download CV
-      </a>
+
+    <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-4 fade-in-up" style="animation-delay: 0.1s">
+      Hey, I'm <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">Danish</span>.
+    </h1>
+
+    <h2 class="text-2xl md:text-3xl font-medium text-base-content/85 mb-6 fade-in-up" style="animation-delay: 0.2s">
+      I build
+      <span class="rotating-word text-primary font-bold">
+        <span>AI agents</span>
+        <span>RAG pipelines</span>
+        <span>real-time platforms</span>
+        <span>developer tooling</span>
+      </span>
+      <br class="hidden md:block" />that actually ship.
+    </h2>
+
+    <p class="text-lg text-base-content/70 max-w-2xl leading-relaxed fade-in-up" style="animation-delay: 0.3s">
+      Senior software engineer with 5+ years building AI-driven SaaS end-to-end — from full-stack
+      platforms serving hundreds of users to LLM agents that automate engineering workflows.
+      Currently at <a href="https://kindredeq.com" target="_blank" class="link link-primary">Kindred</a>,
+      leading engineering on <a href="https://kindredworkplace.com" target="_blank" class="link link-primary">Kindred Workplace</a>
+      and shipping internal AI tooling across the org.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-3 fade-in-up" style="animation-delay: 0.4s">
+      <a class="btn btn-primary" href="/projects">View my work →</a>
+      <a class="btn btn-outline" href="/cv">Resume</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/sudodanish" target="_blank">LinkedIn ↗</a>
     </div>
-  </div>
+  </section>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">Featured projects {"</>"}</div>
-  </div>
+  <!-- STATS -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+    <div class="border-l-2 border-primary pl-4">
+      <div class="text-3xl font-bold">5+</div>
+      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">years shipping</div>
+    </div>
+    <div class="border-l-2 border-secondary pl-4">
+      <div class="text-3xl font-bold">200+</div>
+      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">users in production</div>
+    </div>
+    <div class="border-l-2 border-accent pl-4">
+      <div class="text-3xl font-bold">10+</div>
+      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">AI agents shipped</div>
+    </div>
+    <div class="border-l-2 border-info pl-4">
+      <div class="text-3xl font-bold">~70%</div>
+      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">manual work cut</div>
+    </div>
+  </section>
 
-  <HorizontalCard
-    title="Mynd"
-    img="/post_img.webp"
-    desc="AI-powered practice management platform for therapists — video sessions, automated note-taking, RAG chat, scheduling, billing, and secure client communication."
-    url="https://mynd.app"
-    badge="LIVE"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Medimap"
-    img="/post_img.webp"
-    desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
-    url="https://medimap.ca/"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="KindlMedia Chat"
-    img="/post_img.webp"
-    desc="Custom real-time chat system enabling direct communication between clients and businesses."
-    url="https://kb.mycrmsupport.com/kindlmedia1"
-  />
+  <!-- NOW BUILDING -->
+  <section class="mb-16">
+    <div class="flex items-center gap-3 mb-4">
+      <h3 class="text-2xl font-bold">Currently building</h3>
+      <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/30">now</span>
+    </div>
+    <div class="card bg-base-200 border border-base-300 hover:border-primary/50 transition-colors">
+      <div class="card-body">
+        <h4 class="card-title text-xl">
+          Kindred Workplace
+          <span class="badge badge-outline badge-sm">SaaS · AI · Teams</span>
+        </h4>
+        <p class="text-base-content/80">
+          An emotional-intelligence platform for teams. I'm leading engineering across the product surface
+          — full-stack systems, real-time features, and the embedded AI that makes it useful day-to-day.
+        </p>
+        <p class="text-base-content/80">
+          Alongside it, I'm driving AI tooling across the whole org: developer-loop automations
+          (Sentry &amp; Gleap → PR via Goose agents), an in-app universal AI agent, and shared RAG
+          infrastructure used across products.
+        </p>
+        <div class="card-actions mt-2">
+          <a href="https://kindredworkplace.com" target="_blank" class="link link-primary text-sm">kindredworkplace.com ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI & AUTOMATION HIGHLIGHTS -->
+  <section class="mb-16">
+    <h3 class="text-2xl font-bold mb-2">AI &amp; automation highlights</h3>
+    <p class="text-base-content/60 mb-6">Recent systems I've put into production.</p>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 transition-all">
+        <div class="card-body">
+          <div class="text-xs font-mono uppercase tracking-wider text-primary mb-1">Dev-loop automation</div>
+          <h4 class="font-bold text-lg">Sentry → GitHub PR</h4>
+          <p class="text-sm text-base-content/75">
+            Goose agents listen to Sentry errors, reproduce them in a sandboxed checkout, and open
+            ready-to-review pull requests with the fix. Closes the loop from incident to merged change
+            without a human typing the patch.
+          </p>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="badge badge-sm badge-ghost">Goose</span>
+            <span class="badge badge-sm badge-ghost">Sentry</span>
+            <span class="badge badge-sm badge-ghost">GitHub Actions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 border border-base-300 hover:border-secondary hover:-translate-y-0.5 transition-all">
+        <div class="card-body">
+          <div class="text-xs font-mono uppercase tracking-wider text-secondary mb-1">Dev-loop automation</div>
+          <h4 class="font-bold text-lg">Gleap ticket → GitHub PR</h4>
+          <p class="text-sm text-base-content/75">
+            User-reported issues from Gleap flow into Goose agents that scope, implement, and PR
+            the change. Bug reports become draft fixes on their own — engineers review and merge.
+          </p>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="badge badge-sm badge-ghost">Goose</span>
+            <span class="badge badge-sm badge-ghost">Gleap</span>
+            <span class="badge badge-sm badge-ghost">LLM agents</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 border border-base-300 hover:border-accent hover:-translate-y-0.5 transition-all">
+        <div class="card-body">
+          <div class="text-xs font-mono uppercase tracking-wider text-accent mb-1">Product AI</div>
+          <h4 class="font-bold text-lg">Universal in-app agent</h4>
+          <p class="text-sm text-base-content/75">
+            A chatbot that can take any action available in the app — not just retrieve, but
+            <em>do</em>. Tool-using agent backed by structured outputs, fine-grained permissions,
+            and guardrails on every call.
+          </p>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="badge badge-sm badge-ghost">LangChain</span>
+            <span class="badge badge-sm badge-ghost">Tool use</span>
+            <span class="badge badge-sm badge-ghost">Inngest</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 border border-base-300 hover:border-info hover:-translate-y-0.5 transition-all">
+        <div class="card-body">
+          <div class="text-xs font-mono uppercase tracking-wider text-info mb-1">Infrastructure</div>
+          <h4 class="font-bold text-lg">RAG pipelines</h4>
+          <p class="text-sm text-base-content/75">
+            Multiple production RAG systems — clinical context for therapists, customer support
+            grounding, and internal knowledge — with vector search, chunking strategies, and
+            eval-driven iteration.
+          </p>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="badge badge-sm badge-ghost">Vector search</span>
+            <span class="badge badge-sm badge-ghost">PostgreSQL</span>
+            <span class="badge badge-sm badge-ghost">OpenAI / Gemini</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="mb-16">
+    <h3 class="text-2xl font-bold mb-2">Selected work</h3>
+    <p class="text-base-content/60 mb-6">Larger products I've led end-to-end.</p>
+
+    <HorizontalCard
+      title="Kindred Practice (formerly Mynd)"
+      img="/post_img.webp"
+      desc="AI-powered practice management platform for 200+ therapists — video sessions, automated note-taking with GPT/Gemini, RAG clinical chat, multi-agent workflows via LangChain + Inngest, scheduling, billing."
+      url="https://mynd.app"
+      badge="LIVE"
+    />
+    <div class="divider my-0"></div>
+    <HorizontalCard
+      title="Kindred Workplace"
+      img="/post_img.webp"
+      desc="Emotional-intelligence platform for teams. Leading engineering across full-stack, real-time, and embedded AI."
+      url="https://kindredworkplace.com"
+      badge="CURRENT"
+    />
+    <div class="divider my-0"></div>
+    <HorizontalCard
+      title="Medimap"
+      img="/post_img.webp"
+      desc="Healthcare platform helping patients find nearby walk-in clinics and urgent care centers in real time."
+      url="https://medimap.ca/"
+    />
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="mb-16">
+    <h3 class="text-2xl font-bold mb-4">Tech I reach for</h3>
+    <div class="flex flex-wrap gap-2">
+      <span class="badge badge-lg">TypeScript</span>
+      <span class="badge badge-lg">Python</span>
+      <span class="badge badge-lg">Node.js</span>
+      <span class="badge badge-lg">React</span>
+      <span class="badge badge-lg">Django</span>
+      <span class="badge badge-lg">FastAPI</span>
+      <span class="badge badge-lg">PostgreSQL</span>
+      <span class="badge badge-lg">AWS</span>
+      <span class="badge badge-lg">LangChain</span>
+      <span class="badge badge-lg">Inngest</span>
+      <span class="badge badge-lg">Goose</span>
+      <span class="badge badge-lg">RAG</span>
+      <span class="badge badge-lg">Vector search</span>
+      <span class="badge badge-lg">GPT &amp; Gemini</span>
+      <span class="badge badge-lg">Deepgram</span>
+      <span class="badge badge-lg">LiveKit</span>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="mb-12 text-center py-12 border-t border-base-300">
+    <h3 class="text-3xl font-bold mb-3">Got something to build?</h3>
+    <p class="text-base-content/70 mb-6 max-w-xl mx-auto">
+      Happy to talk AI products, agent systems, or hard engineering problems. Open to interesting conversations.
+    </p>
+    <a href="mailto:idanishsiddique@gmail.com" class="btn btn-primary btn-wide">Get in touch →</a>
+  </section>
 </BaseLayout>
+
+<style>
+  /* fade-in-up on initial load */
+  .fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* rotating word — all children stack in one grid cell, animation cycles them */
+  .rotating-word {
+    display: inline-grid;
+    grid-template-areas: 'word';
+    vertical-align: bottom;
+  }
+  .rotating-word > span {
+    grid-area: word;
+    animation: rotateWord 12s infinite;
+    opacity: 0;
+    white-space: nowrap;
+  }
+  .rotating-word > span:nth-child(1) { animation-delay: 0s; }
+  .rotating-word > span:nth-child(2) { animation-delay: 3s; }
+  .rotating-word > span:nth-child(3) { animation-delay: 6s; }
+  .rotating-word > span:nth-child(4) { animation-delay: 9s; }
+
+  @keyframes rotateWord {
+    0%   { opacity: 0; transform: translateY(8px); }
+    3%   { opacity: 1; transform: translateY(0); }
+    22%  { opacity: 1; transform: translateY(0); }
+    25%  { opacity: 0; transform: translateY(-8px); }
+    100% { opacity: 0; transform: translateY(-8px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in-up, .rotating-word > span { animation: none; opacity: 1; }
+  }
+</style>

@@ -4,47 +4,102 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 ---
 
 <BaseLayout title="Projects" sideBarActiveItemID="projects">
-  <div>
-    <div class="text-3xl w-full font-bold mb-5">Projects</div>
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-2">Projects</h1>
+    <p class="text-base-content/60">Products, AI systems, and automations I've built and shipped.</p>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="mb-4">
+    <h2 class="text-2xl font-bold mb-1">Products</h2>
+    <p class="text-sm text-base-content/60 mb-4">Full-stack platforms led end-to-end.</p>
   </div>
 
   <HorizontalCard
-    title="Mynd — AI Practice Management for Therapists"
+    title="Kindred Workplace"
     img="/post_img.webp"
-    desc="End-to-end SaaS platform powering 200+ therapists. Video sessions, automated note-taking with GPT/Gemini, RAG-based clinical chat, multi-agent workflow automation with LangChain + Inngest, scheduling, billing. Built on Node.js (TypeScript), Django, AWS Lambda, React, Chakra UI, and Tailwind."
-    url="https://mynd.app"
+    desc="Emotional-intelligence platform for teams. Currently leading engineering across full-stack systems, real-time features, and embedded AI."
+    url="https://kindredworkplace.com"
     badge="CURRENT"
   />
   <div class="divider my-0"></div>
-
   <HorizontalCard
-    title="RAG-Powered Customer Support Chatbot (Extendly)"
+    title="Kindred Practice (formerly Mynd)"
     img="/post_img.webp"
-    desc="Contextual customer support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by retrieving and grounding answers in customer-specific docs."
-    url="#"
+    desc="AI-powered practice management platform for 200+ therapists. Video sessions, automated note-taking with GPT/Gemini, RAG-based clinical chat, multi-agent workflow automation with LangChain + Inngest, scheduling, billing. Built on Node.js (TypeScript), Django, AWS Lambda, React."
+    url="https://mynd.app"
+    badge="LIVE"
   />
   <div class="divider my-0"></div>
-
   <HorizontalCard
     title="Medimap"
     img="/post_img.webp"
-    desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other healthcare providers in real time."
+    desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
     url="https://medimap.ca/"
   />
   <div class="divider my-0"></div>
-
   <HorizontalCard
     title="KindlMedia Chat System"
     img="/post_img.webp"
     desc="Custom real-time chat system supporting direct communication between clients and businesses, with reliable delivery and live presence."
     url="https://kb.mycrmsupport.com/kindlmedia1"
   />
+
+  <!-- AI & AUTOMATION -->
+  <div class="mb-4 mt-12">
+    <h2 class="text-2xl font-bold mb-1">AI &amp; automation</h2>
+    <p class="text-sm text-base-content/60 mb-4">Agent systems and developer-loop automations in production.</p>
+  </div>
+
+  <HorizontalCard
+    title="Sentry → GitHub PR (Goose agents)"
+    img="/post_img.webp"
+    desc="Production-error-to-merged-fix automation. Goose agents listen to Sentry, reproduce in a sandboxed checkout, and open ready-to-review PRs with the patch. Engineers go from triage to merge in minutes."
+    url="#"
+    badge="DEV-LOOP"
+  />
   <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Gleap ticket → GitHub PR (Goose agents)"
+    img="/post_img.webp"
+    desc="User-reported issues from Gleap flow into Goose agents that scope the change, implement the fix, and open a PR. Bug reports become draft fixes on their own."
+    url="#"
+    badge="DEV-LOOP"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Universal in-app AI agent"
+    img="/post_img.webp"
+    desc="A chatbot that can take any action available in the app — not just retrieve, but do. Tool-using agent with structured outputs, fine-grained permissions, and guardrails on every call."
+    url="#"
+    badge="PRODUCT AI"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Production RAG pipelines"
+    img="/post_img.webp"
+    desc="Multiple RAG systems shipped: clinical context for therapists, customer support grounding, internal knowledge search. Vector search, chunking strategies, and eval-driven iteration."
+    url="#"
+    badge="RAG"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="RAG-Powered Customer Support Chatbot (Extendly)"
+    img="/post_img.webp"
+    desc="Contextual customer support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by grounding answers in customer-specific docs."
+    url="#"
+  />
+
+  <!-- EARLIER -->
+  <div class="mb-4 mt-12">
+    <h2 class="text-2xl font-bold mb-1">Earlier work</h2>
+    <p class="text-sm text-base-content/60 mb-4">Selected projects from before Kindred.</p>
+  </div>
 
   <HorizontalCard
     title="Trademark Infringement Detection (Zaytrics)"
     img="/post_img.webp"
-    desc="ML-based logo similarity system for detecting trademark infringement, reaching 85%+ accuracy and cutting manual review by ~70%."
+    desc="ML-based logo similarity system for detecting trademark infringement. Reached 85%+ accuracy and cut manual review effort by ~70%."
     url="#"
   />
 </BaseLayout>

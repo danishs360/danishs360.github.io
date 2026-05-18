@@ -8,55 +8,61 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
     <div class="text-3xl w-full font-bold">Profile</div>
   </div>
 
-  <div class="mb-10 text-justify">
-    Senior Software Engineer with 5 years of experience leading development of scalable SaaS and
-    AI-driven platforms from concept to production. Skilled across the full stack with Node.js,
-    Django, React, and AWS, and recently focused on LLMs and agent-based automation to bring
-    intelligence into real-world products. Known for combining technical leadership with a strong
-    product mindset, delivering reliable, user-centered systems that balance performance,
-    maintainability, and innovation.
+  <div class="mb-8 text-justify text-base-content/85 leading-relaxed">
+    Senior Software Engineer with 5+ years leading development of scalable SaaS and AI-driven platforms
+    from concept to production. Skilled across the full stack with Node.js, Django, React, and AWS,
+    and recently focused on LLM agents, RAG pipelines, and developer-loop automation to embed
+    intelligence into real-world products. Currently at <a href="https://kindredeq.com" target="_blank" class="link link-primary">Kindred</a>,
+    leading engineering on Kindred Workplace and shipping AI tooling across the org.
   </div>
 
-  <div class="mb-5">
+  <div class="mb-10">
     <a href="/danish-siddique-resume.pdf" target="_blank" class="btn btn-outline">Download full resume (PDF)</a>
   </div>
 
-  <div class="mb-5 mt-10">
+  <div class="mb-5">
     <div class="text-3xl w-full font-bold">Experience</div>
   </div>
 
   <div class="time-line-container mb-10">
     <TimeLineElement
-      title="Senior Full Stack Engineer at Mynd"
-      subtitle="Sept 2023 - Present · Mynd, Canada (Remote)"
+      title="Senior Full Stack Engineer at Kindred (formerly Mynd)"
+      subtitle="Sept 2023 - Present · Kindred, Remote"
     >
-      <ul class="list-disc ml-5 mt-2">
-        <li>Led development of a practice management platform powering operations for 200+ therapists — unifying scheduling, billing, and clinical documentation in one seamless system.</li>
-        <li>Designed the end-to-end architecture with Node.js (TypeScript), Django, and AWS Lambda, delivering a low-latency, event-driven backend handling thousands of concurrent sessions.</li>
-        <li>Built an AI-powered note-taking and automation system using GPT, Gemini, and LangChain.</li>
-        <li>Pioneered LLM-driven automation with LangChain and Inngest — multi-agent systems that analyze conversations, generate insights, and orchestrate intelligent workflows.</li>
-        <li>Delivered a modern, accessible front-end with React, Chakra UI, and Tailwind CSS, improving onboarding flow and therapist productivity.</li>
-        <li>Integrated real-time communication via LiveKit, AWS Chime, and Deepgram — secure video calls, live transcription, and chat across therapy sessions.</li>
+      <ul class="list-disc ml-5 mt-2 space-y-1">
+        <li>Currently leading engineering on <strong>Kindred Workplace</strong> — an emotional-intelligence platform for teams.</li>
+        <li>Built and led <strong>Kindred Practice (formerly Mynd)</strong>, an AI-powered practice management platform powering 200+ therapists with unified scheduling, billing, and clinical documentation.</li>
+        <li>Shipped multiple production AI systems across the org:
+          <ul class="list-[circle] ml-5 mt-1 space-y-0.5">
+            <li>Developer-loop automation: <strong>Sentry → PR</strong> and <strong>Gleap → PR</strong> via Goose agents, turning incidents and user reports into ready-to-review fixes.</li>
+            <li>Universal in-app AI agent — a chatbot that can take any action available in the product (tool use, structured outputs, guardrails).</li>
+            <li>Multiple RAG pipelines — clinical context, support grounding, internal knowledge — with vector search and eval-driven iteration.</li>
+            <li>AI-powered note-taking and workflow automation using GPT, Gemini, LangChain, and Inngest.</li>
+          </ul>
+        </li>
+        <li>Designed event-driven backend with Node.js (TypeScript), Django, and AWS Lambda — low-latency, handles thousands of concurrent sessions.</li>
+        <li>Delivered modern, accessible front-ends with React, Chakra UI, and Tailwind CSS.</li>
+        <li>Integrated real-time communication via LiveKit, AWS Chime, and Deepgram for secure video, live transcription, and chat.</li>
       </ul>
     </TimeLineElement>
     <TimeLineElement
       title="Full Stack Developer at Extendly"
       subtitle="Apr 2023 - May 2024 · Extendly, Canada (Remote)"
     >
-      <ul class="list-disc ml-5 mt-2">
+      <ul class="list-disc ml-5 mt-2 space-y-1">
         <li>Built a RAG-powered chatbot for contextual customer support using OpenAI, FastAPI, and PostgreSQL — improving response accuracy and reducing manual support load.</li>
         <li>Designed and developed responsive, cross-platform interfaces with React.</li>
-        <li>Integrated third-party APIs into SaaS workflows using AWS Lambda and a serverless architecture, enabling automation and data sync across platforms.</li>
+        <li>Integrated third-party APIs into SaaS workflows using AWS Lambda and serverless architecture, enabling automation and data sync across platforms.</li>
       </ul>
     </TimeLineElement>
     <TimeLineElement
       title="Full Stack Developer at Zaytrics Pvt Ltd"
       subtitle="Sep 2020 - Apr 2023 · Zaytrics, Islamabad, Pakistan"
     >
-      <ul class="list-disc ml-5 mt-2">
-        <li>Created an ML-based system for detecting trademark infringement in logos with 85%+ accuracy — reducing manual review effort by 70%.</li>
-        <li>Built multiple apps with Node.js, React, Flask, and PostgreSQL — tools for legal and marketing automation.</li>
-        <li>Refactored PostgreSQL and MongoDB databases to boost query speed and scalability under increasing data loads.</li>
+      <ul class="list-disc ml-5 mt-2 space-y-1">
+        <li>Created an ML-based system for detecting trademark infringement in logos with 85%+ accuracy — cut manual review by ~70%.</li>
+        <li>Built multiple apps with Node.js, React, Flask, and PostgreSQL for legal and marketing automation.</li>
+        <li>Refactored PostgreSQL and MongoDB databases to boost query speed and scalability under growing data loads.</li>
       </ul>
     </TimeLineElement>
   </div>
@@ -66,23 +72,17 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
   </div>
 
   <div class="time-line-container mb-10">
-    <TimeLineElement
-      title="Mynd"
-      subtitle="https://mynd.app"
-    >
+    <TimeLineElement title="Kindred Workplace" subtitle="https://kindredworkplace.com">
+      Emotional-intelligence platform for teams. Leading engineering across full-stack systems, real-time features, and embedded AI.
+    </TimeLineElement>
+    <TimeLineElement title="Kindred Practice (formerly Mynd)" subtitle="https://mynd.app">
       AI-powered practice management platform for therapists — video sessions, automated note-taking, RAG-based chat, scheduling, billing, and secure client communication.
     </TimeLineElement>
-    <TimeLineElement
-      title="Medimap"
-      subtitle="https://medimap.ca/"
-    >
-      A healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time.
+    <TimeLineElement title="Developer-Loop Automations" subtitle="Internal · Goose-based AI agents">
+      Sentry errors and Gleap tickets routed to Goose agents that reproduce, implement, and PR the fix — closing the loop from incident to merged change without a human typing the patch.
     </TimeLineElement>
-    <TimeLineElement
-      title="KindlMedia"
-      subtitle="https://kb.mycrmsupport.com/kindlmedia1"
-    >
-      Custom chat system supporting real-time communication between clients and businesses.
+    <TimeLineElement title="Medimap" subtitle="https://medimap.ca/">
+      Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time.
     </TimeLineElement>
   </div>
 
@@ -93,7 +93,7 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
   <div class="time-line-container grid gap-4 mb-10">
     <TimeLineElement
       title="BS Computer Science"
-      subtitle="Sep 2017 - Jun 2021 at Air University, Islamabad, Pakistan"
+      subtitle="Sep 2017 - Jun 2021 · Air University, Islamabad, Pakistan"
     />
   </div>
 
@@ -144,6 +144,7 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
       <li>RAG</li>
       <li>Vector search</li>
       <li>Inngest</li>
+      <li>Goose</li>
       <li>Deepgram</li>
     </ul>
   </div>
