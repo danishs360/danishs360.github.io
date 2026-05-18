@@ -3,49 +3,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 ---
 
-<BaseLayout title = "Projects" sideBarActiveItemID="projects">
+<BaseLayout title="Projects" sideBarActiveItemID="projects">
   <div>
-    <div class="text-3xl w-full font-bold mb-5">Projects Header</div>
+    <div class="text-3xl w-full font-bold mb-5">Projects</div>
   </div>
 
   <HorizontalCard
-    title="Demo Project 1"
+    title="Mynd — AI Practice Management for Therapists"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
+    desc="End-to-end SaaS platform powering 200+ therapists. Video sessions, automated note-taking with GPT/Gemini, RAG-based clinical chat, multi-agent workflow automation with LangChain + Inngest, scheduling, billing. Built on Node.js (TypeScript), Django, AWS Lambda, React, Chakra UI, and Tailwind."
+    url="https://mynd.app"
+    badge="CURRENT"
   />
   <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 2"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Projects Header</div>
-  </div>
 
   <HorizontalCard
-    title="Demo Project 3"
+    title="RAG-Powered Customer Support Chatbot (Extendly)"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="FOSS"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 4"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    desc="Contextual customer support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by retrieving and grounding answers in customer-specific docs."
     url="#"
   />
   <div class="divider my-0"></div>
+
   <HorizontalCard
-    title="Demo Project 5"
+    title="Medimap"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other healthcare providers in real time."
+    url="https://medimap.ca/"
+  />
+  <div class="divider my-0"></div>
+
+  <HorizontalCard
+    title="KindlMedia Chat System"
+    img="/post_img.webp"
+    desc="Custom real-time chat system supporting direct communication between clients and businesses, with reliable delivery and live presence."
+    url="https://kb.mycrmsupport.com/kindlmedia1"
+  />
+  <div class="divider my-0"></div>
+
+  <HorizontalCard
+    title="Trademark Infringement Detection (Zaytrics)"
+    img="/post_img.webp"
+    desc="ML-based logo similarity system for detecting trademark infringement, reaching 85%+ accuracy and cutting manual review by ~70%."
     url="#"
   />
 </BaseLayout>
