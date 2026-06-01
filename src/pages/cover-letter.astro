@@ -1,20 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ResumeDoc from "../components/ResumeDoc.astro";
-import { baseResume } from "../data/resume";
+import CoverLetterDoc from "../components/CoverLetterDoc.astro";
+import { baseLetter } from "../data/coverLetter";
 ---
 
-<BaseLayout title="Resume" sideBarActiveItemID="resume">
+<BaseLayout title="Cover Letter" sideBarActiveItemID="cover-letter">
   <!-- Toolbar (screen only) -->
   <div class="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
-    <h1 class="text-3xl font-bold">Resume</h1>
-    <a href="/resume/print?auto=1" target="_blank" class="btn btn-primary btn-sm">Save as PDF</a>
+    <h1 class="text-3xl font-bold">Cover Letter</h1>
+    <a href="/cover-letter/print?auto=1" target="_blank" class="btn btn-primary btn-sm">Save as PDF</a>
   </div>
 
   <article
-    class="resume bg-white text-[#111827] shadow-xl rounded-lg p-10 print:p-0 print:shadow-none print:rounded-none"
+    class="cover bg-white text-[#111827] shadow-xl rounded-lg p-10 print:p-0 print:shadow-none print:rounded-none"
   >
-    <ResumeDoc resume={baseResume} />
+    <CoverLetterDoc letter={baseLetter} />
   </article>
 </BaseLayout>
 
@@ -22,7 +22,7 @@ import { baseResume } from "../data/resume";
   @media print {
     @page {
       size: letter;
-      margin: 0.5in;
+      margin: 0.75in;
     }
 
     html,
@@ -34,7 +34,6 @@ import { baseResume } from "../data/resume";
       width: 100% !important;
     }
 
-    /* Hide all chrome: drawer sidebar, mobile header, footer, toolbar */
     .drawer-side,
     .drawer-overlay,
     .navbar,
@@ -44,7 +43,6 @@ import { baseResume } from "../data/resume";
       display: none !important;
     }
 
-    /* Flatten the drawer/main containers so the resume can flow full width */
     .drawer,
     .drawer-content,
     main {
@@ -58,7 +56,7 @@ import { baseResume } from "../data/resume";
       overflow: visible !important;
     }
 
-    .resume {
+    .cover {
       background: white !important;
       color: #111827 !important;
       padding: 0 !important;
@@ -70,22 +68,15 @@ import { baseResume } from "../data/resume";
       position: static !important;
     }
 
-    /* Force ALL color/background to print (otherwise Chrome strips bg/colors) */
-    .resume,
-    .resume * {
+    .cover,
+    .cover * {
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
 
-    .resume a {
+    .cover a {
       color: #0f2a4a !important;
       text-decoration: none !important;
-    }
-
-    /* Avoid awkward page breaks: only keep individual bullets from splitting */
-    .resume li {
-      page-break-inside: avoid;
-      break-inside: avoid;
     }
 
     a[href]::after {

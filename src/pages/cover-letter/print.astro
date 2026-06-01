@@ -1,6 +1,7 @@
 ---
-import ResumeDoc from "../../components/ResumeDoc.astro";
-import { baseResume, name } from "../../data/resume";
+import CoverLetterDoc from "../../components/CoverLetterDoc.astro";
+import { baseLetter } from "../../data/coverLetter";
+import { name } from "../../data/resume";
 ---
 
 <!doctype html>
@@ -8,13 +9,13 @@ import { baseResume, name } from "../../data/resume";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{name} Resume</title>
+    <title>{name} Cover Letter</title>
     <meta name="robots" content="noindex" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap"
     />
     <style is:inline>
       * { box-sizing: border-box; }
@@ -57,21 +58,21 @@ import { baseResume, name } from "../../data/resume";
       }
       .toolbar button:hover { background: #14365a; }
 
-      .resume {
+      .cover {
         max-width: 8.5in;
         margin: 32px auto;
         background: white;
         color: #111827;
-        padding: 0.6in;
+        padding: 0.75in;
         box-shadow: 0 4px 24px rgba(0,0,0,0.08);
         border-radius: 4px;
       }
 
       @media print {
-        @page { size: letter; margin: 0.5in; }
+        @page { size: letter; margin: 0.75in; }
         html, body { background: white !important; }
         .toolbar { display: none !important; }
-        .resume {
+        .cover {
           margin: 0 !important;
           padding: 0 !important;
           box-shadow: none !important;
@@ -81,34 +82,30 @@ import { baseResume, name } from "../../data/resume";
         }
         a { color: inherit !important; text-decoration: none !important; }
         a[href]::after { content: "" !important; }
-        li { page-break-inside: avoid; break-inside: avoid; }
         *, *::before, *::after {
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
         }
       }
 
-      /* Mobile/narrow-screen layout — explicitly scoped to "screen" so it never affects print */
       @media screen and (max-width: 600px) {
-        .resume { margin: 16px; padding: 24px; }
+        .cover { margin: 16px; padding: 24px; }
         .toolbar { top: 10px; right: 10px; }
       }
     </style>
   </head>
   <body>
     <div class="toolbar">
-      <a href="/resume" class="secondary">← Back</a>
+      <a href="/cover-letter" class="secondary">← Back</a>
       <button id="print-btn">Save as PDF</button>
     </div>
 
-    <article class="resume">
-      <ResumeDoc resume={baseResume} />
+    <article class="cover">
+      <CoverLetterDoc letter={baseLetter} />
     </article>
 
     <script is:inline>
       document.getElementById("print-btn").addEventListener("click", () => window.print());
-
-      // Auto-trigger print if ?auto=1 in URL (used when "Save as PDF" is clicked from /resume)
       if (new URLSearchParams(location.search).get("auto") === "1") {
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(() => setTimeout(() => window.print(), 200));

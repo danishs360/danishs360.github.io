@@ -1,0 +1,155 @@
+---
+import { contacts, name } from "../data/resume";
+import type { Letter } from "../data/coverLetter";
+
+interface Props {
+  letter: Letter;
+}
+
+const { letter } = Astro.props;
+
+// Compact contact line for the letterhead: email, phone, location, LinkedIn.
+const headerTypes = ["email", "phone", "location", "linkedin"];
+const headerContacts = headerTypes
+  .map((t) => contacts.find((c) => c.type === t))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
+const date =
+  letter.date ??
+  new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(
+    new Date()
+  );
+---
+
+<div class="cover-root">
+  <!-- LETTERHEAD -->
+  <header class="cl-header">
+    <h1 class="cl-name serif">{name}</h1>
+    <div class="cl-contacts">
+      {
+        headerContacts.map((c, i) => (
+          <>
+            {i > 0 && <span class="cl-sep"> · </span>}
+            {c.href ? (
+              <a class="cl-contact" href={c.href}>
+                {c.text}
+              </a>
+            ) : (
+              <span class="cl-contact">{c.text}</span>
+            )}
+          </>
+        ))
+      }
+    </div>
+  </header>
+
+  <div class="cl-date">{date}</div>
+
+  {
+    letter.recipient && letter.recipient.length > 0 && (
+      <div class="cl-recipient">
+        {letter.recipient.map((line) => (
+          <div>{line}</div>
+        ))}
+      </div>
+    )
+  }
+
+  <p class="cl-salutation">{letter.salutation}</p>
+
+  <div class="cl-body">
+    {letter.paragraphs.map((p) => <p set:html={p} />)}
+  </div>
+
+  <div class="cl-signoff">
+    <div>{letter.closing}</div>
+    <div class="cl-signature serif">{name}</div>
+  </div>
+</div>
+
+<!--
+  Global but namespaced under .cover-root so set:html paragraphs are styled too,
+  without leaking site-wide. Matches the resume's Oxford-navy / serif look.
+-->
+<style is:global>
+  .cover-root {
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    color: #1f2937;
+    font-feature-settings: "ss01", "cv11";
+  }
+  .cover-root .serif {
+    font-family: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  }
+  .cover-root .navy {
+    color: #0f2a4a;
+    font-weight: 600;
+  }
+  .cover-root b,
+  .cover-root strong {
+    font-weight: 600;
+  }
+
+  .cover-root .cl-header {
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .cover-root .cl-name {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.1;
+    color: #0f2a4a;
+    margin: 0 0 4px 0;
+  }
+  .cover-root .cl-contacts {
+    font-size: 11px;
+    color: #525252;
+  }
+  .cover-root .cl-contact {
+    color: #0f2a4a;
+    text-decoration: none;
+  }
+  .cover-root .cl-contact:hover {
+    text-decoration: underline;
+  }
+  .cover-root .cl-sep {
+    color: #9ca3af;
+  }
+
+  .cover-root .cl-date {
+    font-size: 12.5px;
+    color: #525252;
+    margin-bottom: 18px;
+  }
+  .cover-root .cl-recipient {
+    font-size: 12.5px;
+    color: #1f2937;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+  .cover-root .cl-salutation {
+    font-size: 12.5px;
+    color: #1f2937;
+    margin: 0 0 14px 0;
+  }
+  .cover-root .cl-body p {
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: #1f2937;
+    margin: 0 0 13px 0;
+  }
+  .cover-root .cl-body p:last-child {
+    margin-bottom: 0;
+  }
+  .cover-root .cl-signoff {
+    margin-top: 22px;
+    font-size: 12.5px;
+    color: #1f2937;
+    line-height: 1.5;
+  }
+  .cover-root .cl-signature {
+    font-weight: 600;
+    color: #0f2a4a;
+    margin-top: 4px;
+  }
+</style>

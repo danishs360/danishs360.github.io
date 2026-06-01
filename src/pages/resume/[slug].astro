@@ -1,6 +1,26 @@
 ---
 import ResumeDoc from "../../components/ResumeDoc.astro";
-import { baseResume, name } from "../../data/resume";
+import { name } from "../../data/resume";
+import type { Resume } from "../../data/resume";
+
+export interface TailoredMeta {
+  slug: string;
+  company: string;
+  role: string;
+  added?: string;
+  jdUrl?: string;
+}
+
+// Each file in src/data/tailored/*.ts exports `meta` and `resume`.
+export function getStaticPaths() {
+  const mods = import.meta.glob("../../data/tailored/*.ts", { eager: true });
+  return Object.values(mods).map((mod: any) => ({
+    params: { slug: mod.meta.slug as string },
+    props: { resume: mod.resume as Resume, meta: mod.meta as TailoredMeta },
+  }));
+}
+
+const { resume, meta } = Astro.props as { resume: Resume; meta: TailoredMeta };
 ---
 
 <!doctype html>
@@ -8,8 +28,8 @@ import { baseResume, name } from "../../data/resume";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{name} Resume</title>
-    <meta name="robots" content="noindex" />
+    <title>{name} Resume for {meta.company}</title>
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,7 +54,17 @@ import { baseResume, name } from "../../data/resume";
         right: 20px;
         z-index: 10;
         display: flex;
+        align-items: center;
         gap: 8px;
+      }
+      .toolbar .tag {
+        background: #0F2A4A;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 6px 10px;
+        border-radius: 6px;
+        opacity: 0.85;
       }
       .toolbar button,
       .toolbar a {
@@ -88,7 +118,6 @@ import { baseResume, name } from "../../data/resume";
         }
       }
 
-      /* Mobile/narrow-screen layout — explicitly scoped to "screen" so it never affects print */
       @media screen and (max-width: 600px) {
         .resume { margin: 16px; padding: 24px; }
         .toolbar { top: 10px; right: 10px; }
@@ -97,18 +126,17 @@ import { baseResume, name } from "../../data/resume";
   </head>
   <body>
     <div class="toolbar">
-      <a href="/resume" class="secondary">← Back</a>
+      <span class="tag">Tailored · {meta.company}</span>
+      <a href="/resume/tailored" class="secondary">← All versions</a>
       <button id="print-btn">Save as PDF</button>
     </div>
 
     <article class="resume">
-      <ResumeDoc resume={baseResume} />
+      <ResumeDoc resume={resume} />
     </article>
 
     <script is:inline>
       document.getElementById("print-btn").addEventListener("click", () => window.print());
-
-      // Auto-trigger print if ?auto=1 in URL (used when "Save as PDF" is clicked from /resume)
       if (new URLSearchParams(location.search).get("auto") === "1") {
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(() => setTimeout(() => window.print(), 200));

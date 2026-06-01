@@ -1,0 +1,374 @@
+---
+import { contacts as defaultContacts, name as defaultName } from "../data/resume";
+import type { Resume, Contact } from "../data/resume";
+
+interface Props {
+  resume: Resume;
+  contacts?: Contact[];
+  name?: string;
+}
+
+const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
+---
+
+<div class="resume-root">
+  <!-- HEADER -->
+  <header class="r-header">
+    <div>
+      <h1 class="r-name serif">{name}</h1>
+      <p class="r-role serif">{resume.role}</p>
+    </div>
+    <div class="r-contacts">
+      {
+        contacts.map((c) =>
+          c.href ? (
+            <a class="r-contact" href={c.href}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d={c.path} />
+              </svg>
+              <span>{c.text}</span>
+            </a>
+          ) : (
+            <span class="r-contact">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d={c.path} />
+              </svg>
+              <span>{c.text}</span>
+            </span>
+          )
+        )
+      }
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="r-summary" set:html={resume.summary} />
+
+  <!-- EXPERIENCE -->
+  <section>
+    <h2 class="section-label">Experience</h2>
+    {
+      resume.experience.map((job) => (
+        <div class="role">
+          <div class="role-header">
+            <div class="role-company serif">
+              {job.company}
+              {job.note && <span class="mute"> {job.note}</span>}
+            </div>
+            <div class="role-meta">{job.meta}</div>
+          </div>
+          <div class="role-title">{job.title}</div>
+          <div class="role-stack mono">{job.stack}</div>
+          <ul>
+            {job.bullets.map((b) => (
+              <li set:html={b} />
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- SELECTED PROJECTS -->
+  <section>
+    <h2 class="section-label">Selected Projects</h2>
+    <div class="projects">
+      {
+        resume.projects.map((p) => (
+          <div class="project">
+            <span class="project-name serif">{p.name}</span>
+            {p.url && (
+              <>
+                <span class="project-meta"> · </span>
+                <a class="project-link" href={p.url}>
+                  {p.urlText}
+                </a>
+              </>
+            )}
+            {p.extra && <span class="project-meta">{p.extra}</span>}
+            <div class="project-desc">{p.desc}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <h2 class="section-label">Skills</h2>
+    <div class="skills">
+      {
+        resume.skills.map((s) => (
+          <div>
+            <span class="skill-label">{s.label}</span> · {s.items}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="r-edu-section">
+    <h2 class="section-label">Education</h2>
+    {
+      resume.education.map((e) => (
+        <>
+          <div class="edu-row">
+            <div>
+              <span class="degree serif">{e.degree}</span>, <span class="school">{e.school}</span>,{" "}
+              <span class="place">{e.place}</span>
+            </div>
+            <div class="edu-date">{e.date}</div>
+          </div>
+          {e.coursework && <div class="edu-coursework">Relevant coursework: {e.coursework}</div>}
+        </>
+      ))
+    }
+  </section>
+</div>
+
+<!--
+  Styles are global but namespaced under .resume-root so they also apply to
+  content injected via set:html (which scoped styles would miss), without
+  leaking to the rest of the site.
+-->
+<style is:global>
+  .resume-root {
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    color: #1f2937;
+    font-feature-settings: "ss01", "cv11";
+  }
+  .resume-root .serif {
+    font-family: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  }
+  .resume-root .mono {
+    font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+    letter-spacing: 0;
+  }
+  .resume-root b,
+  .resume-root strong {
+    font-weight: 600;
+  }
+  .resume-root .navy {
+    color: #0f2a4a;
+    font-weight: 600;
+  }
+
+  /* Header */
+  .resume-root .r-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .resume-root .r-name {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.1;
+    color: #0f2a4a;
+    margin: 0;
+  }
+  .resume-root .r-role {
+    font-style: italic;
+    font-size: 12.5px;
+    color: #525252;
+    margin: 2px 0 0 0;
+  }
+  .resume-root .r-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 10.5px;
+    color: #525252;
+    align-items: flex-end;
+  }
+  .resume-root .r-contact {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .resume-root a.r-contact {
+    color: #0f2a4a;
+  }
+  .resume-root .r-contact svg {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+
+  /* Sections */
+  .resume-root section {
+    margin-bottom: 18px;
+  }
+  .resume-root .section-label {
+    font-family: "Newsreader", ui-serif, Georgia, serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #0f2a4a;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 4px;
+    margin: 0 0 10px 0;
+  }
+
+  /* Summary */
+  .resume-root .r-summary p {
+    font-size: 12px;
+    line-height: 1.55;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+  }
+  .resume-root .r-summary p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Experience */
+  .resume-root .role {
+    margin-bottom: 14px;
+  }
+  /* Keep a role's header with the start of its bullets; don't strand a heading. */
+  .resume-root .role-header,
+  .resume-root .role-title,
+  .resume-root .role-stack {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  /* Never split a single bullet across a page boundary. */
+  .resume-root ul li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .resume-root .role-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .resume-root .role-company {
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #111827;
+  }
+  .resume-root .role-company .mute {
+    font-weight: 400;
+    color: #525252;
+  }
+  .resume-root .role-meta {
+    font-size: 10.5px;
+    color: #525252;
+    white-space: nowrap;
+  }
+  .resume-root .role-title {
+    font-style: italic;
+    font-size: 11.5px;
+    color: #374151;
+    margin-bottom: 1px;
+  }
+  .resume-root .role-stack {
+    font-size: 9.5px;
+    color: #525252;
+    margin-bottom: 6px;
+  }
+
+  /* Bullets */
+  .resume-root ul {
+    list-style: none;
+    margin: 4px 0 0 0;
+    padding-left: 0;
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: #1f2937;
+  }
+  .resume-root ul li {
+    padding-left: 14px;
+    text-indent: -14px;
+    margin-bottom: 3px;
+  }
+  .resume-root ul li::before {
+    content: "\2022\00a0\00a0";
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  /* Projects */
+  .resume-root .projects .project {
+    margin-bottom: 6px;
+  }
+  .resume-root .project-name {
+    font-weight: 600;
+  }
+  .resume-root .project-meta {
+    font-size: 10.5px;
+    color: #525252;
+  }
+  .resume-root .project-desc {
+    color: #374151;
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+  .resume-root a.project-link {
+    color: #0f2a4a;
+    text-decoration: none;
+    font-size: 10.5px;
+  }
+  .resume-root a.project-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Skills */
+  .resume-root .skills {
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+  .resume-root .skills > div {
+    margin-bottom: 2px;
+  }
+  .resume-root .skill-label {
+    color: #0f2a4a;
+    font-weight: 600;
+  }
+
+  /* Education */
+  .resume-root .edu-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 11.5px;
+  }
+  .resume-root .edu-row .degree {
+    font-weight: 600;
+    color: #111827;
+  }
+  .resume-root .edu-row .school {
+    color: #374151;
+  }
+  .resume-root .edu-row .place {
+    color: #525252;
+  }
+  .resume-root .edu-date {
+    font-size: 10.5px;
+    color: #525252;
+    white-space: nowrap;
+  }
+  .resume-root .edu-coursework {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #374151;
+    margin-top: 4px;
+  }
+  .resume-root .r-edu-section {
+    margin-bottom: 0;
+  }
+</style>
