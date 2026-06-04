@@ -1,0 +1,259 @@
+---
+// ATS-clean resume renderer.
+//
+// Deliberately plain: single column, no icons/SVGs, no multi-column layout,
+// standard section headings ("Summary", "Work Experience", "Skills", ...),
+// real <ul>/<li> bullets, system fonts, selectable text. This maximises the
+// chance an applicant-tracking system parses every field correctly. It reads
+// from the same `baseResume` data as the styled /resume, so there is one
+// source of truth — only the presentation differs.
+import { contacts as defaultContacts, name as defaultName } from "../data/resume";
+import type { Resume, Contact } from "../data/resume";
+
+interface Props {
+  resume: Resume;
+  contacts?: Contact[];
+  name?: string;
+}
+
+const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
+
+// Strip inline HTML so the ATS reads clean text (bold tags etc. are harmless
+// but we drop the decorative <span class="navy"> wrapper styling reliance).
+const stripTags = (html: string) => html.replace(/<[^>]+>/g, "");
+
+// Summary may contain <p> blocks; split into plain paragraphs.
+const summaryParas = resume.summary
+  .split(/<\/p>/i)
+  .map((p) => stripTags(p).trim())
+  .filter(Boolean);
+---
+
+<div class="ats-resume">
+  <!-- HEADER -->
+  <header class="ats-header">
+    <h1 class="ats-name">{name}</h1>
+    <p class="ats-role">{resume.role}</p>
+    <p class="ats-contacts">
+      {
+        contacts.map((c, i) => (
+          <>
+            {i > 0 && <span class="ats-sep"> | </span>}
+            {c.href ? <a href={c.href}>{c.text}</a> : <span>{c.text}</span>}
+          </>
+        ))
+      }
+    </p>
+  </header>
+
+  <!-- SUMMARY -->
+  <section>
+    <h2 class="ats-section">Summary</h2>
+    {summaryParas.map((p) => <p class="ats-text">{p}</p>)}
+  </section>
+
+  <!-- WORK EXPERIENCE -->
+  <section>
+    <h2 class="ats-section">Work Experience</h2>
+    {
+      resume.experience.map((job) => (
+        <div class="ats-job">
+          <div class="ats-job-head">
+            <span class="ats-job-company">
+              {job.company}
+              {job.note && <span class="ats-mute"> {job.note}</span>}
+            </span>
+            <span class="ats-job-meta">{job.meta}</span>
+          </div>
+          <div class="ats-job-title">{job.title}</div>
+          <div class="ats-job-stack">Stack: {job.stack}</div>
+          <ul>
+            {job.bullets.map((b) => (
+              <li set:html={b} />
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <h2 class="ats-section">Skills</h2>
+    {
+      resume.skills.map((s) => (
+        <p class="ats-text ats-skill">
+          <strong>{s.label}:</strong> {s.items}
+        </p>
+      ))
+    }
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <h2 class="ats-section">Selected Projects</h2>
+    {
+      resume.projects.map((p) => (
+        <p class="ats-text">
+          <strong>{p.name}</strong>
+          {p.extra && <span class="ats-mute">{p.extra}</span>}
+          {p.url && (
+            <span>
+              {" "}
+              (<a href={p.url}>{p.urlText}</a>)
+            </span>
+          )}
+          {" — "}
+          {p.desc}
+        </p>
+      ))
+    }
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="ats-last">
+    <h2 class="ats-section">Education</h2>
+    {
+      resume.education.map((e) => (
+        <div class="ats-edu">
+          <div class="ats-job-head">
+            <span class="ats-edu-degree">
+              {e.degree}, {e.school}, {e.place}
+            </span>
+            <span class="ats-job-meta">{e.date}</span>
+          </div>
+          {e.coursework && (
+            <div class="ats-text ats-coursework">Relevant coursework: {e.coursework}</div>
+          )}
+        </div>
+      ))
+    }
+  </section>
+</div>
+
+<style is:global>
+  .ats-resume {
+    font-family: Arial, "Helvetica Neue", Helvetica, -apple-system, "Segoe UI", sans-serif;
+    color: #1a1a1a;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .ats-resume a {
+    color: #0f2a4a;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .ats-resume .ats-header {
+    margin-bottom: 14px;
+  }
+  .ats-resume .ats-name {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #0f2a4a;
+    margin: 0;
+    line-height: 1.1;
+  }
+  .ats-resume .ats-role {
+    font-size: 11pt;
+    color: #333;
+    margin: 2px 0 0 0;
+  }
+  .ats-resume .ats-contacts {
+    font-size: 9.5pt;
+    color: #333;
+    margin: 6px 0 0 0;
+    line-height: 1.5;
+  }
+  .ats-resume .ats-sep {
+    color: #999;
+  }
+
+  /* Section headings */
+  .ats-resume .ats-section {
+    font-size: 11pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #0f2a4a;
+    border-bottom: 1px solid #444;
+    padding-bottom: 2px;
+    margin: 16px 0 8px 0;
+  }
+
+  .ats-resume section {
+    margin: 0;
+  }
+
+  .ats-resume .ats-text {
+    margin: 0 0 6px 0;
+  }
+  .ats-resume .ats-mute {
+    color: #555;
+    font-weight: 400;
+  }
+
+  /* Experience */
+  .ats-resume .ats-job {
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .ats-resume .ats-job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .ats-resume .ats-job-company,
+  .ats-resume .ats-edu-degree {
+    font-weight: 700;
+    font-size: 11pt;
+  }
+  .ats-resume .ats-job-meta {
+    font-size: 9.5pt;
+    color: #555;
+    white-space: nowrap;
+  }
+  .ats-resume .ats-job-title {
+    font-style: italic;
+    font-size: 10.5pt;
+    margin-top: 1px;
+  }
+  .ats-resume .ats-job-stack {
+    font-size: 9.5pt;
+    color: #444;
+    margin: 2px 0 4px 0;
+  }
+
+  /* Bullets — real list items so the ATS extracts each line as text */
+  .ats-resume ul {
+    margin: 4px 0 0 0;
+    padding-left: 18px;
+    list-style: disc;
+  }
+  .ats-resume li {
+    margin-bottom: 3px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Skills */
+  .ats-resume .ats-skill {
+    margin-bottom: 3px;
+  }
+
+  /* Education */
+  .ats-resume .ats-edu {
+    margin-bottom: 8px;
+  }
+  .ats-resume .ats-coursework {
+    margin-top: 2px;
+    color: #333;
+  }
+
+  .ats-resume .ats-last {
+    margin-bottom: 0;
+  }
+</style>

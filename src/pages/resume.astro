@@ -8,7 +8,11 @@ import { baseResume } from "../data/resume";
   <!-- Toolbar (screen only) -->
   <div class="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
     <h1 class="text-3xl font-bold">Resume</h1>
-    <a href="/resume/print?auto=1" target="_blank" class="btn btn-primary btn-sm">Save as PDF</a>
+    <div class="flex flex-wrap items-center gap-2">
+      <a href="/resume/ats" target="_blank" class="btn btn-outline btn-sm">ATS version</a>
+      <a href="/resume/europass" target="_blank" class="btn btn-outline btn-sm">Europass</a>
+      <a href="/resume/print?auto=1" target="_blank" class="btn btn-primary btn-sm">Save as PDF</a>
+    </div>
   </div>
 
   <article

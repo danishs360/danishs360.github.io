@@ -16,6 +16,27 @@ import HorizontalCard from "../components/HorizontalCard.astro";
   </div>
 
   <HorizontalCard
+    title="Career OS"
+    desc="A platform that helps people land the job. Tailors a resume to a specific role, researches the company with RAG, then runs a live video interview with an AI interviewer that adapts to the job description, pushes back like a real panel, and scores the candidate in real time with recordings and progress tracking. Built on LiveKit and Deepgram for live sessions, a tool-calling agent, RAG, and Postgres."
+    url="#"
+    badge="Building"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="ClauseGuard"
+    desc="Contract review for freelancers and small teams. Upload an agreement and it flags risky clauses like net-60 terms, auto-renewals, liability, and missing late fees, explains each one in plain English, and suggests redlines. RAG over a clause library with structured extraction and precision and recall evals."
+    url="#"
+    badge="Building"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="DropChat"
+    desc="Embeddable chat-with-your-content widget. Point it at a website or docs and get a single script tag that drops in a chatbot grounded in that content. Crawl, chunk, and embed into pgvector with streaming answers and citations. Bring your own model, self-hostable, no vendor lock-in."
+    url="#"
+    badge="Building"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
     title="Kindred Workplace"
     img="/projects/kindred-workplace.png"
     desc="Emotional-intelligence platform for teams. Currently the product engineer on Kindred Workplace, building full-stack systems, real-time features, and embedded AI."
@@ -126,6 +147,27 @@ import HorizontalCard from "../components/HorizontalCard.astro";
     desc="Contextual customer-support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by grounding answers in customer-specific documentation."
     url="#"
   />
+
+  <!-- OPEN SOURCE -->
+  <div class="mb-4 mt-12">
+    <h2 class="text-2xl font-bold mb-1">Open source</h2>
+    <p class="text-sm text-base-content/60 mb-4">Repositories I maintain for the agent and RAG community.</p>
+  </div>
+
+  <HorizontalCard
+    title="mcp-prod"
+    desc="Production-grade TypeScript template for Model Context Protocol servers. Ships the parts the toy starters skip: auth, pgvector and Redis storage, structured logging and tracing, Zod-validated tools, tests, a Dockerfile, and a one-command quickstart."
+    url="#"
+    badge="Building"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="voice-agent-saas"
+    desc="Deploy-anywhere starter for full-stack voice agents. LiveKit and Deepgram for real-time speech, a frontend call UI, and Postgres for transcripts and RAG context, wired to run on Railway, Fly, or self-host with no proprietary platform required."
+    url="#"
+    badge="Building"
+  />
+  <div class="divider my-0"></div>
 
   <!-- EARLIER -->
   <div class="mb-4 mt-12">

@@ -1,0 +1,445 @@
+---
+// Europass CV renderer — follows the official europa.eu/europass template layout.
+//
+// Hallmarks of the Europass format reproduced here:
+//   - Name header followed by a contact + personal-details block (with icons)
+//   - Uppercase blue section bars: ABOUT ME, WORK EXPERIENCE,
+//     EDUCATION AND TRAINING, LANGUAGE SKILLS, DIGITAL SKILLS
+//   - Two-column entries: a left date/place column and a right content column
+//   - Dates rendered MM/YYYY, with "CURRENT" for ongoing roles
+//   - A CEFR language-skills table (Listening / Reading / Spoken production /
+//     Spoken interaction / Writing)
+//
+// Content (experience, education, skills, projects, summary) is pulled from the
+// same `baseResume` data. Personal details and languages — which Europass
+// requires but a normal CV omits — are passed in via `extras` from the page so
+// they are easy to find and edit, and nothing is invented in the data layer.
+//
+// NOTE: Europass uses a two-column table-style layout, which is intentionally
+// NOT the most ATS-friendly. Use /resume/ats for ATS uploads; use this only
+// when a posting explicitly asks for Europass format.
+import { contacts as defaultContacts, name as defaultName } from "../data/resume";
+import type { Resume, Contact } from "../data/resume";
+
+export interface LanguageRow {
+  name: string;
+  listening: string;
+  reading: string;
+  spokenProduction: string;
+  spokenInteraction: string;
+  writing: string;
+}
+
+export interface EuropassExtras {
+  personal?: {
+    dateOfBirth?: string;
+    nationality?: string;
+    gender?: string;
+  };
+  languages?: {
+    mother: string;
+    others: LanguageRow[];
+  };
+}
+
+interface Props {
+  resume: Resume;
+  contacts?: Contact[];
+  name?: string;
+  extras?: EuropassExtras;
+}
+
+const { resume, contacts = defaultContacts, name = defaultName, extras = {} } = Astro.props;
+
+const stripTags = (html: string) => html.replace(/<[^>]+>/g, "");
+
+const summaryParas = resume.summary
+  .split(/<\/p>/i)
+  .map((p) => stripTags(p).trim())
+  .filter(Boolean);
+
+// --- Date helpers: convert "Sept 2023" -> "09/2023", "Present" -> "CURRENT" ---
+const MONTHS: Record<string, string> = {
+  jan: "01", feb: "02", mar: "03", apr: "04", may: "05", jun: "06",
+  jul: "07", aug: "08", sep: "09", oct: "10", nov: "11", dec: "12",
+};
+function toEpDate(s: string): string {
+  const t = s.trim();
+  if (/present|current/i.test(t)) return "CURRENT";
+  const m = t.match(/([A-Za-z]+)\.?\s+(\d{4})/);
+  if (!m) return t;
+  const mo = MONTHS[m[1].toLowerCase().slice(0, 3)];
+  return mo ? `${mo}/${m[2]}` : t;
+}
+// Split a meta string like "Sept 2023 – Present · Remote" into {dates, place}.
+function splitMeta(meta: string): { dates: string; place: string } {
+  const [datePart, ...rest] = meta.split("·");
+  const dates = datePart
+    .split(/[–—-]/)
+    .map((d) => toEpDate(d))
+    .filter(Boolean)
+    .join(" – ");
+  return { dates, place: rest.join("·").trim() };
+}
+
+const { personal, languages } = extras;
+const hasPersonal =
+  personal && (personal.dateOfBirth || personal.nationality || personal.gender);
+---
+
+<div class="ep-resume">
+  <!-- HEADER -->
+  <header class="ep-header">
+    <h1 class="ep-name">{name}</h1>
+    {resume.role && <p class="ep-role">{resume.role}</p>}
+
+    <div class="ep-contact-grid">
+      {
+        contacts.map((c) => (
+          <div class="ep-contact">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={c.path} />
+            </svg>
+            {c.href ? <a href={c.href}>{c.text}</a> : <span>{c.text}</span>}
+          </div>
+        ))
+      }
+      {
+        personal?.dateOfBirth && (
+          <div class="ep-contact ep-detail">
+            <span class="ep-detail-label">Date of birth:</span> {personal.dateOfBirth}
+          </div>
+        )
+      }
+      {
+        personal?.nationality && (
+          <div class="ep-contact ep-detail">
+            <span class="ep-detail-label">Nationality:</span> {personal.nationality}
+          </div>
+        )
+      }
+      {
+        personal?.gender && (
+          <div class="ep-contact ep-detail">
+            <span class="ep-detail-label">Gender:</span> {personal.gender}
+          </div>
+        )
+      }
+    </div>
+  </header>
+
+  <!-- ABOUT ME -->
+  {
+    summaryParas.length > 0 && (
+      <section class="ep-section">
+        <h2 class="ep-bar">About Me</h2>
+        {summaryParas.map((p) => <p class="ep-text">{p}</p>)}
+      </section>
+    )
+  }
+
+  <!-- WORK EXPERIENCE -->
+  <section class="ep-section">
+    <h2 class="ep-bar">Work Experience</h2>
+    {
+      resume.experience.map((job) => {
+        const { dates, place } = splitMeta(job.meta);
+        return (
+          <div class="ep-entry">
+            <div class="ep-entry-left">
+              <div class="ep-dates">{dates}</div>
+              {place && <div class="ep-place">{place}</div>}
+            </div>
+            <div class="ep-entry-right">
+              <div class="ep-entry-title">{job.title}</div>
+              <div class="ep-entry-org">
+                {job.company}
+                {job.note && <span class="ep-mute"> {job.note}</span>}
+              </div>
+              <div class="ep-entry-stack">{job.stack}</div>
+              <ul>
+                {job.bullets.map((b) => (
+                  <li set:html={b} />
+                ))}
+              </ul>
+            </div>
+          </div>
+        );
+      })
+    }
+  </section>
+
+  <!-- EDUCATION AND TRAINING -->
+  <section class="ep-section">
+    <h2 class="ep-bar">Education and Training</h2>
+    {
+      resume.education.map((e) => (
+        <div class="ep-entry">
+          <div class="ep-entry-left">
+            <div class="ep-dates">
+              {e.date
+                .split(/[–—-]/)
+                .map((d) => toEpDate(d))
+                .join(" – ")}
+            </div>
+            <div class="ep-place">{e.place}</div>
+          </div>
+          <div class="ep-entry-right">
+            <div class="ep-entry-title">{e.degree}</div>
+            <div class="ep-entry-org">{e.school}</div>
+            {e.coursework && (
+              <div class="ep-text ep-coursework">Relevant coursework: {e.coursework}</div>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- LANGUAGE SKILLS -->
+  {
+    languages && (
+      <section class="ep-section">
+        <h2 class="ep-bar">Language Skills</h2>
+        <p class="ep-text">
+          <strong>Mother tongue(s):</strong> {languages.mother}
+        </p>
+        {languages.others.length > 0 && (
+          <table class="ep-lang-table">
+            <thead>
+              <tr>
+                <th>Language</th>
+                <th>Listening</th>
+                <th>Reading</th>
+                <th>
+                  Spoken
+                  <br />
+                  production
+                </th>
+                <th>
+                  Spoken
+                  <br />
+                  interaction
+                </th>
+                <th>Writing</th>
+              </tr>
+            </thead>
+            <tbody>
+              {languages.others.map((l) => (
+                <tr>
+                  <td class="ep-lang-name">{l.name}</td>
+                  <td>{l.listening}</td>
+                  <td>{l.reading}</td>
+                  <td>{l.spokenProduction}</td>
+                  <td>{l.spokenInteraction}</td>
+                  <td>{l.writing}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        <p class="ep-lang-key">
+          Levels: A1/A2 Basic user · B1/B2 Independent user · C1/C2 Proficient user
+        </p>
+      </section>
+    )
+  }
+
+  <!-- DIGITAL SKILLS -->
+  <section class="ep-section">
+    <h2 class="ep-bar">Digital Skills</h2>
+    {
+      resume.skills.map((s) => (
+        <p class="ep-text ep-skill">
+          <strong>{s.label}:</strong> {s.items}
+        </p>
+      ))
+    }
+  </section>
+
+  <!-- PROJECTS -->
+  {
+    resume.projects.length > 0 && (
+      <section class="ep-section ep-last">
+        <h2 class="ep-bar">Projects</h2>
+        {resume.projects.map((p) => (
+          <p class="ep-text">
+            <strong>{p.name}</strong>
+            {p.extra && <span class="ep-mute">{p.extra}</span>}
+            {p.url && (
+              <span>
+                {" "}
+                (<a href={p.url}>{p.urlText}</a>)
+              </span>
+            )}
+            {" — "}
+            {p.desc}
+          </p>
+        ))}
+      </section>
+    )
+  }
+</div>
+
+<style is:global>
+  .ep-resume {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color: #1a1a1a;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+  .ep-resume a {
+    color: #0e4194;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .ep-resume .ep-header {
+    margin-bottom: 18px;
+  }
+  .ep-resume .ep-name {
+    font-size: 26pt;
+    font-weight: 700;
+    color: #0e4194;
+    margin: 0;
+    line-height: 1.05;
+  }
+  .ep-resume .ep-role {
+    font-size: 11pt;
+    color: #444;
+    margin: 3px 0 0 0;
+  }
+  .ep-resume .ep-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 24px;
+    margin-top: 12px;
+    font-size: 9.5pt;
+    color: #333;
+  }
+  .ep-resume .ep-contact {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .ep-resume .ep-contact svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    fill: #0e4194;
+  }
+  .ep-resume .ep-detail-label {
+    color: #555;
+  }
+
+  /* Section bars */
+  .ep-resume .ep-section {
+    margin-bottom: 16px;
+  }
+  .ep-resume .ep-bar {
+    font-size: 11pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    background: #0e4194;
+    padding: 4px 10px;
+    margin: 0 0 10px 0;
+    border-radius: 2px;
+  }
+
+  .ep-resume .ep-text {
+    margin: 0 0 6px 0;
+  }
+  .ep-resume .ep-mute {
+    color: #555;
+    font-weight: 400;
+  }
+
+  /* Two-column entries */
+  .ep-resume .ep-entry {
+    display: grid;
+    grid-template-columns: 1.6in 1fr;
+    gap: 16px;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .ep-resume .ep-entry-left {
+    text-align: left;
+  }
+  .ep-resume .ep-dates {
+    font-weight: 700;
+    font-size: 9.5pt;
+    color: #1a1a1a;
+  }
+  .ep-resume .ep-place {
+    font-size: 9.5pt;
+    color: #555;
+    margin-top: 2px;
+  }
+  .ep-resume .ep-entry-title {
+    font-weight: 700;
+    font-size: 11pt;
+  }
+  .ep-resume .ep-entry-org {
+    font-size: 10.5pt;
+    color: #333;
+    margin-top: 1px;
+  }
+  .ep-resume .ep-entry-stack {
+    font-size: 9pt;
+    color: #555;
+    margin: 2px 0 4px 0;
+  }
+  .ep-resume .ep-entry ul {
+    margin: 4px 0 0 0;
+    padding-left: 18px;
+    list-style: disc;
+  }
+  .ep-resume .ep-entry li {
+    margin-bottom: 3px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .ep-resume .ep-coursework {
+    margin-top: 4px;
+    color: #333;
+  }
+
+  /* Language table */
+  .ep-resume .ep-lang-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 6px 0;
+    font-size: 9pt;
+  }
+  .ep-resume .ep-lang-table th,
+  .ep-resume .ep-lang-table td {
+    border: 1px solid #bbb;
+    padding: 4px 6px;
+    text-align: center;
+  }
+  .ep-resume .ep-lang-table th {
+    background: #eef2f9;
+    color: #0e4194;
+    font-weight: 700;
+  }
+  .ep-resume .ep-lang-table .ep-lang-name {
+    text-align: left;
+    font-weight: 700;
+  }
+  .ep-resume .ep-lang-key {
+    font-size: 8.5pt;
+    color: #666;
+    margin: 0;
+  }
+
+  .ep-resume .ep-skill {
+    margin-bottom: 3px;
+  }
+
+  .ep-resume .ep-last {
+    margin-bottom: 0;
+  }
+</style>
