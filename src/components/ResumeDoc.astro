@@ -161,8 +161,8 @@ const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    padding-bottom: 14px;
-    margin-bottom: 14px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
     border-bottom: 1px solid #e5e5e5;
   }
   .resume-root .r-name {
@@ -205,7 +205,7 @@ const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
 
   /* Sections */
   .resume-root section {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
   .resume-root .section-label {
     font-family: "Newsreader", ui-serif, Georgia, serif;
@@ -216,15 +216,15 @@ const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
     color: #0f2a4a;
     border-bottom: 1px solid #e5e5e5;
     padding-bottom: 4px;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
   }
 
   /* Summary */
   .resume-root .r-summary p {
     font-size: 12px;
-    line-height: 1.55;
+    line-height: 1.5;
     color: #1f2937;
-    margin: 0 0 8px 0;
+    margin: 0 0 6px 0;
   }
   .resume-root .r-summary p:last-child {
     margin-bottom: 0;
@@ -232,7 +232,7 @@ const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
 
   /* Experience */
   .resume-root .role {
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
   /* Keep a role's header with the start of its bullets; don't strand a heading. */
   .resume-root .role-header,
@@ -277,22 +277,22 @@ const { resume, contacts = defaultContacts, name = defaultName } = Astro.props;
   .resume-root .role-stack {
     font-size: 9.5px;
     color: #525252;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   /* Bullets */
   .resume-root ul {
     list-style: none;
-    margin: 4px 0 0 0;
+    margin: 3px 0 0 0;
     padding-left: 0;
     font-size: 11.5px;
-    line-height: 1.45;
+    line-height: 1.4;
     color: #1f2937;
   }
   .resume-root ul li {
     padding-left: 14px;
     text-indent: -14px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
   .resume-root ul li::before {
     content: "\2022\00a0\00a0";
