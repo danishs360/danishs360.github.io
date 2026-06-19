@@ -7,6 +7,6 @@ export default defineConfig({
   base: '/',
   integrations: [mdx(), tailwind()],
   image: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'joinroundzero.com'],
   },
 });

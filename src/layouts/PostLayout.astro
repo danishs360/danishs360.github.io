@@ -1,43 +1,82 @@
 ---
 import { type BlogSchema } from "../content/config";
 import BaseLayout from "./BaseLayout.astro";
+import JsonLd from "../components/JsonLd.astro";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import { Image } from "astro:assets";
+import { SITE_URL, SITE_AUTHOR } from "../config";
 
 export interface Props extends BlogSchema {}
 
 const { title, description, pubDate, updatedDate, heroImage, badge, tags = [] } = Astro.props;
 dayjs.extend(localizedFormat);
-const displayDate = dayjs(pubDate).format("ll")
-import { Image } from "astro:assets";
+const displayDate = dayjs(pubDate).format("ll");
+const publishedISO = pubDate.toISOString();
+const modifiedISO = updatedDate ? new Date(updatedDate).toISOString() : publishedISO;
+const articleUrl = new URL(Astro.url.pathname, Astro.site ?? SITE_URL).href;
+const imageUrl = heroImage ? new URL(heroImage, Astro.site ?? SITE_URL).href : undefined;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  datePublished: publishedISO,
+  dateModified: modifiedISO,
+  url: articleUrl,
+  author: { "@type": "Person", name: SITE_AUTHOR, url: SITE_URL },
+  publisher: { "@type": "Person", name: SITE_AUTHOR, url: SITE_URL },
+  ...(imageUrl && { image: imageUrl }),
+};
 ---
 
-<BaseLayout title={title} description={description} image={heroImage}, ogType="article">
-  <main class="md:flex md:justify-center">
-    <article class="prose prose-lg max-w-[750px] prose-img:mx-auto">
-      {heroImage && <Image width={750} height={320} format="webp" src={heroImage} alt={title} class="w-full mb-6 max-h-[320px] object-cover rounded-lg" />}
-      <h1 class="title my-2 text-4xl font-bold">{title}</h1>
-      {pubDate && <time>{displayDate}</time>}
-      <br />
-      {badge && <div class="badge badge-secondary my-1">{badge}</div>}
-      {
-        tags &&
-          tags.map((tag) => (
-            <a href={`/blog/tag/${tag}`} class="badge badge-outline ml-2 no-underline">
+<BaseLayout
+  title={`${title} · Danish Siddique`}
+  description={description}
+  image={heroImage}
+  ogType="article"
+  wide
+  publishedTime={publishedISO}
+  modifiedTime={modifiedISO}
+>
+  <JsonLd schema={articleSchema} />
+  <article class="max-w-2xl mx-auto">
+    {heroImage && (
+      <Image
+        width={900}
+        height={420}
+        format="webp"
+        src={heroImage}
+        alt={title}
+        class="w-full mb-8 max-h-[380px] object-cover rounded-2xl ring-1 ring-ink-line"
+      />
+    )}
+    <header class="mb-10">
+      <time datetime={publishedISO} class="font-mono text-xs uppercase tracking-wider text-ink-muted">
+        {displayDate}
+      </time>
+      <h1 class="display-title text-4xl sm:text-5xl mt-3 mb-4">{title}</h1>
+      {description && <p class="text-lg text-ink-dim leading-relaxed">{description}</p>}
+      <div class="flex flex-wrap gap-2 mt-4">
+        {badge && <span class="tag-pill !text-ember !border-ember/30">{badge}</span>}
+        {
+          tags?.map((tag) => (
+            <a href={`/blog/tag/${tag}`} class="tag-pill hover:!text-ember no-underline">
               {tag}
             </a>
           ))
-      }
-      {
-        updatedDate && (
-          <div>
-            {" "}
-            Last updated on <time>{updatedDate}</time>{" "}
-          </div>
-        )
-      }
-      <div class="divider my-2"></div>
+        }
+      </div>
+      {updatedDate && (
+        <p class="text-xs text-ink-muted mt-3">Last updated {updatedDate}</p>
+      )}
+    </header>
+    <div class="prose-signal prose-lg">
       <slot />
-    </article>
-  </main>
+    </div>
+    <div class="mt-16 pt-8 border-t border-ink-line text-center">
+      <a href="/blog/" class="btn-ghost-line !text-sm">← Back to writing</a>
+    </div>
+  </article>
 </BaseLayout>

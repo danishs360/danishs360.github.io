@@ -69,6 +69,16 @@ support load by grounding answers in customer-specific documentation.
 
 # Selected products
 
+## Round Zero — https://joinroundzero.com
+Job-search prep platform (launched in early access). Tagline: "Take the
+interview before the interview." Paste a job description, honestly tailor
+your resume (never invents experience), get cited company research, then
+practice with a live voice AI interviewer that adapts to the role and scores
+you with evidence-backed feedback. Maeve is a persistent AI coach that
+remembers every session. Also includes application tracking, score trends,
+and resume history. Built end-to-end on LiveKit, Deepgram, tool-calling
+agents, RAG, and Postgres. 4,800+ interviews completed.
+
 ## Kindred Practice (formerly Mynd) — https://kindredpractice.com
 AI-powered practice management platform for therapists. Video sessions,
 automated note-taking with GPT and Gemini, RAG-based clinical chat, multi-agent

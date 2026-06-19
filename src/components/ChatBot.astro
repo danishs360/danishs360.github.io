@@ -10,7 +10,7 @@ const apiUrl = import.meta.env.PUBLIC_CHAT_API_URL ?? "";
     id="chatbot-toggle"
     type="button"
     aria-label="Open chat about Danish"
-    class="fixed bottom-5 right-5 z-40 btn btn-primary btn-circle shadow-lg w-14 h-14"
+    class="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-ember text-black shadow-[0_0_32px_-4px_rgba(232,99,42,0.6)] flex items-center justify-center transition-transform hover:scale-105"
   >
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4-.8L3 20l1-4.2A7.94 7.94 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -19,21 +19,21 @@ const apiUrl = import.meta.env.PUBLIC_CHAT_API_URL ?? "";
 
   <div
     id="chatbot-panel"
-    class="fixed bottom-5 right-5 z-50 hidden flex-col w-[min(92vw,380px)] h-[min(70vh,560px)] rounded-2xl bg-base-200 border border-base-300 shadow-2xl overflow-hidden"
+    class="fixed bottom-5 right-5 z-50 hidden flex-col w-[min(92vw,380px)] h-[min(70vh,560px)] rounded-2xl glass shadow-2xl overflow-hidden"
   >
     <!-- Header -->
-    <div class="flex items-center justify-between px-4 py-3 border-b border-base-300 bg-base-300/60">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-ink-line bg-ink-soft/80">
       <div class="flex items-center gap-2">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
         </span>
         <div>
-          <div class="text-sm font-semibold leading-none">Ask about Danish</div>
-          <div class="text-[10px] uppercase tracking-wider text-base-content/60 mt-0.5">Powered by Llama 3.3</div>
+          <div class="text-sm font-semibold leading-none text-ink-text">Ask about Danish</div>
+          <div class="text-[10px] uppercase tracking-wider text-ink-muted mt-0.5">Portfolio AI</div>
         </div>
       </div>
-      <button id="chatbot-close" type="button" aria-label="Close chat" class="btn btn-ghost btn-sm btn-circle">
+      <button id="chatbot-close" type="button" aria-label="Close chat" class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-ink-dim">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
@@ -45,20 +45,20 @@ const apiUrl = import.meta.env.PUBLIC_CHAT_API_URL ?? "";
 
     <!-- Suggestions -->
     <div id="chatbot-suggestions" class="px-3 pb-2 flex flex-wrap gap-1.5">
-      <button class="chatbot-suggestion btn btn-xs btn-outline" type="button">What does Danish do?</button>
-      <button class="chatbot-suggestion btn btn-xs btn-outline" type="button">Show me his AI projects</button>
-      <button class="chatbot-suggestion btn btn-xs btn-outline" type="button">What's his tech stack?</button>
+      <button class="chatbot-suggestion tag-pill cursor-pointer" type="button">What does Danish do?</button>
+      <button class="chatbot-suggestion tag-pill cursor-pointer" type="button">Show me his AI projects</button>
+      <button class="chatbot-suggestion tag-pill cursor-pointer" type="button">What's his tech stack?</button>
     </div>
 
     <!-- Input -->
-    <form id="chatbot-form" class="flex items-end gap-2 p-3 border-t border-base-300 bg-base-300/40">
+    <form id="chatbot-form" class="flex items-end gap-2 p-3 border-t border-ink-line bg-ink-soft/60">
       <textarea
         id="chatbot-input"
         rows="1"
         placeholder="Ask me anything about Danish…"
-        class="textarea textarea-bordered textarea-sm flex-1 resize-none max-h-32 text-sm"
+        class="flex-1 resize-none max-h-32 text-sm bg-ink-card border border-ink-line rounded-xl px-3 py-2 text-ink-text placeholder:text-ink-muted focus:outline-none focus:border-ember/50"
       ></textarea>
-      <button id="chatbot-send" type="submit" class="btn btn-primary btn-sm" aria-label="Send">
+      <button id="chatbot-send" type="submit" class="w-9 h-9 rounded-xl bg-ember text-black flex items-center justify-center shrink-0" aria-label="Send">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
         </svg>
@@ -96,8 +96,8 @@ const apiUrl = import.meta.env.PUBLIC_CHAT_API_URL ?? "";
       const bubble = document.createElement("div");
       bubble.className =
         role === "user"
-          ? "max-w-[85%] bg-primary text-primary-content rounded-2xl rounded-br-md px-3 py-2 whitespace-pre-wrap break-words"
-          : "max-w-[85%] bg-base-100 border border-base-300 rounded-2xl rounded-bl-md px-3 py-2 whitespace-pre-wrap break-words";
+          ? "max-w-[85%] bg-ember text-black rounded-2xl rounded-br-md px-3 py-2 whitespace-pre-wrap break-words text-sm"
+          : "max-w-[85%] bg-ink-card border border-ink-line rounded-2xl rounded-bl-md px-3 py-2 whitespace-pre-wrap break-words text-sm text-ink-text";
 
       if (opts.typing) {
         bubble.innerHTML =

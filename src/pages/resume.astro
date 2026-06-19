@@ -2,16 +2,21 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResumeDoc from "../components/ResumeDoc.astro";
 import { baseResume } from "../data/resume";
+import { PAGE_SEO } from "../config";
 ---
 
-<BaseLayout title="Resume" sideBarActiveItemID="resume">
-  <!-- Toolbar (screen only) -->
+<BaseLayout
+  title={PAGE_SEO.resume.title}
+  description={PAGE_SEO.resume.description}
+  sideBarActiveItemID="resume"
+  wide
+>
   <div class="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
-    <h1 class="text-3xl font-bold">Resume</h1>
+    <h1 class="display-title text-3xl sm:text-4xl">Resume</h1>
     <div class="flex flex-wrap items-center gap-2">
-      <a href="/resume/ats" target="_blank" class="btn btn-outline btn-sm">ATS version</a>
-      <a href="/resume/europass" target="_blank" class="btn btn-outline btn-sm">Europass</a>
-      <a href="/resume/print?auto=1" target="_blank" class="btn btn-primary btn-sm">Save as PDF</a>
+      <a href="/resume/ats" target="_blank" class="btn-ghost-line !text-sm !py-2 !px-4">ATS version</a>
+      <a href="/resume/europass" target="_blank" class="btn-ghost-line !text-sm !py-2 !px-4">Europass</a>
+      <a href="/resume/print?auto=1" target="_blank" class="btn-ember !text-sm !py-2 !px-4">Save as PDF</a>
     </div>
   </div>
 

@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://astrofy-template.netlify.app/sitemap-index.xml
+# Job-specific variants — not for public search
+Disallow: /resume/print
+Disallow: /resume/ats
+Disallow: /resume/europass
+Disallow: /resume/tailored
+Disallow: /cover-letter/
+
+Sitemap: https://danishs360.github.io/sitemap.xml

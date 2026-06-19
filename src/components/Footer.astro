@@ -2,9 +2,16 @@
 const today = new Date();
 ---
 
-<footer class="footer footer-center block mb-5 pt-10">
-  <div class="pb-2">
-    &copy; {today.getFullYear()} Danish Siddique
+<footer class="border-t border-ink-line mt-auto">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-ink-muted">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-ember animate-pulse-slow"></span>
+      <span>© {today.getFullYear()} Danish Siddique</span>
+    </div>
+    <div class="flex items-center gap-6 font-mono text-xs">
+      <a href="https://github.com/danishs360" target="_blank" rel="noopener" class="hover:text-ember transition-colors">GitHub</a>
+      <a href="https://linkedin.com/in/danishs360" target="_blank" rel="noopener" class="hover:text-ember transition-colors">LinkedIn</a>
+      <a href="/rss.xml" class="hover:text-ember transition-colors">RSS</a>
+    </div>
   </div>
 </footer>
-<style></style>

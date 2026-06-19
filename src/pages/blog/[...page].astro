@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HorizontalCard from "../../components/HorizontalCard.astro";
+import PageHeader from "../../components/PageHeader.astro";
 import { getCollection } from "astro:content";
-import createSlug from "../../lib/createSlug"
+import createSlug from "../../lib/createSlug";
 
 export async function getStaticPaths({ paginate }) {
   const posts = await getCollection("blog");
@@ -11,54 +12,49 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props;
+import { PAGE_SEO } from "../../config";
 ---
 
-<BaseLayout title="Blog" sideBarActiveItemID="blog">
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Blog</div>
-  </div>
+<BaseLayout
+  title={PAGE_SEO.blog.title}
+  description={PAGE_SEO.blog.description}
+  sideBarActiveItemID="blog"
+  wide
+>
+  <PageHeader
+    label="Writing"
+    title="Blog"
+    description="Notes on AI engineering, agents, RAG, and building products that hold up in production."
+  />
 
   {
     page.data.length === 0 ? (
-      <div class="bg-base-200 border-l-4 border-secondary w-full p-4 min-w-full">
-        <p class="font-bold">Sorry!</p>
-        <p>There are no blog posts to show at the moment. Check back later!</p>
+      <div class="bento-card p-6 border-l-2 border-ember">
+        <p class="font-medium text-ink-text">Nothing here yet.</p>
+        <p class="text-sm text-ink-dim mt-1">Check back soon.</p>
       </div>
     ) : (
-      <ul>
+      <div class="grid gap-4">
         {page.data.map((post) => (
-          <>
-            <HorizontalCard
-              title={post.data.title}
-              img={post.data.heroImage}
-              desc={post.data.description}
-              url={"/blog/" + createSlug(post.data.title, post.slug)}
-              target="_self"
-              badge={post.data.badge}
-              tags={post.data.tags}
-            />
-            <div class="divider my-0" />
-          </>
+          <HorizontalCard
+            title={post.data.title}
+            img={post.data.heroImage}
+            desc={post.data.description}
+            url={"/blog/" + createSlug(post.data.title, post.slug)}
+            target="_self"
+            badge={post.data.badge}
+            tags={post.data.tags}
+          />
         ))}
-      </ul>
+      </div>
     )
   }
 
-  <div class="flex justify-between">
+  <div class="flex justify-between mt-10">
     {
       page.url.prev ? (
-        <a href={page.url.prev} class="btn btn-ghost my-10 mx-5">
-          {" "}
-          <svg
-            class="h-6 w-6 fill-current md:h-8 md:w-8"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
-          </svg>{" "}
-          Recent posts
+        <a href={page.url.prev} class="btn-ghost-line !text-sm">
+          ← Recent posts
         </a>
       ) : (
         <div />
@@ -66,18 +62,8 @@ const { page } = Astro.props;
     }
     {
       page.url.next ? (
-        <a href={page.url.next} class="btn btn-ghost my-10 mx-5">
-          Older Posts{" "}
-          <svg
-            class="h-6 w-6 fill-current md:h-8 md:w-8"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            {" "}
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-          </svg>
+        <a href={page.url.next} class="btn-ghost-line !text-sm">
+          Older posts →
         </a>
       ) : (
         <div />

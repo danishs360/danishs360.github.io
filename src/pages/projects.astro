@@ -1,183 +1,174 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { PAGE_SEO } from "../config";
 ---
 
-<BaseLayout title="Projects" sideBarActiveItemID="projects">
-  <div class="mb-8">
-    <h1 class="text-4xl font-bold mb-2">Projects</h1>
-    <p class="text-base-content/60">Products, AI systems, and automations I have built and shipped.</p>
+<BaseLayout
+  title={PAGE_SEO.projects.title}
+  description={PAGE_SEO.projects.description}
+  sideBarActiveItemID="projects"
+  wide
+>
+  <PageHeader
+    label="Work"
+    title="Projects & systems"
+    description="Products, AI systems, and automations I've built and shipped — from live SaaS platforms to developer-loop agents."
+  />
+
+  <div class="mb-6">
+    <p class="section-label mb-1">Products</p>
+    <h2 class="font-display text-2xl mb-4">Full-stack platforms</h2>
+  </div>
+  <div class="grid gap-4 mb-16">
+    <HorizontalCard
+      title="Round Zero"
+      img="/projects/round-zero.png"
+      desc="Take the interview before the interview. Job-search prep in one calm place: paste a JD, honestly tailor your resume (nothing invented), get a cited company brief, then practice with a live voice AI interviewer that adapts to the role, pushes back like a real panel, and scores you with evidence-backed feedback. Maeve, a persistent AI coach, remembers every session. Application tracker, score trends, and resume history included. Built end-to-end on LiveKit, Deepgram, tool-calling agents, RAG, and Postgres. Launched in early access — 4,800+ interviews completed."
+      url="https://joinroundzero.com"
+      badge="Live"
+      variant="featured"
+    />
+    <HorizontalCard
+      title="ClauseGuard"
+      desc="Contract review for freelancers and small teams. Upload an agreement and it flags risky clauses like net-60 terms, auto-renewals, liability, and missing late fees, explains each one in plain English, and suggests redlines. RAG over a clause library with structured extraction and precision and recall evals."
+      url="#"
+      badge="Building"
+    />
+    <HorizontalCard
+      title="DropChat"
+      desc="Embeddable chat-with-your-content widget. Point it at a website or docs and get a single script tag that drops in a chatbot grounded in that content. Crawl, chunk, and embed into pgvector with streaming answers and citations. Bring your own model, self-hostable, no vendor lock-in."
+      url="#"
+      badge="Building"
+    />
+    <HorizontalCard
+      title="Kindred Workplace"
+      img="/projects/kindred-workplace.png"
+      desc="Emotional-intelligence platform for teams. Currently the product engineer on Kindred Workplace, building full-stack systems, real-time features, and embedded AI."
+      url="https://kindredworkplace.com"
+      badge="Current"
+    />
+    <HorizontalCard
+      title="Kindred Practice (formerly Mynd)"
+      img="/projects/kindred-practice.png"
+      desc="AI-powered practice management platform for therapists. Video sessions, automated note-taking with GPT and Gemini, RAG-based clinical chat, multi-agent workflow automation via LangChain and Inngest, scheduling, and billing. Built on Node.js (TypeScript), Django, AWS Lambda, and React."
+      url="https://kindredpractice.com"
+      badge="Live"
+    />
+    <HorizontalCard
+      title="Medimap"
+      img="/projects/medimap.png"
+      desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
+      url="https://medimap.ca/"
+    />
+    <HorizontalCard
+      title="KindlMedia Chat System"
+      desc="Custom real-time chat system supporting direct communication between clients and businesses, with reliable delivery and live presence."
+      url="https://kb.mycrmsupport.com/kindlmedia1"
+    />
+    <HorizontalCard
+      title="TM Inspector"
+      desc="Trademark inspection and monitoring platform. Automated similarity search, watch-listing, and infringement alerts over global trademark registries."
+      url="#"
+    />
+    <HorizontalCard
+      title="ViseWealth"
+      desc="Personal wealth and portfolio tracking platform. Aggregates accounts, computes returns, and surfaces allocation insights with clean, fast dashboards."
+      url="#"
+    />
+    <HorizontalCard
+      title="WowNFT"
+      desc="NFT marketplace and minting platform. Wallet-based auth, on-chain minting flows, listing/auction support, and a responsive collection browser."
+      url="#"
+    />
+    <HorizontalCard
+      title="Liver Tumor Detection in CT Images"
+      desc="Final-year project. Deep-learning pipeline for automatic liver and tumor segmentation in CT scans using a U-Net based architecture, with preprocessing, augmentation, and evaluation against radiologist-labeled ground truth."
+      url="#"
+      badge="FYP"
+    />
+    <HorizontalCard
+      title="Real-Time Collaborative Whiteboard"
+      desc="Multi-user drawing and brainstorming canvas with low-latency sync, presence, and shape primitives. Built on WebSockets with CRDT-style conflict resolution."
+      url="#"
+    />
+    <HorizontalCard
+      title="URL Shortener with Analytics"
+      desc="Self-hosted link shortener with click tracking, referrer breakdown, and per-link dashboards. Built for speed with edge redirects and aggregated analytics."
+      url="#"
+    />
+    <HorizontalCard
+      title="Markdown Notes App"
+      desc="Local-first markdown note-taking app with tags, full-text search, and seamless sync. Keyboard-driven UX inspired by Obsidian and Bear."
+      url="#"
+    />
   </div>
 
-  <!-- PRODUCTS -->
-  <div class="mb-4">
-    <h2 class="text-2xl font-bold mb-1">Products</h2>
-    <p class="text-sm text-base-content/60 mb-4">Full-stack platforms I've built end-to-end.</p>
+  <div class="mb-6">
+    <p class="section-label mb-1">AI &amp; automation</p>
+    <h2 class="font-display text-2xl mb-4">Agent systems in production</h2>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-4 mb-16">
+    <HorizontalCard
+      title="Sentry → GitHub Pull Request"
+      desc="Production-incident-to-merged-fix automation. Goose agents subscribe to Sentry, reproduce errors in a sandboxed checkout, and open ready-to-review pull requests with the patch."
+      url="#"
+      badge="Dev-loop"
+    />
+    <HorizontalCard
+      title="Gleap Ticket → GitHub Pull Request"
+      desc="User-reported issues from Gleap routed to Goose agents that scope the change, implement the fix, and open a draft pull request."
+      url="#"
+      badge="Dev-loop"
+    />
+    <HorizontalCard
+      title="Universal In-App AI Agent"
+      desc="A conversational agent capable of executing any action available within the product — tool-using, with structured outputs, permissions, and guardrails on every call."
+      url="#"
+      badge="Product AI"
+    />
+    <HorizontalCard
+      title="Production RAG Pipelines"
+      desc="Multiple RAG systems in production: clinical context for therapists, customer-support grounding, and internal knowledge search."
+      url="#"
+      badge="RAG"
+    />
+    <HorizontalCard
+      title="RAG Customer Support Chatbot (Extendly)"
+      desc="Contextual customer-support chatbot built with OpenAI, FastAPI, and PostgreSQL. Grounded answers in customer-specific documentation."
+      url="#"
+    />
   </div>
 
-  <HorizontalCard
-    title="Career OS"
-    desc="A platform that helps people land the job. Tailors a resume to a specific role, researches the company with RAG, then runs a live video interview with an AI interviewer that adapts to the job description, pushes back like a real panel, and scores the candidate in real time with recordings and progress tracking. Built on LiveKit and Deepgram for live sessions, a tool-calling agent, RAG, and Postgres."
-    url="#"
-    badge="Building"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="ClauseGuard"
-    desc="Contract review for freelancers and small teams. Upload an agreement and it flags risky clauses like net-60 terms, auto-renewals, liability, and missing late fees, explains each one in plain English, and suggests redlines. RAG over a clause library with structured extraction and precision and recall evals."
-    url="#"
-    badge="Building"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="DropChat"
-    desc="Embeddable chat-with-your-content widget. Point it at a website or docs and get a single script tag that drops in a chatbot grounded in that content. Crawl, chunk, and embed into pgvector with streaming answers and citations. Bring your own model, self-hostable, no vendor lock-in."
-    url="#"
-    badge="Building"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Kindred Workplace"
-    img="/projects/kindred-workplace.png"
-    desc="Emotional-intelligence platform for teams. Currently the product engineer on Kindred Workplace, building full-stack systems, real-time features, and embedded AI."
-    url="https://kindredworkplace.com"
-    badge="Current"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Kindred Practice (formerly Mynd)"
-    img="/projects/kindred-practice.png"
-    desc="AI-powered practice management platform for therapists. Video sessions, automated note-taking with GPT and Gemini, RAG-based clinical chat, multi-agent workflow automation via LangChain and Inngest, scheduling, and billing. Built on Node.js (TypeScript), Django, AWS Lambda, and React."
-    url="https://kindredpractice.com"
-    badge="Live"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Medimap"
-    img="/projects/medimap.png"
-    desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
-    url="https://medimap.ca/"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="KindlMedia Chat System"
-    desc="Custom real-time chat system supporting direct communication between clients and businesses, with reliable delivery and live presence."
-    url="https://kb.mycrmsupport.com/kindlmedia1"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="TM Inspector"
-    desc="Trademark inspection and monitoring platform. Automated similarity search, watch-listing, and infringement alerts over global trademark registries."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="ViseWealth"
-    desc="Personal wealth and portfolio tracking platform. Aggregates accounts, computes returns, and surfaces allocation insights with clean, fast dashboards."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="WowNFT"
-    desc="NFT marketplace and minting platform. Wallet-based auth, on-chain minting flows, listing/auction support, and a responsive collection browser."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Liver Tumor Detection in CT Images"
-    desc="Final-year project. Deep-learning pipeline for automatic liver and tumor segmentation in CT scans using a U-Net based architecture, with preprocessing, augmentation, and evaluation against radiologist-labeled ground truth."
-    url="#"
-    badge="FYP"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Real-Time Collaborative Whiteboard"
-    desc="Multi-user drawing and brainstorming canvas with low-latency sync, presence, and shape primitives. Built on WebSockets with CRDT-style conflict resolution."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="URL Shortener with Analytics"
-    desc="Self-hosted link shortener with click tracking, referrer breakdown, and per-link dashboards. Built for speed with edge redirects and aggregated analytics."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Markdown Notes App"
-    desc="Local-first markdown note-taking app with tags, full-text search, and seamless sync. Keyboard-driven UX inspired by Obsidian and Bear."
-    url="#"
-  />
-
-  <!-- AI & AUTOMATION -->
-  <div class="mb-4 mt-12">
-    <h2 class="text-2xl font-bold mb-1">AI &amp; automation</h2>
-    <p class="text-sm text-base-content/60 mb-4">Agent systems and developer-loop automations in production.</p>
+  <div class="mb-6">
+    <p class="section-label mb-1">Open source</p>
+    <h2 class="font-display text-2xl mb-4">For the agent &amp; RAG community</h2>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-4 mb-16">
+    <HorizontalCard
+      title="mcp-prod"
+      desc="Production-grade TypeScript template for Model Context Protocol servers. Auth, pgvector, Redis, logging, Zod tools, tests, Dockerfile."
+      url="#"
+      badge="Building"
+    />
+    <HorizontalCard
+      title="voice-agent-saas"
+      desc="Deploy-anywhere starter for full-stack voice agents. LiveKit, Deepgram, Postgres for transcripts and RAG — Railway, Fly, or self-host."
+      url="#"
+      badge="Building"
+    />
   </div>
 
-  <HorizontalCard
-    title="Sentry → GitHub Pull Request (Goose agents)"
-    desc="Production-incident-to-merged-fix automation. Goose agents subscribe to Sentry, reproduce errors in a sandboxed checkout, and open ready-to-review pull requests with the patch."
-    url="#"
-    badge="Developer-loop"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Gleap Ticket → GitHub Pull Request (Goose agents)"
-    desc="User-reported issues from Gleap routed to Goose agents that scope the change, implement the fix, and open a draft pull request, turning bug reports into engineer-reviewable diffs."
-    url="#"
-    badge="Developer-loop"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Universal In-App AI Agent"
-    desc="A conversational agent capable of executing any action available within the product. Not just retrieving information, but operating on it. Tool-using agent backed by structured outputs, fine-grained permissions, and guardrails on every call."
-    url="#"
-    badge="Product AI"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Production RAG Pipelines"
-    desc="Multiple RAG systems in production: clinical context for therapists, customer-support grounding, and internal knowledge search. Vector search, deliberate chunking strategies, and eval-driven iteration."
-    url="#"
-    badge="RAG"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="RAG-Powered Customer Support Chatbot (Extendly)"
-    desc="Contextual customer-support chatbot built with OpenAI, FastAPI, and PostgreSQL. Improved response accuracy and significantly reduced manual support load by grounding answers in customer-specific documentation."
-    url="#"
-  />
-
-  <!-- OPEN SOURCE -->
-  <div class="mb-4 mt-12">
-    <h2 class="text-2xl font-bold mb-1">Open source</h2>
-    <p class="text-sm text-base-content/60 mb-4">Repositories I maintain for the agent and RAG community.</p>
+  <div class="mb-6">
+    <p class="section-label mb-1">Earlier</p>
+    <h2 class="font-display text-2xl mb-4">Prior roles</h2>
   </div>
-
-  <HorizontalCard
-    title="mcp-prod"
-    desc="Production-grade TypeScript template for Model Context Protocol servers. Ships the parts the toy starters skip: auth, pgvector and Redis storage, structured logging and tracing, Zod-validated tools, tests, a Dockerfile, and a one-command quickstart."
-    url="#"
-    badge="Building"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="voice-agent-saas"
-    desc="Deploy-anywhere starter for full-stack voice agents. LiveKit and Deepgram for real-time speech, a frontend call UI, and Postgres for transcripts and RAG context, wired to run on Railway, Fly, or self-host with no proprietary platform required."
-    url="#"
-    badge="Building"
-  />
-  <div class="divider my-0"></div>
-
-  <!-- EARLIER -->
-  <div class="mb-4 mt-12">
-    <h2 class="text-2xl font-bold mb-1">Earlier work</h2>
-    <p class="text-sm text-base-content/60 mb-4">Selected projects from prior roles.</p>
+  <div class="grid gap-4">
+    <HorizontalCard
+      title="Trademark Infringement Detection (Zaytrics)"
+      desc="ML-based logo similarity system for detecting trademark infringement. Reached 85%+ accuracy and reduced manual review effort by approximately 70%."
+      url="#"
+    />
   </div>
-
-  <HorizontalCard
-    title="Trademark Infringement Detection (Zaytrics)"
-    desc="ML-based logo similarity system for detecting trademark infringement. Reached 85%+ accuracy and reduced manual review effort by approximately 70%."
-    url="#"
-  />
 </BaseLayout>

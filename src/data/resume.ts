@@ -94,7 +94,7 @@ export const contacts: Contact[] = [
 
 export const baseResume: Resume = {
   role: "Senior Full-Stack Engineer · Agentic AI",
-  summary: `<p>I'm a full-stack engineer with 5+ years building products end to end. React and TypeScript on the frontend, Node and Django on the backend, and the database design underneath. For the last few years I've been at <span class="navy">Kindred</span> (formerly Mynd), a mental-health platform used by 200+ therapists and their clients. I owned a lot of the core product there: live video sessions, scheduling, billing, and the AI features that run on top of them.</p><p>Lately most of my work has been agentic. I built a RAG system grounded in real clinical context, an in-app assistant that can take actions on the user's behalf, and a pipeline that turns a Sentry alert into a reviewed PR. I use Claude Code and Cursor every day to move faster, but not to do the thinking. I still read every line before it ships.</p>`,
+  summary: `<p>I'm a full-stack engineer with 5+ years building products end to end. React and TypeScript on the frontend, Node and Django on the backend, and the database design underneath. For the last few years I've been at <span class="navy">Kindred</span> (formerly Mynd), a mental-health platform used by 200+ therapists and their clients. I owned a lot of the core product there: live video sessions, scheduling, billing, and the AI features that run on top of them.</p><p>Lately most of my work has been agentic. I built a RAG system grounded in real clinical context, an in-app assistant that can take actions on the user's behalf, and a pipeline that turns a Sentry alert into a reviewed PR. I also built and launched <span class="navy">Round Zero</span> (joinroundzero.com), a job-prep platform with honest resume tailoring, cited company research, and live AI voice interviews that score and coach candidates before the real thing. I use Claude Code and Cursor every day to move faster, but not to do the thinking. I still read every line before it ships.</p>`,
   experience: [
     {
       company: "Kindred",
@@ -137,6 +137,12 @@ export const baseResume: Resume = {
     },
   ],
   projects: [
+    {
+      name: "Round Zero",
+      url: "https://joinroundzero.com",
+      urlText: "joinroundzero.com",
+      desc: "Job-search prep platform: honest resume tailoring to a JD, cited company research, live voice interviews with an adaptive AI interviewer (Maeve), evidence-backed scoring, application tracking, and progress trends. Built end-to-end on LiveKit, Deepgram, tool-calling agents, RAG, and Postgres. Launched in early access.",
+    },
     {
       name: "Kindred Workplace",
       url: "https://kindredworkplace.com",

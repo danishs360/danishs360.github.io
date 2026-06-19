@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  label?: string;
+  description?: string;
+}
+
+const { title, label, description } = Astro.props;
+---
+
+<header class="mb-12 animate-fade-up">
+  {label && <p class="section-label mb-3">{label}</p>}
+  <h1 class="display-title text-4xl sm:text-5xl mb-4">{title}</h1>
+  {description && <p class="text-ink-dim text-lg max-w-2xl leading-relaxed">{description}</p>}
+</header>

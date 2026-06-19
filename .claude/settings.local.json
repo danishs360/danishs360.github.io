@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Program Files \\(x86\\)/Microsoft/Edge/Application/**)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=\"/tmp/amk-resume.pdf\" \"http://localhost:4321/resume/amk-python-fullstack/\")",
+      "Bash(cp /tmp/amk-resume.pdf \"G:/portfolio/amk-resume-debug.pdf\")",
+      "Bash(cygpath -w /tmp/amk-resume.pdf)",
+      "Bash(pnpm build *)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=\"/tmp/amk-cover.pdf\" \"http://localhost:4321/cover-letter/amk-python-fullstack/\")",
+      "Bash(taskkill //F //IM node.exe //FI \"WINDOWTITLE eq *astro*\")",
+      "Bash(pkill -f \"astro preview\")"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
+    ]
+  }
+}

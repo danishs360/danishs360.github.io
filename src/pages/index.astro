@@ -1,241 +1,385 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { baseResume } from "../data/resume";
+import createSlug from "../lib/createSlug";
+import { SITE_URL, SITE_DESCRIPTION, SOCIAL } from "../config";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const stats = [
+  { value: "5+", label: "Years shipping products" },
+  { value: "200+", label: "Therapists in production" },
+  { value: "10+", label: "AI agents deployed" },
+  { value: "4.8k+", label: "Round Zero interviews" },
+];
+
+const agents = [
+  {
+    tag: "Dev-loop",
+    title: "Sentry → Pull Request",
+    desc: "Goose agents reproduce incidents and open ready-to-review PRs. 30+ tickets a month, hands-off.",
+    stack: ["Goose", "Sentry", "GitHub"],
+  },
+  {
+    tag: "Dev-loop",
+    title: "Gleap → Pull Request",
+    desc: "User-reported bugs scoped, fixed, and drafted as PRs by agents. Engineers review and merge.",
+    stack: ["Goose", "Gleap", "LLM"],
+  },
+  {
+    tag: "Product AI",
+    title: "Universal in-app agent",
+    desc: "Takes real actions inside the product via tool calls — permissions, guardrails, structured outputs.",
+    stack: ["LangChain", "Inngest", "Tools"],
+  },
+  {
+    tag: "Infrastructure",
+    title: "Production RAG",
+    desc: "Clinical, support, and internal knowledge pipelines. pgvector, eval-driven iteration, ~40% latency cut.",
+    stack: ["pgvector", "Gemini", "GPT"],
+  },
+];
+
+const stack = [
+  "TypeScript",
+  "Python",
+  "React",
+  "Node.js",
+  "Django",
+  "PostgreSQL",
+  "LiveKit",
+  "Deepgram",
+  "LangChain",
+  "RAG",
+  "AWS",
+  "Inngest",
+];
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "Danish Siddique",
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      author: { "@id": `${SITE_URL}/#person` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Danish Siddique",
+      url: SITE_URL,
+      email: "mailto:idanishsiddique@gmail.com",
+      jobTitle: "Senior Full-Stack Engineer",
+      description: SITE_DESCRIPTION,
+      sameAs: [SOCIAL.github, SOCIAL.linkedin],
+      knowsAbout: [
+        "Full-Stack Development",
+        "Artificial Intelligence",
+        "LLM Agents",
+        "RAG",
+        "TypeScript",
+        "React",
+      ],
+    },
+  ],
+};
 ---
 
-<BaseLayout sideBarActiveItemID="home">
-  <!-- HERO -->
-  <section class="pt-2 pb-14">
-    <div class="inline-flex items-center gap-2 text-sm px-3 py-1 rounded-full bg-base-200 border border-base-300 mb-6 fade-in-up">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
-      </span>
-      <span class="text-base-content/80">Product Engineer at <span class="font-semibold">Kindred</span></span>
+<BaseLayout sideBarActiveItemID="home" wide>
+  <JsonLd schema={personSchema} />
+  <!-- ═══ HERO ═══ -->
+  <section class="relative min-h-[88vh] flex items-center -mt-8 mb-20">
+    <div class="absolute inset-0 bg-hero-glow pointer-events-none" aria-hidden="true"></div>
+    <div
+      class="absolute top-1/4 -right-32 w-96 h-96 rounded-full bg-ember/10 blur-[100px] animate-float pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 -left-32 w-80 h-80 rounded-full bg-indigo-500/10 blur-[100px] animate-float pointer-events-none"
+      style="animation-delay: -3s"
+      aria-hidden="true"
+    >
     </div>
 
-    <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-4 fade-in-up" style="animation-delay: 0.1s">
-      <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">Danish Siddique</span>
-    </h1>
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center w-full relative z-10">
+      <div>
+        <div
+          class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass text-sm mb-8 animate-fade-up"
+        >
+          <span class="relative flex h-2 w-2">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+            ></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span class="text-ink-dim"
+            >Building at <strong class="text-ink-text font-medium">Kindred</strong> · Launched
+            <a href="https://joinroundzero.com" class="text-ember hover:underline" target="_blank"
+              >Round Zero</a
+            ></span
+          >
+        </div>
 
-    <h2 class="text-2xl md:text-3xl font-medium text-base-content/85 mb-6 fade-in-up" style="animation-delay: 0.2s">
-      I build full-stack products and the agentic AI that runs inside them.
-    </h2>
+        <h1
+          class="display-title text-[clamp(2.75rem,7vw,5.5rem)] mb-6 animate-fade-up"
+          style="animation-delay: 0.1s"
+        >
+          Full-stack engineer.<br />
+          <span class="italic text-ember">Agentic</span> builder.<br />
+          Products that ship.
+        </h1>
 
-    <p class="text-lg text-base-content/70 max-w-2xl leading-relaxed fade-in-up" style="animation-delay: 0.3s">
-      Full-stack engineer with 5+ years building products end to end. At
-      <a href="https://kindredworkplace.com" target="_blank" class="link link-primary">Kindred</a>
-      (formerly Mynd), a mental-health platform used by 200+ therapists and the thousands of clients
-      they see, I own the core product: live video sessions, scheduling, billing, and the AI
-      features that run on top of them. React and TypeScript up front, Node.js and Django behind
-      them. Lately most of my work is agentic: RAG grounded in real clinical context, an in-app
-      assistant that takes actions for the user, and a pipeline that turns a Sentry alert into a
-      reviewed pull request. I lean on Claude Code and Cursor every day as fast hands, not the
-      brain, and still read every line before it ships.
-    </p>
-
-    <div class="mt-8 flex flex-wrap gap-3 fade-in-up" style="animation-delay: 0.4s">
-      <a class="btn btn-primary" href="/projects">View projects →</a>
-      <a class="btn btn-outline" href="/resume">Resume</a>
-      <a class="btn btn-ghost" href="/contact">Contact ↗</a>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-    <div class="border-l-2 border-primary pl-4">
-      <div class="text-3xl font-bold">5+</div>
-      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">Years of experience</div>
-    </div>
-    <div class="border-l-2 border-secondary pl-4">
-      <div class="text-3xl font-bold">200+</div>
-      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">Therapists in production</div>
-    </div>
-    <div class="border-l-2 border-accent pl-4">
-      <div class="text-3xl font-bold">10+</div>
-      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">AI agents shipped</div>
-    </div>
-    <div class="border-l-2 border-info pl-4">
-      <div class="text-3xl font-bold">70%</div>
-      <div class="text-xs uppercase tracking-wider text-base-content/60 mt-1">Manual review reduced</div>
-    </div>
-  </section>
-
-  <!-- NOW BUILDING -->
-  <section class="mb-16">
-    <div class="flex items-center gap-3 mb-4">
-      <h3 class="text-2xl font-bold">Current focus</h3>
-      <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/30">Now</span>
-    </div>
-    <div class="card bg-base-200 border border-base-300 hover:border-primary/50 transition-colors">
-      <div class="card-body">
-        <h4 class="card-title text-xl">
-          Kindred Workplace
-          <span class="badge badge-outline badge-sm">SaaS · AI · Teams</span>
-        </h4>
-        <p class="text-base-content/80">
-          Product engineering on an emotional-intelligence platform for teams. Full-stack systems,
-          real-time features, and embedded AI that makes the product genuinely useful day-to-day.
+        <p
+          class="text-lg sm:text-xl text-ink-dim max-w-xl leading-relaxed mb-8 animate-fade-up"
+          style="animation-delay: 0.2s"
+        >
+          I own products end to end — React &amp; TypeScript up front, Node &amp; Django behind them,
+          and the AI systems on top: live voice agents, RAG pipelines, and automations that turn
+          incidents into merged pull requests.
         </p>
-        <p class="text-base-content/80">
-          In parallel, driving AI tooling adoption across the organization: developer-loop automations
-          (Sentry &amp; Gleap → pull request via Goose agents), an in-app universal AI agent, and shared
-          RAG infrastructure used across products.
-        </p>
-        <div class="card-actions mt-2">
-          <a href="https://kindredworkplace.com" target="_blank" class="link link-primary text-sm">kindredworkplace.com ↗</a>
+
+        <div class="flex flex-wrap gap-3 animate-fade-up" style="animation-delay: 0.3s">
+          <a href="/projects" class="btn-ember">See my work →</a>
+          <a href="/resume" class="btn-ghost-line">Resume</a>
+          <a href="/contact" class="btn-ghost-line hidden sm:inline-flex">Contact</a>
+        </div>
+
+        <!-- Recruiter scan line -->
+        <div
+          class="mt-10 pt-8 border-t border-ink-line grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fade-up"
+          style="animation-delay: 0.4s"
+        >
+          {
+            stats.map((s) => (
+              <div>
+                <div class="font-display text-2xl sm:text-3xl text-ink-text">{s.value}</div>
+                <div class="text-[11px] font-mono uppercase tracking-wider text-ink-muted mt-1">
+                  {s.label}
+                </div>
+              </div>
+            ))
+          }
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- AI & AUTOMATION HIGHLIGHTS -->
-  <section class="mb-16">
-    <h3 class="text-2xl font-bold mb-2">AI &amp; automation</h3>
-    <p class="text-base-content/60 mb-6">Production systems shipped over the past six months.</p>
-
-    <div class="grid md:grid-cols-2 gap-4">
-      <div class="card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 transition-all">
-        <div class="card-body">
-          <div class="text-xs font-mono uppercase tracking-wider text-primary mb-1">Developer-loop automation</div>
-          <h4 class="font-bold text-lg">Sentry → GitHub pull request</h4>
-          <p class="text-sm text-base-content/75">
-            Goose agents subscribe to Sentry incidents, reproduce them in a sandboxed checkout, and open
-            a ready-to-review pull request with the proposed fix. Closes the loop from incident to merged
-            change without an engineer hand-writing the patch.
-          </p>
-          <div class="flex flex-wrap gap-1 mt-2">
-            <span class="badge badge-sm badge-ghost">Goose</span>
-            <span class="badge badge-sm badge-ghost">Sentry</span>
-            <span class="badge badge-sm badge-ghost">GitHub Actions</span>
+      <div class="relative flex justify-center lg:justify-end animate-fade-up" style="animation-delay: 0.25s">
+        <div class="relative">
+          <div
+            class="absolute -inset-4 rounded-3xl bg-gradient-to-br from-ember/40 via-transparent to-indigo-500/30 blur-2xl opacity-60"
+            aria-hidden="true"
+          >
           </div>
-        </div>
-      </div>
-
-      <div class="card bg-base-100 border border-base-300 hover:border-secondary hover:-translate-y-0.5 transition-all">
-        <div class="card-body">
-          <div class="text-xs font-mono uppercase tracking-wider text-secondary mb-1">Developer-loop automation</div>
-          <h4 class="font-bold text-lg">Gleap ticket → GitHub pull request</h4>
-          <p class="text-sm text-base-content/75">
-            User-reported issues from Gleap routed to Goose agents that scope the change, implement
-            the fix, and open a draft pull request. Engineers review and merge.
-          </p>
-          <div class="flex flex-wrap gap-1 mt-2">
-            <span class="badge badge-sm badge-ghost">Goose</span>
-            <span class="badge badge-sm badge-ghost">Gleap</span>
-            <span class="badge badge-sm badge-ghost">LLM agents</span>
+          <div class="relative rounded-3xl overflow-hidden ring-1 ring-ink-line shadow-2xl">
+            <Image
+              src="/profile.webp"
+              width={500}
+              height={500}
+              format="webp"
+              alt="Danish Siddique"
+              class="w-full max-w-[340px] lg:max-w-[400px] aspect-square object-cover"
+            />
           </div>
-        </div>
-      </div>
-
-      <div class="card bg-base-100 border border-base-300 hover:border-accent hover:-translate-y-0.5 transition-all">
-        <div class="card-body">
-          <div class="text-xs font-mono uppercase tracking-wider text-accent mb-1">Product AI</div>
-          <h4 class="font-bold text-lg">Universal in-app agent</h4>
-          <p class="text-sm text-base-content/75">
-            A conversational agent capable of executing any action available within the product.
-            Not just retrieving information, but operating on it. Built on tool-use, structured
-            outputs, fine-grained permissions, and guardrails on every call.
-          </p>
-          <div class="flex flex-wrap gap-1 mt-2">
-            <span class="badge badge-sm badge-ghost">LangChain</span>
-            <span class="badge badge-sm badge-ghost">Tool use</span>
-            <span class="badge badge-sm badge-ghost">Inngest</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card bg-base-100 border border-base-300 hover:border-info hover:-translate-y-0.5 transition-all">
-        <div class="card-body">
-          <div class="text-xs font-mono uppercase tracking-wider text-info mb-1">Infrastructure</div>
-          <h4 class="font-bold text-lg">Production RAG pipelines</h4>
-          <p class="text-sm text-base-content/75">
-            Multiple production RAG systems covering clinical context for therapists, customer-support
-            grounding, and internal knowledge. Built on vector search, deliberate chunking strategies,
-            and eval-driven iteration.
-          </p>
-          <div class="flex flex-wrap gap-1 mt-2">
-            <span class="badge badge-sm badge-ghost">Vector search</span>
-            <span class="badge badge-sm badge-ghost">PostgreSQL</span>
-            <span class="badge badge-sm badge-ghost">OpenAI / Gemini</span>
+          <!-- Floating identity card -->
+          <div class="absolute -bottom-4 -left-4 sm:-left-8 glass rounded-xl px-4 py-3 shadow-xl max-w-[220px]">
+            <div class="font-mono text-[10px] uppercase tracking-wider text-ember mb-1">Currently</div>
+            <div class="text-sm font-medium leading-snug">Senior Full-Stack · Agentic AI</div>
+            <div class="text-xs text-ink-muted mt-1">Islamabad · Remote</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SELECTED WORK -->
-  <section class="mb-16">
-    <h3 class="text-2xl font-bold mb-2">Selected products</h3>
-    <p class="text-base-content/60 mb-6">Larger products I've built end-to-end.</p>
-
+  <!-- ═══ FEATURED LAUNCH ═══ -->
+  <section class="mb-24">
+    <div class="flex items-end justify-between mb-8 gap-4">
+      <div>
+        <p class="section-label mb-2">Latest launch</p>
+        <h2 class="display-title text-3xl sm:text-4xl">Round Zero</h2>
+      </div>
+      <a
+        href="https://joinroundzero.com"
+        target="_blank"
+        class="btn-ghost-line !text-xs shrink-0 hidden sm:inline-flex"
+        >joinroundzero.com ↗</a
+      >
+    </div>
     <HorizontalCard
-      title="Kindred Practice (formerly Mynd)"
-      img="/projects/kindred-practice.png"
-      desc="AI-powered practice management platform for therapists. Video sessions, automated note-taking with GPT and Gemini, RAG-based clinical chat, multi-agent workflows via LangChain and Inngest, scheduling, and billing."
-      url="https://kindredpractice.com"
+      title="Take the interview before the interview"
+      img="/projects/round-zero.png"
+      desc="Job-search prep in one calm place: honest resume tailoring, cited company research, and live voice AI interviews that adapt, push back, and score you. Maeve remembers every session. 4,800+ interviews completed in early access."
+      url="https://joinroundzero.com"
       badge="Live"
-    />
-    <div class="divider my-0"></div>
-    <HorizontalCard
-      title="Kindred Workplace"
-      img="/projects/kindred-workplace.png"
-      desc="Emotional-intelligence platform for teams. Currently the product engineer on Kindred Workplace, building full-stack systems, real-time features, and embedded AI."
-      url="https://kindredworkplace.com"
-      badge="Current"
-    />
-    <div class="divider my-0"></div>
-    <HorizontalCard
-      title="Medimap"
-      img="/projects/medimap.png"
-      desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
-      url="https://medimap.ca/"
+      variant="featured"
     />
   </section>
 
-  <!-- TECH STACK -->
-  <section class="mb-16">
-    <h3 class="text-2xl font-bold mb-4">Technologies</h3>
-    <div class="flex flex-wrap gap-2">
-      <span class="badge badge-lg">TypeScript</span>
-      <span class="badge badge-lg">Python</span>
-      <span class="badge badge-lg">Node.js</span>
-      <span class="badge badge-lg">React</span>
-      <span class="badge badge-lg">Django</span>
-      <span class="badge badge-lg">FastAPI</span>
-      <span class="badge badge-lg">PostgreSQL</span>
-      <span class="badge badge-lg">AWS</span>
-      <span class="badge badge-lg">LangChain</span>
-      <span class="badge badge-lg">Inngest</span>
-      <span class="badge badge-lg">Goose</span>
-      <span class="badge badge-lg">RAG</span>
-      <span class="badge badge-lg">Vector search</span>
-      <span class="badge badge-lg">GPT &amp; Gemini</span>
-      <span class="badge badge-lg">Deepgram</span>
-      <span class="badge badge-lg">LiveKit</span>
+  <!-- ═══ BENTO WORK GRID ═══ -->
+  <section class="mb-24">
+    <p class="section-label mb-2">Selected work</p>
+    <h2 class="display-title text-3xl sm:text-4xl mb-8">Products I've shipped</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <HorizontalCard
+        title="Kindred Practice"
+        img="/projects/kindred-practice.png"
+        desc="AI practice management for 200+ therapists. Video, automated notes, RAG clinical chat, scheduling, billing."
+        url="https://kindredpractice.com"
+        badge="Live"
+      />
+      <HorizontalCard
+        title="Kindred Workplace"
+        img="/projects/kindred-workplace.png"
+        desc="Emotional-intelligence platform for teams. Full-stack, real-time features, embedded AI — my current day job."
+        url="https://kindredworkplace.com"
+        badge="Current"
+      />
+    </div>
+    <div class="mt-4 text-center">
+      <a href="/projects" class="text-sm font-mono text-ember hover:underline">View all projects →</a>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="mb-12 text-center py-12 border-t border-base-300">
-    <h3 class="text-3xl font-bold mb-3">Let's connect.</h3>
-    <p class="text-base-content/70 mb-6 max-w-xl mx-auto">
-      Open to conversations about AI engineering, agent systems, and product engineering at scale.
+  <!-- ═══ AGENT SYSTEMS ═══ -->
+  <section class="mb-24">
+    <p class="section-label mb-2">Agent systems</p>
+    <h2 class="display-title text-3xl sm:text-4xl mb-3">AI that runs in production</h2>
+    <p class="text-ink-dim max-w-2xl mb-8">
+      Not demos. Systems handling real traffic, real money, and real clinical data — with guardrails,
+      evals, and monitoring.
     </p>
-    <a href="/contact" class="btn btn-primary btn-wide">Get in touch →</a>
+    <div class="grid sm:grid-cols-2 gap-4">
+      {
+        agents.map((a) => (
+          <div class="bento-card p-6 group">
+            <div class="font-mono text-[10px] uppercase tracking-wider text-ember mb-3">{a.tag}</div>
+            <h3 class="font-display text-xl mb-2 group-hover:text-ember transition-colors">{a.title}</h3>
+            <p class="text-sm text-ink-dim leading-relaxed mb-4">{a.desc}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {a.stack.map((t) => (
+                <span class="tag-pill !text-[10px]">{t}</span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE TIMELINE ═══ -->
+  <section class="mb-24">
+    <p class="section-label mb-2">Experience</p>
+    <h2 class="display-title text-3xl sm:text-4xl mb-8">Where I've built</h2>
+    <div class="space-y-0">
+      {
+        baseResume.experience.map((job, i) => (
+          <div class="relative pl-8 pb-10 border-l border-ink-line last:pb-0">
+            <div class="absolute left-0 top-1.5 -translate-x-1/2 w-3 h-3 rounded-full bg-ink-card ring-2 ring-ember" />
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+              <h3 class="font-display text-xl text-ink-text">
+                {job.company}
+                {job.note && <span class="text-ink-muted text-base font-sans">{job.note}</span>}
+              </h3>
+              <span class="font-mono text-xs text-ink-muted">{job.meta}</span>
+            </div>
+            <p class="text-sm text-ember font-medium mb-2">{job.title}</p>
+            <p class="font-mono text-[11px] text-ink-muted mb-3">{job.stack}</p>
+            <ul class="space-y-1.5">
+              {job.bullets.slice(0, 2).map((b) => (
+                <li class="text-sm text-ink-dim leading-relaxed pl-0" set:html={`• ${b}`} />
+              ))}
+            </ul>
+            {i === 0 && (
+              <a href="/resume" class="inline-block mt-3 text-xs font-mono text-ember hover:underline">
+                Full resume →
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ═══ STACK ═══ -->
+  <section class="mb-24">
+    <p class="section-label mb-2">Stack</p>
+    <h2 class="display-title text-3xl sm:text-4xl mb-6">Tools I reach for</h2>
+    <div class="flex flex-wrap gap-2">
+      {stack.map((t) => <span class="tag-pill">{t}</span>)}
+    </div>
+  </section>
+
+  <!-- ═══ WRITING ═══ -->
+  {
+    posts.length > 0 && (
+      <section class="mb-24">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <p class="section-label mb-2">Writing</p>
+            <h2 class="display-title text-3xl sm:text-4xl">From the blog</h2>
+          </div>
+          <a href="/blog/" class="text-sm font-mono text-ember hover:underline hidden sm:block">
+            All posts →
+          </a>
+        </div>
+        <div class="grid gap-4">
+          {posts.map((post) => (
+            <a
+              href={"/blog/" + createSlug(post.data.title, post.slug)}
+              class="bento-card glass-hover p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 group"
+            >
+              <div class="flex-1">
+                <time class="font-mono text-[10px] uppercase tracking-wider text-ink-muted">
+                  {post.data.pubDate.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </time>
+                <h3 class="font-display text-xl mt-1 group-hover:text-ember transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="text-sm text-ink-dim mt-1 line-clamp-2">{post.data.description}</p>
+              </div>
+              <span class="text-ember font-mono text-sm opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                Read →
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ═══ CTA ═══ -->
+  <section class="relative rounded-3xl overflow-hidden mb-8">
+    <div class="absolute inset-0 bg-gradient-to-br from-ember/20 via-ink-card to-indigo-900/20" aria-hidden="true"></div>
+    <div class="absolute inset-0 ring-1 ring-inset ring-ink-line rounded-3xl" aria-hidden="true"></div>
+    <div class="relative px-8 py-14 sm:py-16 text-center">
+      <h2 class="display-title text-3xl sm:text-5xl mb-4">Let's build something.</h2>
+      <p class="text-ink-dim max-w-lg mx-auto mb-8">
+        Open to senior full-stack and applied AI roles — or conversations about agents, RAG, and
+        product engineering at scale.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/contact" class="btn-ember">Get in touch</a>
+        <a href="/resume/print?auto=1" target="_blank" class="btn-ghost-line">Download resume</a>
+      </div>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
-  .fade-in-up {
+  .animate-fade-up {
     opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .fade-in-up { animation: none; opacity: 1; }
+    animation: fadeUp 0.8s ease-out forwards;
   }
 </style>
