@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { SITE_URL, SITE_AUTHOR, SITE_LOCALE } from '../config';
+import { SITE_URL, SITE_AUTHOR, SITE_LOCALE, LOCATION } from '../config';
+import { person, website, breadcrumbs } from '../lib/schema';
 
 export interface Props {
   title: string;
@@ -10,6 +11,10 @@ export interface Props {
   noindex?: boolean;
   publishedTime?: string;
   modifiedTime?: string;
+  /** false on pages that print their own Person graph (the home page) */
+  baseSchema?: boolean;
+  /** breadcrumb label for inner pages */
+  crumb?: string;
 }
 
 const {
@@ -20,11 +25,19 @@ const {
   noindex = false,
   publishedTime,
   modifiedTime,
+  baseSchema = true,
+  crumb,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
 const ogImage = new URL(image, Astro.site ?? SITE_URL);
 const rssUrl = new URL('/rss.xml', Astro.site ?? SITE_URL);
+const graph = baseSchema
+  ? {
+      '@context': 'https://schema.org',
+      '@graph': [website, person, ...(crumb ? [breadcrumbs(crumb, Astro.url.pathname)] : [])],
+    }
+  : null;
 ---
 
 <meta charset="utf-8" />
@@ -47,14 +60,29 @@ const rssUrl = new URL('/rss.xml', Astro.site ?? SITE_URL);
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="author" content={SITE_AUTHOR} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  )
+}
+<meta name="geo.region" content={LOCATION.regionCode} />
+<meta name="geo.placename" content={`${LOCATION.city}, ${LOCATION.country}`} />
+<meta name="geo.position" content={`${LOCATION.lat};${LOCATION.lng}`} />
+<meta name="ICBM" content={`${LOCATION.lat}, ${LOCATION.lng}`} />
 
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Danish Siddique, software and product engineer in Islamabad, Pakistan" />
 <meta property="og:site_name" content={SITE_AUTHOR} />
+<meta property="profile:first_name" content="Danish" />
+<meta property="profile:last_name" content="Siddique" />
 <meta property="og:locale" content={SITE_LOCALE} />
 {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
@@ -64,3 +92,5 @@ const rssUrl = new URL('/rss.xml', Astro.site ?? SITE_URL);
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+
+{graph && <script type="application/ld+json" set:html={JSON.stringify(graph)} />}

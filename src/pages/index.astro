@@ -7,7 +7,8 @@ import Wiring from "../components/Wiring.astro";
 import { getCollection } from "astro:content";
 import { baseResume } from "../data/resume";
 import createSlug from "../lib/createSlug";
-import { SITE_URL, SITE_DESCRIPTION, SOCIAL } from "../config";
+import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import { person, website } from "../lib/schema";
 import {
   tallyreel,
   roundZero,
@@ -35,51 +36,38 @@ const homeWirings = ["practice", "workplace", "core", "tallyreel", "roundzero", 
   (id) => wirings.find((w) => w.id === id)!,
 );
 
-const personSchema = {
+const profileSchema = {
   "@context": "https://schema.org",
   "@graph": [
+    website,
+    person,
     {
-      "@type": "WebSite",
-      name: "Danish Siddique",
-      url: SITE_URL,
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}/#profile`,
+      url: `${SITE_URL}/`,
+      name: SITE_TITLE,
       description: SITE_DESCRIPTION,
-      author: { "@id": `${SITE_URL}/#person` },
-    },
-    {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: "Danish Siddique",
-      url: SITE_URL,
-      email: "mailto:idanishsiddique@gmail.com",
-      jobTitle: "Senior Full-Stack Engineer",
-      worksFor: { "@type": "Organization", name: "Kindred" },
-      founder: { "@type": "Organization", name: "Soonbuilt", url: "https://soonbuilt.com" },
-      description: SITE_DESCRIPTION,
-      sameAs: [SOCIAL.github, SOCIAL.linkedin],
-      knowsAbout: [
-        "Full-Stack Development",
-        "LLM Agents",
-        "Agent Memory",
-        "RAG",
-        "On-device AI",
-        "Voice AI",
-        "TypeScript",
-        "Python",
-      ],
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      mainEntity: { "@id": `${SITE_URL}/#person` },
+      dateModified: new Date().toISOString(),
     },
   ],
 };
 ---
 
-<BaseLayout sideBarActiveItemID="home" wide>
-  <JsonLd schema={personSchema} />
+<BaseLayout sideBarActiveItemID="home" wide baseSchema={false}>
+  <JsonLd schema={profileSchema} />
 
   <!-- ═══ HERO: the wall ═══ -->
   <section class="intro" aria-labelledby="hero-h">
     <div class="hero-copy">
-      <p class="hand text-ember-ink text-lg -rotate-2 mb-4 inline-block">hi, I'm Danish</p>
-      <h1 id="hero-h" class="display-title text-[clamp(44px,5.6vw,72px)] !tracking-[-0.04em] !leading-[1.02]">
-        I build the product, and the AI <span class="hand text-ember !tracking-[-0.02em]">underneath it.</span>
+      <h1 id="hero-h">
+        <span class="hand text-ember-ink text-[16px] -rotate-2 mb-4 inline-block font-medium tracking-normal">
+          Danish Siddique · software &amp; product engineer in Islamabad
+        </span>
+        <span class="block display-title text-[clamp(44px,5.6vw,72px)] !tracking-[-0.04em] !leading-[1.02]">
+          I build the product, and the AI <span class="hand text-ember !tracking-[-0.02em]">underneath it.</span>
+        </span>
       </h1>
       <p class="mt-6 text-[clamp(18px,1.6vw,20px)] leading-normal text-ink-dim max-w-[31em]">
         Senior full-stack engineer. At Kindred I build Kindred Workplace and Kindred Practice, used by thousands
@@ -92,7 +80,9 @@ const personSchema = {
           <span>or see how it works</span>
         </a>
       </div>
-      <p class="mt-5 text-[15px] text-ink-muted">Islamabad · remote · open to senior full-stack and applied AI roles</p>
+      <p class="mt-5 text-[15px] text-ink-muted">
+        Based in <a href="/software-engineer-islamabad/" class="text-ink-dim">Islamabad, Pakistan</a> · working remotely worldwide · open to senior full-stack and applied AI roles
+      </p>
     </div>
 
     <div class="hero-wall" aria-label="What I've been working on">
@@ -292,7 +282,7 @@ const personSchema = {
       <div>
         <h2 id="exp-h" class="display-title text-[clamp(32px,4vw,46px)]">Where I've built</h2>
         <p class="mt-4 text-ink-dim">Five years of shipping, most of it with AI somewhere in the loop.</p>
-        <a href="/resume" class="textlink mt-6">Full resume →</a>
+        <a href="/resume/" class="textlink mt-6">Full resume →</a>
       </div>
       <ol class="sheet p-6 sm:p-8 list-none m-0">
         {
@@ -355,7 +345,7 @@ const personSchema = {
         on-device AI.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mt-7">
-        <a href="/contact" class="btn-ember !h-14 !px-7 !text-[17px]">Get in touch</a>
+        <a href="/contact/" class="btn-ember !h-14 !px-7 !text-[17px]">Get in touch</a>
         <a href="/resume/print?auto=1" target="_blank" class="textlink">Download my resume</a>
       </div>
     </div>

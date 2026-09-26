@@ -3,16 +3,26 @@
 
 export const SITE_URL = "https://danishs360.github.io";
 
-export const SITE_TITLE = "Danish Siddique · Full-Stack Engineer & Agentic AI";
+export const SITE_TITLE = "Danish Siddique · Software & Product Engineer, Islamabad";
 
 export const SITE_DESCRIPTION =
-  "Senior full-stack engineer. At Kindred I lead memory in Kindred Core, the AI service every product calls. Through my studio Soonbuilt I shipped TallyReel and Round Zero.";
+  "Danish Siddique is a senior software and product engineer in Islamabad, Pakistan, building AI products used by 8,300+ people. Launched TallyReel and Round Zero.";
 
 export const SITE_AUTHOR = "Danish Siddique";
 
 export const SITE_EMAIL = "idanishsiddique@gmail.com";
 
 export const SITE_LOCALE = "en_US";
+
+export const LOCATION = {
+  city: "Islamabad",
+  region: "Islamabad Capital Territory",
+  regionCode: "PK-IS",
+  country: "Pakistan",
+  countryCode: "PK",
+  lat: 33.6844,
+  lng: 73.0479,
+} as const;
 
 export const SOCIAL = {
   github: "https://github.com/danishs360",
@@ -21,24 +31,29 @@ export const SOCIAL = {
 
 export const PAGE_SEO = {
   projects: {
-    title: "Work · Danish Siddique",
+    title: "Projects & Case Studies · Danish Siddique",
     description:
-      "Kindred Workplace, Kindred Practice, TallyReel and Round Zero: what each product does for people, what Danish built, and how it works.",
+      "Case studies by Danish Siddique, software engineer in Islamabad: Kindred Workplace, Kindred Practice, TallyReel and Round Zero, with results and how they work.",
   },
   blog: {
-    title: "Blog · Danish Siddique",
+    title: "Writing on AI & Product Engineering · Danish Siddique",
     description:
-      "Writing on AI engineering, LLM agents, RAG, evals, and building products that hold up in production.",
+      "Danish Siddique writes about AI engineering, LLM agents, agent memory, evals, and building software products that hold up in production.",
   },
   resume: {
-    title: "Resume · Danish Siddique",
+    title: "Resume · Danish Siddique, Senior Software Engineer",
     description:
-      "Resume of Danish Siddique — senior full-stack engineer specializing in agentic AI, React, TypeScript, Node.js, and production LLM systems.",
+      "Resume of Danish Siddique, senior full-stack software engineer and product engineer in Islamabad, Pakistan: React, TypeScript, Node.js, Python and AI.",
   },
   contact: {
-    title: "Contact · Danish Siddique",
+    title: "Contact · Danish Siddique, Software Engineer",
     description:
-      "Get in touch with Danish Siddique for senior full-stack, applied AI, and product engineering roles.",
+      "Contact Danish Siddique, senior software and product engineer in Islamabad, Pakistan, for full-time roles, product builds and AI projects. Remote worldwide.",
+  },
+  hire: {
+    title: "Software Engineer in Islamabad, Pakistan · Danish Siddique",
+    description:
+      "Senior software engineer, product developer and AI engineer in Islamabad, Pakistan. Web apps, SaaS and AI features, idea to launch. Remote or on-site.",
   },
 } as const;
 

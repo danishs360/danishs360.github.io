@@ -1,0 +1,236 @@
+---
+// The page for people looking for a software, product or AI engineer in
+// Islamabad. Real services, real proof, real answers; nothing stuffed.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { PAGE_SEO, SITE_URL, SITE_EMAIL, LOCATION } from "../config";
+import { PERSON_ID, address } from "../lib/schema";
+import { kindredWorkplace, kindredPractice, tallyreel, roundZero } from "../data/work";
+
+const path = "/software-engineer-islamabad/";
+
+const services = [
+  {
+    title: "Web apps and SaaS",
+    body: "Products people log into every day: dashboards, booking and billing, real-time features, admin tools. React and TypeScript up front, Node.js or Django behind, Postgres underneath.",
+    tint: "butter",
+  },
+  {
+    title: "AI features that hold up",
+    body: "Assistants that take real actions, AI that remembers users, voice agents, document search and automated notes, with the testing and monitoring that keep them honest in production.",
+    tint: "sky",
+  },
+  {
+    title: "Product engineering, idea to launch",
+    body: "Scoping what to build first, designing it, shipping it, and getting it in front of the first customers. I've done it for my own products and for teams.",
+    tint: "mint",
+  },
+  {
+    title: "Mobile and desktop",
+    body: "Phone apps with Expo, and desktop apps for Mac and Windows, including AI that runs entirely on the user's own machine.",
+    tint: "peach",
+  },
+];
+
+const proof = [kindredWorkplace, kindredPractice, tallyreel, roundZero];
+
+const faqs = [
+  {
+    q: "Where is Danish Siddique based?",
+    a: "In Islamabad, Pakistan. I work remotely with teams in North America, Europe and the Middle East, and can meet in person in Islamabad and Rawalpindi.",
+  },
+  {
+    q: "What kind of software engineering work do you take on?",
+    a: "Full-stack web apps and SaaS, AI features such as assistants, memory and voice agents, and product engineering from idea to launch. I'm open to senior full-time roles and to product builds through my studio, Soonbuilt.",
+  },
+  {
+    q: "Do you work with teams outside Pakistan?",
+    a: "Yes, most of my work is remote. At Kindred I work with a distributed team and overlap comfortably with North American and European hours.",
+  },
+  {
+    q: "What's your tech stack?",
+    a: "TypeScript, React, Next.js, Node.js (NestJS, Fastify), Python (Django, FastAPI), PostgreSQL, AWS and Cloudflare, plus Claude, GPT, Gemini and on-device models for AI work.",
+  },
+  {
+    q: "How do I get in touch?",
+    a: `Email ${SITE_EMAIL}. I usually reply within a day.`,
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}${path}#service`,
+      name: "Danish Siddique · Software & Product Engineering",
+      url: `${SITE_URL}${path}`,
+      image: `${SITE_URL}/og.png`,
+      email: SITE_EMAIL,
+      founder: { "@id": PERSON_ID },
+      address,
+      geo: { "@type": "GeoCoordinates", latitude: LOCATION.lat, longitude: LOCATION.lng },
+      areaServed: [
+        { "@type": "City", name: "Islamabad" },
+        { "@type": "City", name: "Rawalpindi" },
+        { "@type": "Country", name: "Pakistan" },
+        { "@type": "Place", name: "Worldwide (remote)" },
+      ],
+      knowsAbout: services.map((s) => s.title),
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Software engineering services",
+        itemListElement: services.map((s) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: s.title, description: s.body },
+        })),
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={PAGE_SEO.hire.title}
+  description={PAGE_SEO.hire.description}
+  crumb="Software engineer in Islamabad"
+  wide
+>
+  <JsonLd schema={schema} />
+
+  <header class="max-w-3xl">
+    <p class="hand text-ember-ink text-lg -rotate-2 inline-block mb-3">Islamabad, Pakistan · remote worldwide</p>
+    <h1 class="display-title text-[clamp(38px,5.2vw,62px)]">Software engineer &amp; product engineer in Islamabad</h1>
+    <p class="mt-5 text-lg text-ink-dim">
+      I'm Danish Siddique, a senior full-stack software engineer based in Islamabad. For five years I've built
+      products end to end, from the database to the AI features on top, used by thousands of people. At Kindred
+      I build Kindred Workplace and Kindred Practice; on my own I've launched TallyReel and Round Zero.
+    </p>
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8">
+      <a href={`mailto:${SITE_EMAIL}`} class="btn-ember !h-14 !px-7 !text-[17px]">Email me</a>
+      <a href="/projects/" class="textlink">See the case studies</a>
+    </div>
+  </header>
+
+  <section class="pt-24" aria-labelledby="svc-h">
+    <h2 id="svc-h" class="display-title text-[clamp(28px,3.6vw,42px)]">What I build</h2>
+    <div class="grid sm:grid-cols-2 gap-8 mt-10">
+      {
+        services.map((s, i) => (
+          <article class={`note note-${s.tint} !p-7`} style={`--tilt:${[-1.2, 1, 0.8, -1][i]}deg`}>
+            <span class="tape" aria-hidden="true" />
+            <h3 class="note-idea !text-[22px]">{s.title}</h3>
+            <p class="text-[16px] leading-relaxed text-[rgba(28,25,23,.78)]">{s.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="pt-24" aria-labelledby="proof-h">
+    <h2 id="proof-h" class="display-title text-[clamp(28px,3.6vw,42px)]">Proof, not promises</h2>
+    <p class="mt-3 text-ink-dim text-lg max-w-2xl">Products I've built that are live today.</p>
+    <ul class="grid md:grid-cols-2 gap-5 mt-10 list-none p-0">
+      {
+        proof.map((p) => (
+          <li class="bento-card p-6">
+            <div class="flex items-baseline justify-between gap-3 flex-wrap">
+              <h3 class="text-xl font-extrabold tracking-[-0.02em]">{p.name}</h3>
+              {p.url && (
+                <a href={p.url} target="_blank" rel="noopener" class="text-sm text-ink-muted">
+                  {p.urlText} ↗
+                </a>
+              )}
+            </div>
+            <p class="mt-2 text-[15px] text-ink-dim leading-relaxed">{p.line}</p>
+            <ul class="mt-4 flex flex-wrap gap-2 list-none p-0">
+              {p.results.slice(0, 2).map((r) => (
+                <li class="chip !bg-note-butter">
+                  <b class="text-ink-text">{r.value}</b> {r.label}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/projects/" class="textlink mt-8">Read the full case studies →</a>
+  </section>
+
+  <section class="pt-24" aria-labelledby="how-h">
+    <div class="sheet p-7 sm:p-10 grid md:grid-cols-3 gap-8">
+      <div>
+        <h2 id="how-h" class="text-2xl font-extrabold tracking-[-0.02em]">How I work</h2>
+        <p class="hand text-ember-ink mt-2 -rotate-1 inline-block">plainly, and every week</p>
+      </div>
+      <ul class="md:col-span-2 grid gap-4 list-none p-0 m-0 text-ink-dim">
+        <li><b class="text-ink-text">Remote first.</b> Based in Islamabad, working with teams across North America, Europe and the Middle East. In person in Islamabad and Rawalpindi when it helps.</li>
+        <li><b class="text-ink-text">Something you can click, every week.</b> Progress you can see, not a big reveal at the end.</li>
+        <li><b class="text-ink-text">I read every line.</b> I use AI tools to move faster, never to skip the thinking.</li>
+        <li><b class="text-ink-text">Built to last.</b> Tests, monitoring and clear handover, so the product keeps working after launch.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pt-24" aria-labelledby="faq-h">
+    <h2 id="faq-h" class="display-title text-[clamp(28px,3.6vw,42px)]">Questions</h2>
+    <div class="sheet mt-8 px-6 sm:px-8 py-2">
+      {
+        faqs.map((f) => (
+          <details class="faq">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="pt-24 grid place-items-center">
+    <div class="note note-butter text-center items-center !p-10 max-w-xl" style="--tilt:-1.5deg">
+      <span class="tape" aria-hidden="true"></span>
+      <h2 class="hand text-[clamp(28px,4vw,40px)] leading-tight">Building something?</h2>
+      <p class="mt-3 text-[#5a4718]">Tell me what it is. I'll tell you honestly whether I'm the right person for it.</p>
+      <a href="/contact/" class="btn-ember mt-6">Get in touch</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq + .faq {
+    border-top: 1px solid #ebe7e2;
+  }
+  .faq summary {
+    padding: 20px 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary::after {
+    content: "+";
+    float: right;
+    color: #6f6962;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+  }
+  .faq[open] summary::after {
+    content: "–";
+  }
+  .faq p {
+    padding: 0 0 20px;
+    color: #4f4a45;
+  }
+</style>

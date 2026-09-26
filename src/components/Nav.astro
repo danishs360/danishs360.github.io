@@ -6,11 +6,11 @@ interface Props {
 const { activeId } = Astro.props;
 
 const links = [
-  { id: "projects", label: "Work", href: "/projects" },
+  { id: "projects", label: "Work", href: "/projects/" },
   { id: "wiring", label: "How it works", href: "/#wiring" },
   { id: "blog", label: "Writing", href: "/blog/" },
-  { id: "resume", label: "Resume", href: "/resume" },
-  { id: "contact", label: "Contact", href: "/contact" },
+  { id: "resume", label: "Resume", href: "/resume/" },
+  { id: "contact", label: "Contact", href: "/contact/" },
 ];
 
 const linkClass = (id: string) => `nav-link ${activeId === id ? "nav-link-active" : ""}`;
@@ -30,7 +30,7 @@ const linkClass = (id: string) => `nav-link ${activeId === id ? "nav-link-active
       {links.map((l) => <a href={l.href} class={linkClass(l.id)}>{l.label}</a>)}
     </div>
 
-    <a href="/contact" class="btn-ember !h-[38px] !px-4 !text-sm hidden sm:inline-flex">Let's talk</a>
+    <a href="/contact/" class="btn-ember !h-[38px] !px-4 !text-sm hidden sm:inline-flex">Let's talk</a>
 
     <details class="md:hidden relative">
       <summary
@@ -45,7 +45,7 @@ const linkClass = (id: string) => `nav-link ${activeId === id ? "nav-link-active
       <div class="absolute right-0 top-full mt-3 w-56 note note-butter !p-3 !gap-1" style="--tilt: 1.5deg">
         <span class="tape" aria-hidden="true"></span>
         {links.map((l) => <a href={l.href} class={linkClass(l.id)}>{l.label}</a>)}
-        <a href="/contact" class="btn-ember !h-10 mt-2">Let's talk</a>
+        <a href="/contact/" class="btn-ember !h-10 mt-2">Let's talk</a>
       </div>
     </details>
   </nav>
