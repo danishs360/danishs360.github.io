@@ -6,7 +6,7 @@ export const SITE_URL = "https://danishs360.github.io";
 export const SITE_TITLE = "Danish Siddique · Full-Stack Engineer & Agentic AI";
 
 export const SITE_DESCRIPTION =
-  "Full-stack engineer with 5+ years building products end to end. At Kindred I own live video, scheduling, billing, and the agentic AI on top: RAG pipelines, in-app assistants, and developer-loop automation.";
+  "Senior full-stack engineer. At Kindred I lead memory in Kindred Core, the AI service every product calls. Through my studio Soonbuilt I shipped TallyReel and Round Zero.";
 
 export const SITE_AUTHOR = "Danish Siddique";
 
@@ -21,9 +21,9 @@ export const SOCIAL = {
 
 export const PAGE_SEO = {
   projects: {
-    title: "Projects & Systems · Danish Siddique",
+    title: "Work, and how it's wired · Danish Siddique",
     description:
-      "Products and AI systems built by Danish Siddique: Round Zero, Kindred Practice, live voice agents, RAG pipelines, and developer-loop automations.",
+      "TallyReel, Round Zero, Soonbuilt and Kindred Core, each with a diagram of how it's wired: on-device video, live voice AI, agent memory and engineering agents.",
   },
   blog: {
     title: "Blog · Danish Siddique",

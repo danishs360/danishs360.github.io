@@ -1,65 +1,40 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
 import JsonLd from "../components/JsonLd.astro";
-import { Image } from "astro:assets";
+import ProductPin from "../components/ProductPin.astro";
+import ReelWall from "../components/ReelWall.astro";
+import Wiring from "../components/Wiring.astro";
 import { getCollection } from "astro:content";
 import { baseResume } from "../data/resume";
 import createSlug from "../lib/createSlug";
 import { SITE_URL, SITE_DESCRIPTION, SOCIAL } from "../config";
+import {
+  tallyreel,
+  roundZero,
+  soonbuilt,
+  kindredCore,
+  kindredMemory,
+  agentOps,
+  kindredWorkplace,
+  kindredPractice,
+  moreKindred,
+  agents,
+  wirings,
+} from "../data/work";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const stats = [
-  { value: "5+", label: "Years shipping products" },
-  { value: "200+", label: "Therapists in production" },
-  { value: "10+", label: "AI agents deployed" },
-  { value: "4.8k+", label: "Round Zero interviews" },
+const tally = [
+  { value: "3", label: "products live this year" },
+  { value: "200+", label: "therapists on Kindred Practice" },
+  { value: "25", label: "AI capabilities behind one key" },
+  { value: "15", label: "networks from one posting queue" },
 ];
 
-const agents = [
-  {
-    tag: "Dev-loop",
-    title: "Sentry → Pull Request",
-    desc: "Goose agents reproduce incidents and open ready-to-review PRs. 30+ tickets a month, hands-off.",
-    stack: ["Goose", "Sentry", "GitHub"],
-  },
-  {
-    tag: "Dev-loop",
-    title: "Gleap → Pull Request",
-    desc: "User-reported bugs scoped, fixed, and drafted as PRs by agents. Engineers review and merge.",
-    stack: ["Goose", "Gleap", "LLM"],
-  },
-  {
-    tag: "Product AI",
-    title: "Universal in-app agent",
-    desc: "Takes real actions inside the product via tool calls — permissions, guardrails, structured outputs.",
-    stack: ["LangChain", "Inngest", "Tools"],
-  },
-  {
-    tag: "Infrastructure",
-    title: "Production RAG",
-    desc: "Clinical, support, and internal knowledge pipelines. pgvector, eval-driven iteration, ~40% latency cut.",
-    stack: ["pgvector", "Gemini", "GPT"],
-  },
-];
-
-const stack = [
-  "TypeScript",
-  "Python",
-  "React",
-  "Node.js",
-  "Django",
-  "PostgreSQL",
-  "LiveKit",
-  "Deepgram",
-  "LangChain",
-  "RAG",
-  "AWS",
-  "Inngest",
-];
+const kindredNotes = [kindredCore, kindredMemory, agentOps];
+const kindredPrints = [kindredWorkplace, kindredPractice];
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -78,15 +53,19 @@ const personSchema = {
       url: SITE_URL,
       email: "mailto:idanishsiddique@gmail.com",
       jobTitle: "Senior Full-Stack Engineer",
+      worksFor: { "@type": "Organization", name: "Kindred" },
+      founder: { "@type": "Organization", name: "Soonbuilt", url: "https://soonbuilt.com" },
       description: SITE_DESCRIPTION,
       sameAs: [SOCIAL.github, SOCIAL.linkedin],
       knowsAbout: [
         "Full-Stack Development",
-        "Artificial Intelligence",
         "LLM Agents",
+        "Agent Memory",
         "RAG",
+        "On-device AI",
+        "Voice AI",
         "TypeScript",
-        "React",
+        "Python",
       ],
     },
   ],
@@ -95,263 +74,308 @@ const personSchema = {
 
 <BaseLayout sideBarActiveItemID="home" wide>
   <JsonLd schema={personSchema} />
-  <!-- ═══ HERO ═══ -->
-  <section class="relative min-h-[88vh] flex items-center -mt-8 mb-20">
-    <div class="absolute inset-0 bg-hero-glow pointer-events-none" aria-hidden="true"></div>
-    <div
-      class="absolute top-1/4 -right-32 w-96 h-96 rounded-full bg-ember/10 blur-[100px] animate-float pointer-events-none"
-      aria-hidden="true"
-    >
-    </div>
-    <div
-      class="absolute bottom-0 -left-32 w-80 h-80 rounded-full bg-indigo-500/10 blur-[100px] animate-float pointer-events-none"
-      style="animation-delay: -3s"
-      aria-hidden="true"
-    >
+
+  <!-- ═══ HERO: the wall ═══ -->
+  <section class="intro" aria-labelledby="hero-h">
+    <div class="hero-copy">
+      <p class="hand text-ember-ink text-lg -rotate-2 mb-4 inline-block">hi, I'm Danish</p>
+      <h1 id="hero-h" class="display-title text-[clamp(44px,5.6vw,72px)] !tracking-[-0.04em] !leading-[1.02]">
+        I build the product, and the AI <span class="hand text-ember !tracking-[-0.02em]">underneath it.</span>
+      </h1>
+      <p class="mt-6 text-[clamp(18px,1.6vw,20px)] leading-normal text-ink-dim max-w-[31em]">
+        Senior full-stack engineer. At Kindred I lead the memory work in Kindred Core, the AI service every
+        product there calls. After hours I run Soonbuilt, which just shipped TallyReel and Round Zero.
+      </p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3.5 mt-8">
+        <a href="#work" class="btn-ember !h-14 !px-7 !text-[17px]">See what's on the wall</a>
+        <a href="#wiring" class="textlink">
+          <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"></path></svg>
+          <span>or see how it's wired</span>
+        </a>
+      </div>
+      <p class="mt-5 text-[15px] text-ink-muted">Islamabad · remote · open to senior full-stack and applied AI roles</p>
     </div>
 
-    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center w-full relative z-10">
-      <div>
-        <div
-          class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass text-sm mb-8 animate-fade-up"
-        >
-          <span class="relative flex h-2 w-2">
-            <span
-              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-            ></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-          </span>
-          <span class="text-ink-dim"
-            >Building at <strong class="text-ink-text font-medium">Kindred</strong> · Launched
-            <a href="https://joinroundzero.com" class="text-ember hover:underline" target="_blank"
-              >Round Zero</a
-            ></span
+    <div class="hero-wall" aria-label="What I've been working on">
+      <p class="hand hw-arrow" aria-hidden="true">made on a laptop →</p>
+
+      <a href="#tallyreel" class="note note-peach hw-live">
+        <span class="tape" aria-hidden="true"></span>
+        <span class="note-tag">Just shipped</span>
+        <span class="note-idea">TallyReel: one line in, a finished video out</span>
+        <span class="hw-go">See it <span aria-hidden="true">→</span></span>
+      </a>
+
+      <figure class="print hw-print">
+        <span class="tape" aria-hidden="true"></span>
+        <div class="print-frame">
+          <video
+            id="heroVideo"
+            muted
+            playsinline
+            loop
+            autoplay
+            preload="metadata"
+            poster="/media/tallyreel/ocean-depth.jpg"
+            aria-label="A real video made by TallyReel from the line: How deep the ocean really is"
           >
+            <source src="/media/tallyreel/ocean-depth.mp4" type="video/mp4" />
+          </video>
+          <button class="hw-sound" id="heroSound" type="button" aria-pressed="false" aria-label="Turn sound on">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path><path d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"></path></svg>
+          </button>
         </div>
+        <figcaption>a real TallyReel render, unedited</figcaption>
+      </figure>
 
-        <h1
-          class="display-title text-[clamp(2.75rem,7vw,5.5rem)] mb-6 animate-fade-up"
-          style="animation-delay: 0.1s"
-        >
-          Full-stack engineer.<br />
-          <span class="italic text-ember">Agentic</span> builder.<br />
-          Products that ship.
-        </h1>
-
-        <p
-          class="text-lg sm:text-xl text-ink-dim max-w-xl leading-relaxed mb-8 animate-fade-up"
-          style="animation-delay: 0.2s"
-        >
-          I own products end to end — React &amp; TypeScript up front, Node &amp; Django behind them,
-          and the AI systems on top: live voice agents, RAG pipelines, and automations that turn
-          incidents into merged pull requests.
-        </p>
-
-        <div class="flex flex-wrap gap-3 animate-fade-up" style="animation-delay: 0.3s">
-          <a href="/projects" class="btn-ember">See my work →</a>
-          <a href="/resume" class="btn-ghost-line">Resume</a>
-          <a href="/contact" class="btn-ghost-line hidden sm:inline-flex">Contact</a>
-        </div>
-
-        <!-- Recruiter scan line -->
-        <div
-          class="mt-10 pt-8 border-t border-ink-line grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fade-up"
-          style="animation-delay: 0.4s"
-        >
-          {
-            stats.map((s) => (
-              <div>
-                <div class="font-display text-2xl sm:text-3xl text-ink-text">{s.value}</div>
-                <div class="text-[11px] font-mono uppercase tracking-wider text-ink-muted mt-1">
-                  {s.label}
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div class="relative flex justify-center lg:justify-end animate-fade-up" style="animation-delay: 0.25s">
-        <div class="relative">
-          <div
-            class="absolute -inset-4 rounded-3xl bg-gradient-to-br from-ember/40 via-transparent to-indigo-500/30 blur-2xl opacity-60"
-            aria-hidden="true"
-          >
-          </div>
-          <div class="relative rounded-3xl overflow-hidden ring-1 ring-ink-line shadow-2xl">
-            <Image
-              src="/profile.webp"
-              width={500}
-              height={500}
-              format="webp"
-              alt="Danish Siddique"
-              class="w-full max-w-[340px] lg:max-w-[400px] aspect-square object-cover"
-            />
-          </div>
-          <!-- Floating identity card -->
-          <div class="absolute -bottom-4 -left-4 sm:-left-8 glass rounded-xl px-4 py-3 shadow-xl max-w-[220px]">
-            <div class="font-mono text-[10px] uppercase tracking-wider text-ember mb-1">Currently</div>
-            <div class="text-sm font-medium leading-snug">Senior Full-Stack · Agentic AI</div>
-            <div class="text-xs text-ink-muted mt-1">Islamabad · Remote</div>
-          </div>
-        </div>
-      </div>
+      <a href="#soonbuilt" class="note note-butter hw-2">
+        <span class="tape" aria-hidden="true"></span>
+        <span class="note-tag">My studio</span>
+        <span class="note-idea">Soonbuilt: AI that runs on your computer</span>
+      </a>
+      <a href="#kindred" class="note note-sky hw-3">
+        <span class="note-tag">At Kindred</span>
+        <span class="note-idea">Kindred Core: one AI service, every product</span>
+      </a>
+      <a href="#round-zero" class="note note-mint hw-4">
+        <span class="tape" aria-hidden="true"></span>
+        <span class="note-tag">Live</span>
+        <span class="note-idea">Round Zero: interviews with a voice AI</span>
+      </a>
+      <a href="#wiring" class="note note-lilac hw-5">
+        <span class="note-tag">Memory</span>
+        <span class="note-idea">Supersede, don't delete. Forget on request.</span>
+      </a>
+      <a href="#reels" class="mini-print hw-mp" aria-label="Watch more TallyReel videos">
+        <span class="print-frame"><img src="/media/tallyreel/pompeii.jpg" alt="" width="540" height="960" /></span>
+      </a>
     </div>
   </section>
 
-  <!-- ═══ FEATURED LAUNCH ═══ -->
-  <section class="mb-24">
-    <div class="flex items-end justify-between mb-8 gap-4">
-      <div>
-        <p class="section-label mb-2">Latest launch</p>
-        <h2 class="display-title text-3xl sm:text-4xl">Round Zero</h2>
-      </div>
-      <a
-        href="https://joinroundzero.com"
-        target="_blank"
-        class="btn-ghost-line !text-xs shrink-0 hidden sm:inline-flex"
-        >joinroundzero.com ↗</a
-      >
-    </div>
-    <HorizontalCard
-      title="Take the interview before the interview"
-      img="/projects/round-zero.png"
-      desc="Job-search prep in one calm place: honest resume tailoring, cited company research, and live voice AI interviews that adapt, push back, and score you. Maeve remembers every session. 4,800+ interviews completed in early access."
-      url="https://joinroundzero.com"
-      badge="Live"
-      variant="featured"
-    />
-  </section>
-
-  <!-- ═══ BENTO WORK GRID ═══ -->
-  <section class="mb-24">
-    <p class="section-label mb-2">Selected work</p>
-    <h2 class="display-title text-3xl sm:text-4xl mb-8">Products I've shipped</h2>
-    <div class="grid md:grid-cols-2 gap-4">
-      <HorizontalCard
-        title="Kindred Practice"
-        img="/projects/kindred-practice.png"
-        desc="AI practice management for 200+ therapists. Video, automated notes, RAG clinical chat, scheduling, billing."
-        url="https://kindredpractice.com"
-        badge="Live"
-      />
-      <HorizontalCard
-        title="Kindred Workplace"
-        img="/projects/kindred-workplace.png"
-        desc="Emotional-intelligence platform for teams. Full-stack, real-time features, embedded AI — my current day job."
-        url="https://kindredworkplace.com"
-        badge="Current"
-      />
-    </div>
-    <div class="mt-4 text-center">
-      <a href="/projects" class="text-sm font-mono text-ember hover:underline">View all projects →</a>
-    </div>
-  </section>
-
-  <!-- ═══ AGENT SYSTEMS ═══ -->
-  <section class="mb-24">
-    <p class="section-label mb-2">Agent systems</p>
-    <h2 class="display-title text-3xl sm:text-4xl mb-3">AI that runs in production</h2>
-    <p class="text-ink-dim max-w-2xl mb-8">
-      Not demos. Systems handling real traffic, real money, and real clinical data — with guardrails,
-      evals, and monitoring.
-    </p>
-    <div class="grid sm:grid-cols-2 gap-4">
+  <!-- the tally -->
+  <section class="mt-10 sm:mt-4" aria-label="In numbers">
+    <ul class="tally">
       {
-        agents.map((a) => (
-          <div class="bento-card p-6 group">
-            <div class="font-mono text-[10px] uppercase tracking-wider text-ember mb-3">{a.tag}</div>
-            <h3 class="font-display text-xl mb-2 group-hover:text-ember transition-colors">{a.title}</h3>
-            <p class="text-sm text-ink-dim leading-relaxed mb-4">{a.desc}</p>
-            <div class="flex flex-wrap gap-1.5">
-              {a.stack.map((t) => (
-                <span class="tag-pill !text-[10px]">{t}</span>
-              ))}
-            </div>
-          </div>
+        tally.map((t) => (
+          <li>
+            <b>{t.value}</b>
+            <span>{t.label}</span>
+          </li>
         ))
       }
+    </ul>
+  </section>
+
+  <!-- ═══ PINNED WORK ═══ -->
+  <section class="block" id="work" aria-labelledby="work-h">
+    <div class="head-left">
+      <h2 id="work-h" class="display-title text-[clamp(32px,4.2vw,48px)]">Three products on the wall. All live.</h2>
+      <p class="mt-4 text-ink-dim text-lg">
+        Built and run through Soonbuilt, my studio: design, code, infrastructure, billing and the launch.
+      </p>
+      <p class="hand head-aside" aria-hidden="true">all mine, start to finish</p>
+    </div>
+    <div class="grid gap-20 sm:gap-24 mt-14">
+      <ProductPin product={tallyreel} />
+      <ProductPin product={roundZero} flip />
+      <ProductPin product={soonbuilt} />
     </div>
   </section>
 
-  <!-- ═══ EXPERIENCE TIMELINE ═══ -->
-  <section class="mb-24">
-    <p class="section-label mb-2">Experience</p>
-    <h2 class="display-title text-3xl sm:text-4xl mb-8">Where I've built</h2>
-    <div class="space-y-0">
+  <!-- ═══ REELS ═══ -->
+  <section class="block" id="reels" aria-labelledby="reels-h">
+    <div class="head-left">
+      <h2 id="reels-h" class="display-title text-[clamp(32px,4.2vw,48px)]">Every note here became a real video</h2>
+      <p class="mt-4 text-ink-dim text-lg">
+        Each idea was typed into TallyReel as one line and rendered on a laptop without a single edit. Peel a note
+        to watch what it turned into, with sound.
+      </p>
+      <p class="hand head-aside" aria-hidden="true">go on, peel one</p>
+    </div>
+    <div class="mt-10">
+      <ReelWall />
+    </div>
+  </section>
+
+  <!-- ═══ KINDRED ═══ -->
+  <section class="block" id="kindred" aria-labelledby="kindred-h">
+    <div class="head-left">
+      <h2 id="kindred-h" class="display-title text-[clamp(32px,4.2vw,48px)]">At Kindred: the AI underneath the products</h2>
+      <p class="mt-4 text-ink-dim text-lg">
+        Kindred makes mental-health and emotional-intelligence products. Since 2023 I've gone from building one of
+        them end to end to working on the shared layer they all stand on.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-7 mt-12">
       {
-        baseResume.experience.map((job, i) => (
-          <div class="relative pl-8 pb-10 border-l border-ink-line last:pb-0">
-            <div class="absolute left-0 top-1.5 -translate-x-1/2 w-3 h-3 rounded-full bg-ink-card ring-2 ring-ember" />
-            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
-              <h3 class="font-display text-xl text-ink-text">
-                {job.company}
-                {job.note && <span class="text-ink-muted text-base font-sans">{job.note}</span>}
-              </h3>
-              <span class="font-mono text-xs text-ink-muted">{job.meta}</span>
-            </div>
-            <p class="text-sm text-ember font-medium mb-2">{job.title}</p>
-            <p class="font-mono text-[11px] text-ink-muted mb-3">{job.stack}</p>
-            <ul class="space-y-1.5">
-              {job.bullets.slice(0, 2).map((b) => (
-                <li class="text-sm text-ink-dim leading-relaxed pl-0" set:html={`• ${b}`} />
+        kindredNotes.map((k, i) => (
+          <article class={`note note-${k.tint} kin-note`} style={`--tilt:${[-1.5, 1, -1][i]}deg`}>
+            <span class="tape" aria-hidden="true" />
+            <span class="note-tag">{k.kicker}</span>
+            <h3 class="text-[22px] font-extrabold tracking-[-0.02em] leading-tight">{k.name}</h3>
+            <p class="note-idea !text-[17px]">{k.line}</p>
+            <ul class="kin-facts">
+              {k.facts.slice(0, 3).map((f) => (
+                <li>{f}</li>
               ))}
             </ul>
-            {i === 0 && (
-              <a href="/resume" class="inline-block mt-3 text-xs font-mono text-ember hover:underline">
-                Full resume →
-              </a>
-            )}
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 mt-16">
+      {
+        kindredPrints.map((k, i) => (
+          <a href={k.url} target="_blank" rel="noopener" class="group no-underline text-ink-text">
+            <figure class="print" style={`transform: rotate(${i ? 1 : -1}deg)`}>
+              <span class="tape" aria-hidden="true" />
+              <div class="print-frame !bg-white aspect-[16/10]">
+                <img src={k.img} alt={k.imgAlt} loading="lazy" class="object-top transition-transform duration-500 group-hover:scale-[1.02]" />
+              </div>
+            </figure>
+            <div class="mt-5 flex items-baseline gap-3 flex-wrap">
+              <h3 class="text-2xl font-extrabold tracking-[-0.02em]">{k.name}</h3>
+              <span class="text-sm text-ink-muted">{k.urlText} ↗</span>
+            </div>
+            <p class="mt-2 text-ink-dim text-[16px]">{k.body}</p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-14">
+      {
+        moreKindred.map((m) => (
+          <article class="bento-card p-6">
+            <h3 class="text-lg font-extrabold tracking-[-0.01em]">{m.name}</h3>
+            <p class="mt-2 text-[15px] text-ink-dim leading-relaxed">{m.body}</p>
+            <ul class="mt-4 flex flex-wrap gap-1.5">
+              {m.stack.map((s) => (
+                <li class="chip">{s}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ═══ WIRING ═══ -->
+  <section class="block" id="wiring" aria-labelledby="wiring-h">
+    <div class="head-left">
+      <h2 id="wiring-h" class="display-title text-[clamp(32px,4.2vw,48px)]">How it's wired</h2>
+      <p class="mt-4 text-ink-dim text-lg">
+        The part a screenshot can't show. Pick a system to see what calls what, and where the guardrails sit.
+      </p>
+      <p class="hand head-aside" aria-hidden="true">pick a note</p>
+    </div>
+
+    <div class="wire-tabs" role="tablist" aria-label="Systems">
+      {
+        wirings.map((w, i) => (
+          <button
+            class={`note note-${["sky", "lilac", "peach", "mint", "butter", "butter"][i]} wire-tab`}
+            role="tab"
+            id={`tab-${w.id}`}
+            aria-controls={`panel-${w.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? 0 : -1}
+            style={`--tilt:${[-2, 1.5, -1, 2, -1.5, 1][i]}deg`}
+            type="button"
+          >
+            <span class="note-idea !text-[17px]">{w.tab}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      wirings.map((w, i) => (
+        <div role="tabpanel" id={`panel-${w.id}`} aria-labelledby={`tab-${w.id}`} hidden={i !== 0} class="wire-panel">
+          <Wiring wiring={w} />
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- ═══ AGENTS ═══ -->
+  <section class="block" aria-labelledby="agents-h">
+    <div class="head-left">
+      <h2 id="agents-h" class="display-title text-[clamp(32px,4.2vw,48px)]">AI that runs in production</h2>
+      <p class="mt-4 text-ink-dim text-lg">
+        Not demos. Systems handling real users, real money and real clinical data, with guardrails, evals and
+        tracing on every call.
+      </p>
+    </div>
+    <div class="board mt-10">
+      {
+        agents.map((a) => (
+          <div class="board-col">
+            <b>{a.tag}</b>
+            <div class={`card note-${a.tint}`}>
+              <strong>{a.title}</strong>
+              <small>{a.desc}</small>
+            </div>
           </div>
         ))
       }
     </div>
   </section>
 
-  <!-- ═══ STACK ═══ -->
-  <section class="mb-24">
-    <p class="section-label mb-2">Stack</p>
-    <h2 class="display-title text-3xl sm:text-4xl mb-6">Tools I reach for</h2>
-    <div class="flex flex-wrap gap-2">
-      {stack.map((t) => <span class="tag-pill">{t}</span>)}
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section class="block" aria-labelledby="exp-h">
+    <div class="grid lg:grid-cols-[4fr_8fr] gap-10 lg:gap-14 items-start">
+      <div>
+        <h2 id="exp-h" class="display-title text-[clamp(32px,4vw,46px)]">Where I've built</h2>
+        <p class="mt-4 text-ink-dim">Five years of shipping, most of it with AI somewhere in the loop.</p>
+        <a href="/resume" class="textlink mt-6">Full resume →</a>
+      </div>
+      <ol class="sheet p-6 sm:p-8 list-none m-0">
+        {
+          baseResume.experience.map((job) => (
+            <li class="exp">
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 class="text-xl font-extrabold tracking-[-0.02em]">
+                  {job.company}
+                  {job.note && <span class="text-ink-muted text-base font-medium"> {job.note}</span>}
+                </h3>
+                <span class="text-sm text-ink-muted">{job.meta}</span>
+              </div>
+              <p class="hand text-ember-ink mt-1">{job.title}</p>
+              <ul class="mt-3 space-y-1.5">
+                {job.bullets.slice(0, 2).map((b) => (
+                  <li class="text-[15px] text-ink-dim leading-relaxed" set:html={b} />
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
   <!-- ═══ WRITING ═══ -->
   {
     posts.length > 0 && (
-      <section class="mb-24">
-        <div class="flex items-end justify-between mb-8">
-          <div>
-            <p class="section-label mb-2">Writing</p>
-            <h2 class="display-title text-3xl sm:text-4xl">From the blog</h2>
-          </div>
-          <a href="/blog/" class="text-sm font-mono text-ember hover:underline hidden sm:block">
-            All posts →
-          </a>
+      <section class="block" aria-labelledby="blog-h">
+        <div class="flex items-end justify-between gap-4">
+          <h2 id="blog-h" class="display-title text-[clamp(32px,4vw,46px)]">From the notebook</h2>
+          <a href="/blog/" class="textlink hidden sm:inline-flex">All writing →</a>
         </div>
-        <div class="grid gap-4">
-          {posts.map((post) => (
+        <div class="grid md:grid-cols-3 gap-6 mt-10">
+          {posts.map((post, i) => (
             <a
               href={"/blog/" + createSlug(post.data.title, post.slug)}
-              class="bento-card glass-hover p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 group"
+              class={`note note-${["white", "butter", "white"][i]} !p-6 !gap-3 no-underline`}
+              style={`--tilt:${[-1, 1.2, -0.6][i]}deg`}
             >
-              <div class="flex-1">
-                <time class="font-mono text-[10px] uppercase tracking-wider text-ink-muted">
-                  {post.data.pubDate.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-                <h3 class="font-display text-xl mt-1 group-hover:text-ember transition-colors">
-                  {post.data.title}
-                </h3>
-                <p class="text-sm text-ink-dim mt-1 line-clamp-2">{post.data.description}</p>
-              </div>
-              <span class="text-ember font-mono text-sm opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                Read →
-              </span>
+              <time class="note-tag">
+                {post.data.pubDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              </time>
+              <h3 class="text-xl font-extrabold tracking-[-0.02em] leading-snug">{post.data.title}</h3>
+              <p class="text-[15px] text-ink-dim line-clamp-3">{post.data.description}</p>
             </a>
           ))}
         </div>
@@ -359,27 +383,423 @@ const personSchema = {
     )
   }
 
-  <!-- ═══ CTA ═══ -->
-  <section class="relative rounded-3xl overflow-hidden mb-8">
-    <div class="absolute inset-0 bg-gradient-to-br from-ember/20 via-ink-card to-indigo-900/20" aria-hidden="true"></div>
-    <div class="absolute inset-0 ring-1 ring-inset ring-ink-line rounded-3xl" aria-hidden="true"></div>
-    <div class="relative px-8 py-14 sm:py-16 text-center">
-      <h2 class="display-title text-3xl sm:text-5xl mb-4">Let's build something.</h2>
-      <p class="text-ink-dim max-w-lg mx-auto mb-8">
-        Open to senior full-stack and applied AI roles — or conversations about agents, RAG, and
-        product engineering at scale.
+  <!-- ═══ CLOSE ═══ -->
+  <section class="close" aria-labelledby="close-h">
+    <div class="note note-butter note-close">
+      <span class="tape" aria-hidden="true"></span>
+      <h2 id="close-h" class="hand text-[clamp(32px,4.4vw,46px)] leading-tight">What should we build next?</h2>
+      <p class="mt-3 text-lg text-[#5a4718]">
+        Open to senior full-stack and applied AI roles, and to good conversations about agents, memory and
+        on-device AI.
       </p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="/contact" class="btn-ember">Get in touch</a>
-        <a href="/resume/print?auto=1" target="_blank" class="btn-ghost-line">Download resume</a>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mt-7">
+        <a href="/contact" class="btn-ember !h-14 !px-7 !text-[17px]">Get in touch</a>
+        <a href="/resume/print?auto=1" target="_blank" class="textlink">Download my resume</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .animate-fade-up {
-    opacity: 0;
-    animation: fadeUp 0.8s ease-out forwards;
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 40px;
+    align-items: center;
+  }
+  .hero-wall {
+    position: relative;
+    height: 640px;
+    width: 640px;
+    justify-self: end;
+  }
+  .hero-wall > * {
+    position: absolute;
+  }
+  .hero-wall .note {
+    width: 196px;
+    min-height: 150px;
+    text-decoration: none;
+  }
+  .hw-live {
+    left: 0;
+    top: 44px;
+    width: 224px !important;
+    min-height: 196px !important;
+    --tilt: -3deg;
+    z-index: 3;
+    outline: 3px solid #f06a1d;
+    outline-offset: 5px;
+  }
+  .hw-go {
+    margin-top: auto;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 14px;
+    border: 1px solid rgba(28, 25, 23, 0.18);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .hw-arrow {
+    left: 64px;
+    top: -10px;
+    color: #a93a0a;
+    font-size: 18px;
+    transform: rotate(-6deg);
+  }
+  .hw-print {
+    left: 250px;
+    top: 0;
+    width: 214px;
+    z-index: 2;
+    transform: rotate(2deg);
+  }
+  .hw-print .print-frame {
+    aspect-ratio: 9 / 16;
+  }
+  .hw-sound {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(255, 255, 255, 0.94);
+    cursor: pointer;
+  }
+  .hw-sound svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: #1c1917;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.55;
+  }
+  .hw-sound[aria-pressed="true"] svg {
+    stroke: #c7450c;
+    opacity: 1;
+  }
+  .hw-2 {
+    left: 480px;
+    top: 26px;
+    width: 170px !important;
+    --tilt: 3deg;
+  }
+  .hw-3 {
+    left: 12px;
+    top: 318px;
+    --tilt: 2.5deg;
+    z-index: 2;
+  }
+  .hw-4 {
+    left: 478px;
+    top: 250px;
+    width: 172px !important;
+    --tilt: -2deg;
+  }
+  .hw-5 {
+    left: 262px;
+    top: 470px;
+    --tilt: -3.5deg;
+    z-index: 3;
+  }
+  .mini-print {
+    width: 138px;
+    z-index: 1;
+    transition: transform 0.45s cubic-bezier(.16, 1, .3, 1);
+  }
+  .mini-print .print-frame {
+    display: block;
+    aspect-ratio: 9 / 16;
+  }
+  .hw-mp {
+    left: 494px;
+    top: 452px;
+    transform: rotate(5deg);
+  }
+  .mini-print:hover {
+    transform: rotate(0) translateY(-6px);
+  }
+
+  .tally {
+    list-style: none;
+    margin: 0;
+    padding: 20px 8px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    border-top: 1px solid #ebe7e2;
+    border-bottom: 1px solid #ebe7e2;
+  }
+  .tally li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tally b {
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .tally span {
+    font-size: 14px;
+    color: #6f6962;
+  }
+
+  .block {
+    padding-top: 120px;
+  }
+  .head-left {
+    position: relative;
+    max-width: 660px;
+  }
+  .head-aside {
+    position: absolute;
+    right: -230px;
+    bottom: 6px;
+    color: #a93a0a;
+    font-size: 19px;
+    transform: rotate(-6deg);
+  }
+
+  .kin-note {
+    padding: 26px 24px 24px;
+    gap: 10px;
+  }
+  .kin-facts {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px solid rgba(28, 25, 23, 0.12);
+    display: grid;
+    gap: 8px;
+  }
+  .kin-facts li {
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: rgba(28, 25, 23, 0.74);
+    padding-left: 16px;
+    position: relative;
+  }
+  .kin-facts li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c7450c;
+  }
+
+  .wire-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 14px;
+    margin: 40px 0 44px;
+  }
+  .wire-tab {
+    width: auto;
+    min-height: 0;
+    padding: 12px 18px;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    opacity: 0.72;
+    border-radius: 4px 4px 4px 14px;
+  }
+  .wire-tab[aria-selected="true"] {
+    opacity: 1;
+    box-shadow: 0 0 0 3px #f06a1d, 0 1px 1px rgba(28, 25, 23, 0.06), 0 16px 26px -14px rgba(28, 25, 23, 0.32);
+  }
+  .wire-tab:hover {
+    opacity: 1;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+    padding: 22px;
+    border-radius: 26px;
+    background: #fff;
+    box-shadow: 0 2px 3px rgba(28, 25, 23, 0.08), 0 26px 44px -22px rgba(28, 25, 23, 0.45);
+  }
+  .board-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 210px;
+    padding: 10px;
+    border-radius: 14px;
+    background: #f6f5f3;
+  }
+  .board-col > b {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4f4a45;
+    padding-left: 4px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 4px 4px 4px 14px;
+    box-shadow: 0 1px 1px rgba(28, 25, 23, 0.06), 0 16px 26px -14px rgba(28, 25, 23, 0.32);
+    transform: rotate(-1.5deg);
+  }
+  .board-col:nth-child(even) .card {
+    transform: rotate(1.5deg);
+  }
+  .card strong {
+    font-family: "Shantell Sans", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+  .card small {
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(28, 25, 23, 0.7);
+  }
+
+  .exp + .exp {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #ebe7e2;
+  }
+
+  .close {
+    padding: 130px 0 0;
+    display: grid;
+    place-items: center;
+  }
+  .note-close {
+    width: min(640px, 100%);
+    padding: 46px 40px 40px;
+    align-items: center;
+    text-align: center;
+    --tilt: -1.5deg;
+    gap: 0;
+  }
+
+  @media (max-width: 1100px) {
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .hero-wall {
+      justify-self: center;
+    }
+    .board {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 960px) {
+    .head-aside {
+      position: static;
+      display: inline-block;
+      margin-top: 10px;
+    }
+  }
+  @media (max-width: 700px) {
+    .hero-wall {
+      height: auto;
+      width: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px 18px;
+      padding-top: 14px;
+    }
+    .hero-wall > * {
+      position: relative;
+      left: auto;
+      top: auto;
+    }
+    .hero-wall .note {
+      width: auto !important;
+      min-height: 0 !important;
+    }
+    .hw-live {
+      grid-column: 1 / -1;
+      width: min(420px, calc(100% - 20px)) !important;
+      justify-self: center;
+    }
+    .hw-print {
+      grid-column: 1 / -1;
+      width: min(220px, 62%);
+      justify-self: center;
+    }
+    .hw-arrow,
+    .hw-mp {
+      display: none;
+    }
+    .tally {
+      grid-template-columns: 1fr 1fr;
+    }
+    .board {
+      grid-auto-flow: column;
+      grid-template-columns: none;
+      grid-auto-columns: 180px;
+      overflow-x: auto;
+      padding: 14px;
+    }
+    .block {
+      padding-top: 88px;
+    }
+    .note-close {
+      padding: 36px 22px 28px;
+    }
   }
 </style>
+
+<script>
+  // hero sound toggle
+  const video = document.getElementById("heroVideo") as HTMLVideoElement | null;
+  const sound = document.getElementById("heroSound");
+  if (video && sound) {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause();
+    sound.addEventListener("click", () => {
+      const on = sound.getAttribute("aria-pressed") !== "true";
+      video.muted = !on;
+      if (on) video.play().catch(() => {});
+      sound.setAttribute("aria-pressed", String(on));
+      sound.setAttribute("aria-label", on ? "Turn sound off" : "Turn sound on");
+    });
+  }
+
+  // wiring tabs
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>(".wire-tab")];
+  const select = (tab: HTMLButtonElement) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")!)!.hidden = !on;
+    });
+    dispatchEvent(new Event("wiring:redraw"));
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(t));
+    t.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      const next = tabs[(i + d + tabs.length) % tabs.length];
+      next.focus();
+      select(next);
+    });
+  });
+</script>

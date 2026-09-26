@@ -49,20 +49,20 @@ const articleSchema = {
         format="webp"
         src={heroImage}
         alt={title}
-        class="w-full mb-8 max-h-[380px] object-cover rounded-2xl ring-1 ring-ink-line"
+        class="w-full mb-8 max-h-[380px] object-cover rounded-[10px] border-[6px] border-white shadow-print -rotate-[0.6deg]"
       />
     )}
     <header class="mb-10">
-      <time datetime={publishedISO} class="font-mono text-xs uppercase tracking-wider text-ink-muted">
+      <time datetime={publishedISO} class="hand text-ember-ink text-lg inline-block -rotate-2">
         {displayDate}
       </time>
       <h1 class="display-title text-4xl sm:text-5xl mt-3 mb-4">{title}</h1>
       {description && <p class="text-lg text-ink-dim leading-relaxed">{description}</p>}
       <div class="flex flex-wrap gap-2 mt-4">
-        {badge && <span class="tag-pill !text-ember !border-ember/30">{badge}</span>}
+        {badge && <span class="tag-pill !bg-note-butter !border-transparent">{badge}</span>}
         {
           tags?.map((tag) => (
-            <a href={`/blog/tag/${tag}`} class="tag-pill hover:!text-ember no-underline">
+            <a href={`/blog/tag/${tag}`} class="tag-pill hover:!border-ink-muted no-underline">
               {tag}
             </a>
           ))

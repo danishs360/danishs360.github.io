@@ -1,8 +1,84 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
-import PageHeader from "../components/PageHeader.astro";
+import ProductPin from "../components/ProductPin.astro";
+import Wiring from "../components/Wiring.astro";
 import { PAGE_SEO } from "../config";
+import {
+  tallyreel,
+  roundZero,
+  soonbuilt,
+  kindredCore,
+  kindredMemory,
+  agentOps,
+  kindredWorkplace,
+  kindredPractice,
+  moreKindred,
+  wirings,
+  type Tint,
+} from "../data/work";
+
+const wire = (id: string) => wirings.find((w) => w.id === id)!;
+
+const studio = [
+  { product: tallyreel, wiring: wire("tallyreel") },
+  { product: roundZero, wiring: wire("roundzero") },
+  { product: soonbuilt, wiring: wire("soonbuilt") },
+];
+
+const kindred = [
+  { product: kindredCore, wiring: wire("core") },
+  { product: kindredMemory, wiring: wire("memory") },
+  { product: agentOps, wiring: wire("agentops") },
+];
+
+const workbench: { name: string; body: string; stack: string; tint: Tint; status: string }[] = [
+  {
+    name: "voice-lab",
+    body: "Voice cloning on an Apple-silicon Mac in English, Hindi and Urdu, no API keys. Urdu is transliterated to Devanagari so the Hindi voice can speak it. The research behind TallyReel's cloned voices.",
+    stack: "Python · Chatterbox · pyloudnorm · ffmpeg",
+    tint: "peach",
+    status: "Prototype",
+  },
+  {
+    name: "ClauseGuard",
+    body: "Contract review for freelancers. Flags risky clauses and missing ones, explains them plainly and suggests redlines. Output held to a strict schema, with precision and recall evals per clause type.",
+    stack: "Fastify · React · Zod · evals",
+    tint: "butter",
+    status: "Building",
+  },
+  {
+    name: "DropChat",
+    body: "Chat with your docs from one script tag. Crawl, chunk and embed into pgvector; a Shadow-DOM widget streams cited answers over SSE.",
+    stack: "pgvector · SSE · vanilla JS",
+    tint: "mint",
+    status: "Building",
+  },
+  {
+    name: "mcp-prod",
+    body: "A production template for MCP servers in TypeScript: stdio and Streamable HTTP from one codebase, pluggable storage, tests and CI.",
+    stack: "TypeScript · MCP · Postgres · Vitest",
+    tint: "sky",
+    status: "Open source",
+  },
+  {
+    name: "voice-agent-saas",
+    body: "A deploy-anywhere starter for voice agents: LiveKit Agents, Deepgram and Silero turn detection, with transcripts in Postgres. The seed of Round Zero's voice loop.",
+    stack: "LiveKit · Deepgram · Postgres",
+    tint: "lilac",
+    status: "Open source",
+  },
+];
+
+const earlier = [
+  { name: "Medimap", body: "Find nearby walk-in clinics and urgent care in real time.", url: "https://medimap.ca/", img: "/projects/medimap.png" },
+  { name: "RAG support chatbot · Extendly", body: "Customer-support bot grounded in each customer's own docs. OpenAI, FastAPI, Postgres." },
+  { name: "Trademark infringement detection · Zaytrics", body: "Logo-similarity model at 85%+ accuracy that cut manual review about 70%." },
+  { name: "KindlMedia chat", body: "Real-time chat between clients and businesses with reliable delivery and presence.", url: "https://kb.mycrmsupport.com/kindlmedia1" },
+  { name: "TM Inspector", body: "Trademark monitoring: similarity search, watch lists and infringement alerts." },
+  { name: "ViseWealth", body: "Wealth and portfolio tracking with returns and allocation dashboards." },
+  { name: "WowNFT", body: "NFT marketplace with wallet auth, minting, listings and auctions." },
+  { name: "Liver tumor segmentation", body: "Final-year project: U-Net segmentation of liver and tumors in CT scans." },
+];
 ---
 
 <BaseLayout
@@ -11,164 +87,149 @@ import { PAGE_SEO } from "../config";
   sideBarActiveItemID="projects"
   wide
 >
-  <PageHeader
-    label="Work"
-    title="Projects & systems"
-    description="Products, AI systems, and automations I've built and shipped — from live SaaS platforms to developer-loop agents."
-  />
+  <header class="max-w-3xl">
+    <p class="hand text-ember-ink text-lg -rotate-2 inline-block mb-3">the whole wall</p>
+    <h1 class="display-title text-[clamp(40px,5.4vw,64px)]">Work, and how it's wired</h1>
+    <p class="mt-5 text-lg text-ink-dim">
+      Each product here comes with the diagram I'd draw on a whiteboard if you asked how it works. Soonbuilt
+      things are mine end to end. Kindred things were built with a team, and I say which parts are mine.
+    </p>
+    <nav class="flex flex-wrap gap-2 mt-7" aria-label="Sections">
+      <a href="#studio" class="tag-pill no-underline hover:border-ink-muted">Soonbuilt</a>
+      <a href="#kindred" class="tag-pill no-underline hover:border-ink-muted">Kindred</a>
+      <a href="#workbench" class="tag-pill no-underline hover:border-ink-muted">On the workbench</a>
+      <a href="#earlier" class="tag-pill no-underline hover:border-ink-muted">Earlier</a>
+    </nav>
+  </header>
 
-  <div class="mb-6">
-    <p class="section-label mb-1">Products</p>
-    <h2 class="font-display text-2xl mb-4">Full-stack platforms</h2>
-  </div>
-  <div class="grid gap-4 mb-16">
-    <HorizontalCard
-      title="Round Zero"
-      img="/projects/round-zero.png"
-      desc="Take the interview before the interview. Job-search prep in one calm place: paste a JD, honestly tailor your resume (nothing invented), get a cited company brief, then practice with a live voice AI interviewer that adapts to the role, pushes back like a real panel, and scores you with evidence-backed feedback. Maeve, a persistent AI coach, remembers every session. Application tracker, score trends, and resume history included. Built end-to-end on LiveKit, Deepgram, tool-calling agents, RAG, and Postgres. Launched in early access — 4,800+ interviews completed."
-      url="https://joinroundzero.com"
-      badge="Live"
-      variant="featured"
-    />
-    <HorizontalCard
-      title="ClauseGuard"
-      desc="Contract review for freelancers and small teams. Upload an agreement and it flags risky clauses like net-60 terms, auto-renewals, liability, and missing late fees, explains each one in plain English, and suggests redlines. RAG over a clause library with structured extraction and precision and recall evals."
-      url="#"
-      badge="Building"
-    />
-    <HorizontalCard
-      title="DropChat"
-      desc="Embeddable chat-with-your-content widget. Point it at a website or docs and get a single script tag that drops in a chatbot grounded in that content. Crawl, chunk, and embed into pgvector with streaming answers and citations. Bring your own model, self-hostable, no vendor lock-in."
-      url="#"
-      badge="Building"
-    />
-    <HorizontalCard
-      title="Kindred Workplace"
-      img="/projects/kindred-workplace.png"
-      desc="Emotional-intelligence platform for teams. Currently the product engineer on Kindred Workplace, building full-stack systems, real-time features, and embedded AI."
-      url="https://kindredworkplace.com"
-      badge="Current"
-    />
-    <HorizontalCard
-      title="Kindred Practice (formerly Mynd)"
-      img="/projects/kindred-practice.png"
-      desc="AI-powered practice management platform for therapists. Video sessions, automated note-taking with GPT and Gemini, RAG-based clinical chat, multi-agent workflow automation via LangChain and Inngest, scheduling, and billing. Built on Node.js (TypeScript), Django, AWS Lambda, and React."
-      url="https://kindredpractice.com"
-      badge="Live"
-    />
-    <HorizontalCard
-      title="Medimap"
-      img="/projects/medimap.png"
-      desc="Healthcare platform helping patients find nearby walk-in clinics, urgent care centers, and other providers in real time."
-      url="https://medimap.ca/"
-    />
-    <HorizontalCard
-      title="KindlMedia Chat System"
-      desc="Custom real-time chat system supporting direct communication between clients and businesses, with reliable delivery and live presence."
-      url="https://kb.mycrmsupport.com/kindlmedia1"
-    />
-    <HorizontalCard
-      title="TM Inspector"
-      desc="Trademark inspection and monitoring platform. Automated similarity search, watch-listing, and infringement alerts over global trademark registries."
-      url="#"
-    />
-    <HorizontalCard
-      title="ViseWealth"
-      desc="Personal wealth and portfolio tracking platform. Aggregates accounts, computes returns, and surfaces allocation insights with clean, fast dashboards."
-      url="#"
-    />
-    <HorizontalCard
-      title="WowNFT"
-      desc="NFT marketplace and minting platform. Wallet-based auth, on-chain minting flows, listing/auction support, and a responsive collection browser."
-      url="#"
-    />
-    <HorizontalCard
-      title="Liver Tumor Detection in CT Images"
-      desc="Final-year project. Deep-learning pipeline for automatic liver and tumor segmentation in CT scans using a U-Net based architecture, with preprocessing, augmentation, and evaluation against radiologist-labeled ground truth."
-      url="#"
-      badge="FYP"
-    />
-    <HorizontalCard
-      title="Real-Time Collaborative Whiteboard"
-      desc="Multi-user drawing and brainstorming canvas with low-latency sync, presence, and shape primitives. Built on WebSockets with CRDT-style conflict resolution."
-      url="#"
-    />
-    <HorizontalCard
-      title="URL Shortener with Analytics"
-      desc="Self-hosted link shortener with click tracking, referrer breakdown, and per-link dashboards. Built for speed with edge redirects and aggregated analytics."
-      url="#"
-    />
-    <HorizontalCard
-      title="Markdown Notes App"
-      desc="Local-first markdown note-taking app with tags, full-text search, and seamless sync. Keyboard-driven UX inspired by Obsidian and Bear."
-      url="#"
-    />
-  </div>
+  <!-- ═══ SOONBUILT ═══ -->
+  <section id="studio" class="pt-24" aria-labelledby="studio-h">
+    <div class="flex items-center gap-3 mb-4">
+      <svg viewBox="0 0 40 40" class="w-7 h-7 text-ember-bright" aria-hidden="true"
+        ><path fill="currentColor" d="M4 13a9 9 0 0 1 9-9h7v16h16v7a9 9 0 0 1-9 9H13a9 9 0 0 1-9-9z"></path><rect
+          x="24"
+          y="4"
+          width="12"
+          height="12"
+          rx="4"
+          fill="currentColor"></rect></svg
+      >
+      <h2 id="studio-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Soonbuilt</h2>
+    </div>
+    <p class="text-ink-dim text-lg max-w-2xl">
+      My studio. Three live products, all designed, built, hosted and launched by me.
+    </p>
 
-  <div class="mb-6">
-    <p class="section-label mb-1">AI &amp; automation</p>
-    <h2 class="font-display text-2xl mb-4">Agent systems in production</h2>
-  </div>
-  <div class="grid sm:grid-cols-2 gap-4 mb-16">
-    <HorizontalCard
-      title="Sentry → GitHub Pull Request"
-      desc="Production-incident-to-merged-fix automation. Goose agents subscribe to Sentry, reproduce errors in a sandboxed checkout, and open ready-to-review pull requests with the patch."
-      url="#"
-      badge="Dev-loop"
-    />
-    <HorizontalCard
-      title="Gleap Ticket → GitHub Pull Request"
-      desc="User-reported issues from Gleap routed to Goose agents that scope the change, implement the fix, and open a draft pull request."
-      url="#"
-      badge="Dev-loop"
-    />
-    <HorizontalCard
-      title="Universal In-App AI Agent"
-      desc="A conversational agent capable of executing any action available within the product — tool-using, with structured outputs, permissions, and guardrails on every call."
-      url="#"
-      badge="Product AI"
-    />
-    <HorizontalCard
-      title="Production RAG Pipelines"
-      desc="Multiple RAG systems in production: clinical context for therapists, customer-support grounding, and internal knowledge search."
-      url="#"
-      badge="RAG"
-    />
-    <HorizontalCard
-      title="RAG Customer Support Chatbot (Extendly)"
-      desc="Contextual customer-support chatbot built with OpenAI, FastAPI, and PostgreSQL. Grounded answers in customer-specific documentation."
-      url="#"
-    />
-  </div>
+    {
+      studio.map(({ product, wiring }, i) => (
+        <div class="pt-20">
+          <ProductPin product={product} flip={i % 2 === 1} detail />
+          <div class="mt-14">
+            <Wiring wiring={wiring} />
+          </div>
+        </div>
+      ))
+    }
 
-  <div class="mb-6">
-    <p class="section-label mb-1">Open source</p>
-    <h2 class="font-display text-2xl mb-4">For the agent &amp; RAG community</h2>
-  </div>
-  <div class="grid sm:grid-cols-2 gap-4 mb-16">
-    <HorizontalCard
-      title="mcp-prod"
-      desc="Production-grade TypeScript template for Model Context Protocol servers. Auth, pgvector, Redis, logging, Zod tools, tests, Dockerfile."
-      url="#"
-      badge="Building"
-    />
-    <HorizontalCard
-      title="voice-agent-saas"
-      desc="Deploy-anywhere starter for full-stack voice agents. LiveKit, Deepgram, Postgres for transcripts and RAG — Railway, Fly, or self-host."
-      url="#"
-      badge="Building"
-    />
-  </div>
+    <div class="grid sm:grid-cols-2 gap-10 mt-20">
+      <figure class="print" style="transform: rotate(-1deg)">
+        <span class="tape" aria-hidden="true"></span>
+        <div class="print-frame !bg-white aspect-[16/10]">
+          <img src="/media/soonbuilt/tallyreel-studio-script.webp" alt="TallyReel shows the script it wrote, with one line edited, before anything renders" loading="lazy" class="object-top" />
+        </div>
+        <figcaption>You read and edit the script before anything renders.</figcaption>
+      </figure>
+      <figure class="print" style="transform: rotate(1deg)">
+        <span class="tape" aria-hidden="true"></span>
+        <div class="print-frame !bg-white aspect-[16/10]">
+          <img src="/media/soonbuilt/tallyreel-post.webp" alt="TallyReel Post: a week board of scheduled videos" loading="lazy" class="object-top" />
+        </div>
+        <figcaption>Post: pin a video to the week and it goes out on its own.</figcaption>
+      </figure>
+    </div>
+  </section>
 
-  <div class="mb-6">
-    <p class="section-label mb-1">Earlier</p>
-    <h2 class="font-display text-2xl mb-4">Prior roles</h2>
-  </div>
-  <div class="grid gap-4">
-    <HorizontalCard
-      title="Trademark Infringement Detection (Zaytrics)"
-      desc="ML-based logo similarity system for detecting trademark infringement. Reached 85%+ accuracy and reduced manual review effort by approximately 70%."
-      url="#"
-    />
-  </div>
+  <!-- ═══ KINDRED ═══ -->
+  <section id="kindred" class="pt-32" aria-labelledby="kindred-h">
+    <h2 id="kindred-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Kindred</h2>
+    <p class="mt-3 text-ink-dim text-lg max-w-2xl">
+      Senior full-stack engineer since 2023. I built Kindred Practice end to end, now work across Kindred
+      Workplace, and lead the memory work in Kindred Core, the AI service underneath them all.
+    </p>
+
+    {
+      kindred.map(({ product, wiring }, i) => (
+        <div class="pt-20">
+          <ProductPin product={product} flip={i % 2 === 1} detail />
+          <div class="mt-14">
+            <Wiring wiring={wiring} />
+          </div>
+        </div>
+      ))
+    }
+
+    <div class="grid gap-20 pt-24">
+      <ProductPin product={kindredWorkplace} detail />
+      <ProductPin product={kindredPractice} flip detail />
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-20">
+      {
+        moreKindred.map((m) => (
+          <article class="bento-card p-6">
+            <h3 class="text-lg font-extrabold tracking-[-0.01em]">{m.name}</h3>
+            <p class="mt-2 text-[15px] text-ink-dim leading-relaxed">{m.body}</p>
+            <ul class="mt-4 flex flex-wrap gap-1.5">
+              {m.stack.map((s) => (
+                <li class="chip">{s}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ═══ WORKBENCH ═══ -->
+  <section id="workbench" class="pt-32" aria-labelledby="bench-h">
+    <div class="relative max-w-2xl">
+      <h2 id="bench-h" class="display-title text-[clamp(30px,3.8vw,44px)]">On the workbench</h2>
+      <p class="mt-3 text-ink-dim text-lg">Prototypes, starters and open-source pieces. Some become products.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      {
+        workbench.map((w, i) => (
+          <article class={`note note-${w.tint} !p-6`} style={`--tilt:${[-1.5, 1.2, -0.8, 1.6, -1.2][i]}deg`}>
+            <span class="tape" aria-hidden="true" />
+            <span class="note-tag">{w.status}</span>
+            <h3 class="note-idea !text-[22px]">{w.name}</h3>
+            <p class="text-[15px] leading-relaxed text-[rgba(28,25,23,.78)]">{w.body}</p>
+            <p class="mt-auto pt-2 text-[13px] font-semibold text-[rgba(28,25,23,.6)]">{w.stack}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ═══ EARLIER ═══ -->
+  <section id="earlier" class="pt-32" aria-labelledby="earlier-h">
+    <h2 id="earlier-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Earlier</h2>
+    <p class="mt-3 text-ink-dim text-lg max-w-2xl">Client work and projects from Extendly, Zaytrics and university.</p>
+    <ul class="sheet list-none m-0 mt-10 p-4 sm:p-6 grid sm:grid-cols-2 gap-x-10">
+      {
+        earlier.map((e) => (
+          <li class="py-4 border-b border-ink-line">
+            {e.url ? (
+              <a href={e.url} target="_blank" rel="noopener" class="font-bold text-ink-text no-underline hover:text-ember-ink">
+                {e.name} ↗
+              </a>
+            ) : (
+              <span class="font-bold">{e.name}</span>
+            )}
+            <p class="text-[15px] text-ink-dim mt-1">{e.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>

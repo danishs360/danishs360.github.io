@@ -1,13 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="50%" stop-color="#818cf8"/>
-      <stop offset="100%" stop-color="#f472b6"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="#0f172a"/>
-  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"
-        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
-        font-weight="800" font-size="38" fill="url(#g)">DS</text>
+  <rect width="64" height="64" rx="15" fill="#1c1917"/>
+  <path d="M15 17h34v20c0 6-5 11-11 11H15z" fill="#fff0b0" transform="rotate(-6 32 32)"/>
+  <rect x="24" y="11" width="16" height="7" fill="#ffffff" opacity=".75" transform="rotate(-10 32 14)"/>
+  <circle cx="44" cy="45" r="6" fill="#f06a1d"/>
 </svg>

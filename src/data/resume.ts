@@ -94,23 +94,35 @@ export const contacts: Contact[] = [
 
 export const baseResume: Resume = {
   role: "Senior Full-Stack Engineer · Agentic AI",
-  summary: `<p>I'm a full-stack engineer with 5+ years building products end to end. React and TypeScript on the frontend, Node and Django on the backend, and the database design underneath. For the last few years I've been at <span class="navy">Kindred</span> (formerly Mynd), a mental-health platform used by 200+ therapists and their clients. I owned a lot of the core product there: live video sessions, scheduling, billing, and the AI features that run on top of them.</p><p>Lately most of my work has been agentic. I built a RAG system grounded in real clinical context, an in-app assistant that can take actions on the user's behalf, and a pipeline that turns a Sentry alert into a reviewed PR. I also built and launched <span class="navy">Round Zero</span> (joinroundzero.com), a job-prep platform with honest resume tailoring, cited company research, and live AI voice interviews that score and coach candidates before the real thing. I use Claude Code and Cursor every day to move faster, but not to do the thinking. I still read every line before it ships.</p>`,
+  summary: `<p>I'm a full-stack engineer with 5+ years building products end to end, and lately the AI underneath them. At <span class="navy">Kindred</span> (formerly Mynd) I built Kindred Practice, a platform used by 200+ therapists, and now lead the memory work in <span class="navy">Kindred Core</span>, the AI service every Kindred product calls: memory that can be rebuilt and erased, guardrails that fail closed, and tracing on every call. I also built the agents that turn Sentry alerts and tickets into reviewed pull requests.</p><p>After hours I run <span class="navy">Soonbuilt</span> (soonbuilt.com), a small studio that has shipped <span class="navy">TallyReel</span> (tallyreel.com), an app that makes finished videos on your own computer and posts them to 15 networks, and <span class="navy">Round Zero</span> (joinroundzero.com), live voice AI mock interviews. I use Claude Code and Cursor every day to move faster, but not to do the thinking. I still read every line before it ships.</p>`,
   experience: [
+    {
+      company: "Soonbuilt",
+      note: "(my studio)",
+      meta: "2026 – Present · soonbuilt.com",
+      title: "Founder · Product Engineer",
+      stack: "Python · MLX · llama.cpp · Fastify · Next.js · Expo · LiveKit · Cloudflare Workers · D1 · R2",
+      bullets: [
+        `Built and launched <b>TallyReel</b> (tallyreel.com): a Mac and Windows app that turns one line into a finished video entirely on-device (Qwen3.5 on MLX/llama.cpp, Kokoro voice, Whisper captions, numpy-composed music, ffmpeg), plus a web and mobile service that posts it to <b>15 networks</b> from a pg-boss queue.`,
+        `Built and launched <b>Round Zero</b> (joinroundzero.com): live voice AI mock interviews on LiveKit and Deepgram, with scorecard quotes verified against the transcript and a coach that remembers every session.`,
+        `Built the <b>Soonbuilt</b> site and its idea-search engine on one Cloudflare Worker: parallel web research, a prior-art pass that drops ideas that already exist, and code-level guards that cut unsourced links and figures.`,
+      ],
+    },
     {
       company: "Kindred",
       note: "(formerly Mynd)",
       meta: "Sept 2023 – Present · Remote",
       title: "Senior Full-Stack Engineer",
       stack:
-        "TypeScript · Node.js · Django · AWS Lambda · React · LangChain · Goose · Inngest · LiveKit · Deepgram",
+        "TypeScript · NestJS · Node.js · Django · Postgres/pgvector · AWS · React · Claude · Langfuse · Inngest · Goose · LiveKit",
       bullets: [
+        `Lead the <b>memory system in Kindred Core</b>, the multi-tenant AI service every Kindred product calls: an append-only, bi-temporal store that supersedes instead of deleting, rebuilds by replay, supports per-subject erasure, and recalls with hybrid pgvector + full-text ranking.`,
+        `Built on <b>Kindred Core</b> (NestJS, Postgres RLS, 25 capabilities behind one tenant key): Claude with OpenAI failover, fail-closed guardrails, PII de-identification, and Langfuse tracing on every call; wired products into it with consent-gated events and erasure cascades.`,
         `Built and scaled <b>Kindred Practice (formerly Mynd)</b>, an AI-driven practice-management platform, to <b>200+ therapists</b> and the <b>thousands of clients</b> they serve; owned scheduling, billing, clinical documentation, and AI features end-to-end.`,
-        `Own full-stack delivery of <b>Kindred Workplace</b>, an emotional-intelligence platform for teams, across React, Node.js (TypeScript), and Django, shipping features from architecture through production.`,
         `Architected an event-driven backend on Node.js (TypeScript), Django, and AWS Lambda, integrating real-time video, transcription, and chat via LiveKit, AWS Chime, and Deepgram to power live therapy sessions.`,
-        `Deployed multiple <b>production RAG pipelines</b> (pgvector, custom chunking, eval-driven iteration) across clinical, support, and internal-knowledge surfaces, cutting p95 response latency <b>~40%</b> and LLM/API spend <b>~30%</b> via prompt caching and model routing.`,
-        `Built an <b>in-app AI assistant</b> that takes real actions inside the product through tool calls, with structured outputs, scoped permissions, and per-call guardrails to keep it production-safe.`,
-        `Shipped org-wide <b>developer-loop automations</b>: Sentry incidents and Gleap tickets route through <b>Goose</b> agents that reproduce, implement, and open ready-to-review pull requests, auto-handling <b>30+ incidents and tickets a month</b> and cutting incident-to-fix time significantly.`,
-        `Authored the team's shared <b>Cursor rules</b> and <b>Claude Code</b> skills that encode Kindred's conventions, keeping feature velocity around 2-3x and cutting new-hire ramp from weeks to days.`,
+        `Deployed multiple <b>production RAG pipelines</b> (pgvector, custom chunking, eval-driven iteration), cutting p95 response latency <b>~40%</b> and LLM/API spend <b>~30%</b> via prompt caching and model routing.`,
+        `Shipped <b>Agent Ops</b>: Sentry, Gleap, and Linear events start Inngest flows that run <b>Goose</b> agents in throwaway containers to research, plan, get human approval in Slack, and open pull requests across four product repos, auto-handling <b>30+ incidents and tickets a month</b>.`,
+        `Built an <b>in-app AI assistant</b> that takes real actions inside the product through tool calls, with structured outputs, scoped permissions, and per-call guardrails.`,
       ],
     },
     {
@@ -138,10 +150,16 @@ export const baseResume: Resume = {
   ],
   projects: [
     {
+      name: "TallyReel",
+      url: "https://tallyreel.com",
+      urlText: "tallyreel.com",
+      desc: "One line in, a finished video out, made on your own computer, then posted to 15 networks at the time you pick. On-device Qwen, Kokoro, Whisper and ffmpeg; Fastify, pg-boss, Next.js and Expo for posting.",
+    },
+    {
       name: "Round Zero",
       url: "https://joinroundzero.com",
       urlText: "joinroundzero.com",
-      desc: "Job-search prep platform: honest resume tailoring to a JD, cited company research, live voice interviews with an adaptive AI interviewer (Maeve), evidence-backed scoring, application tracking, and progress trends. Built end-to-end on LiveKit, Deepgram, tool-calling agents, RAG, and Postgres. Launched in early access.",
+      desc: "Job-search prep platform: honest resume tailoring to a JD, cited company research, live voice interviews with an adaptive AI interviewer (Maeve), evidence-backed scoring, application tracking, and progress trends. Built end-to-end on LiveKit, Deepgram, tool-calling agents, RAG, and Postgres.",
     },
     {
       name: "Kindred Workplace",
@@ -157,9 +175,9 @@ export const baseResume: Resume = {
       desc: "AI-powered practice management platform used by 200+ therapists. Video, automated note-taking, RAG-based chat, scheduling, billing.",
     },
     {
-      name: "Developer-Loop Automations",
-      extra: " · internal · Goose-based agents",
-      desc: "Sentry incidents and Gleap tickets routed to Goose agents that scope, implement, and open pull requests.",
+      name: "Kindred Core",
+      extra: " · internal · shared AI service",
+      desc: "Multi-tenant AI API behind every Kindred product: memory, affect, assessments and guardrails behind one key, traced end to end.",
     },
     {
       name: "Medimap",
@@ -170,15 +188,15 @@ export const baseResume: Resume = {
   ],
   skills: [
     { label: "Languages", items: "TypeScript, Python, JavaScript" },
-    { label: "Backend", items: "Node.js, Django, FastAPI, Flask, Fastify" },
-    { label: "Frontend", items: "React, Vue, Tailwind CSS, Chakra UI" },
+    { label: "Backend", items: "Node.js, NestJS, Fastify, Django, FastAPI" },
+    { label: "Frontend", items: "React, Next.js, Expo, Astro, Tailwind CSS" },
     { label: "Testing", items: "Jest, Pytest, Playwright" },
     { label: "Data", items: "PostgreSQL, MongoDB, DynamoDB, Redis, Elasticsearch, pgvector" },
-    { label: "Cloud & DevOps", items: "AWS (Lambda, Chime), GCP, Docker, GitHub Actions, CI/CD" },
+    { label: "Cloud & DevOps", items: "AWS, Cloudflare (Workers, D1, R2), Docker, Pulumi, GitHub Actions" },
     {
       label: "Agentic AI",
       items:
-        "RAG, tool-calling agents, MCP, evals, vector search, prompt caching, LangChain, Claude Code, Cursor, Goose, Inngest, GPT, Gemini, Deepgram, LiveKit",
+        "Agent memory, RAG, tool-calling agents, MCP, evals, Langfuse, on-device models (MLX, llama.cpp), Claude, GPT, Gemini, LiveKit, Deepgram, Whisper, Goose, Inngest",
     },
   ],
   education: [

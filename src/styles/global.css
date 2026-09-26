@@ -2,111 +2,224 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Figtree and Shantell Sans, self-hosted (SIL OFL, see /fonts/OFL-*.txt) */
+@font-face { font-family: "Figtree"; src: url(/fonts/figtree-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url(/fonts/figtree-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url(/fonts/figtree-600.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url(/fonts/figtree-800.woff2) format("woff2"); font-weight: 700 800; font-display: swap; }
+@font-face { font-family: "Shantell Sans"; src: url(/fonts/shantell-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-ink text-ink-text font-sans antialiased;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 64px 64px;
-    background-position: center top;
+    font-size: 17px;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    /* the wall: a quiet dot grid */
+    background-image: radial-gradient(#e7e2dc 1.2px, transparent 1.3px);
+    background-size: 26px 26px;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 
   ::selection {
-    @apply bg-ember/30 text-white;
+    @apply bg-note-butter text-ink-text;
+  }
+
+  a {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  :focus-visible {
+    outline: 3px solid #f06a1d;
+    outline-offset: 3px;
+    border-radius: 8px;
   }
 }
 
 @layer components {
+  /* ---------- surfaces ---------- */
   .glass {
-    @apply bg-ink-card/80 backdrop-blur-xl border border-ink-line;
+    @apply bg-white/90 backdrop-blur-xl border border-ink-line;
   }
 
   .glass-hover {
-    @apply transition-all duration-300 hover:border-ember/40 hover:shadow-[0_0_40px_-12px_rgba(232,99,42,0.35)];
-  }
-
-  .section-label {
-    @apply font-mono text-[11px] uppercase tracking-[0.2em] text-ember;
-  }
-
-  .display-title {
-    @apply font-display text-ink-text leading-[0.95] tracking-tight;
-  }
-
-  .btn-ember {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full
-      bg-ember text-black font-semibold text-sm
-      transition-all duration-300
-      hover:bg-ember-glow hover:shadow-[0_0_32px_-4px_rgba(232,99,42,0.6)]
-      hover:-translate-y-0.5;
-  }
-
-  .btn-ghost-line {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full
-      border border-ink-line text-ink-text font-medium text-sm
-      transition-all duration-300
-      hover:border-ink-muted hover:bg-white/5;
-  }
-
-  .stat-card {
-    @apply glass glass-hover rounded-2xl p-5 relative overflow-hidden;
-  }
-
-  .stat-card::before {
-    content: "";
-    @apply absolute inset-0 bg-card-shine pointer-events-none;
+    @apply transition-all duration-300 ease-paper hover:-translate-y-0.5 hover:shadow-print;
   }
 
   .bento-card {
-    @apply glass glass-hover rounded-2xl overflow-hidden relative;
+    @apply bg-white rounded-[22px] shadow-soft border border-ink-line overflow-hidden relative;
+  }
+
+  .sheet {
+    @apply bg-white rounded-[26px] shadow-print relative;
+  }
+
+  /* ---------- type ---------- */
+  .section-label {
+    @apply font-hand text-[19px] text-ember-ink inline-block;
+    transform: rotate(-3deg);
+  }
+
+  .display-title {
+    @apply font-display font-extrabold text-ink-text;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+  }
+
+  .hand {
+    @apply font-hand font-medium;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn-ember {
+    @apply inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full
+      bg-ember text-white font-semibold text-[15px] no-underline whitespace-nowrap
+      transition-all duration-200 ease-paper
+      hover:bg-ember-glow hover:text-white hover:-translate-y-px;
+    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.14), 0 8px 18px -8px rgba(28, 25, 23, 0.32);
+  }
+
+  .btn-ghost-line {
+    @apply inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full
+      bg-white border border-ink-line2 text-ink-text font-semibold text-[15px] no-underline whitespace-nowrap
+      shadow-soft transition-all duration-200
+      hover:border-ink-muted;
+  }
+
+  .textlink {
+    @apply inline-flex items-center gap-2 font-semibold text-ink-text underline;
+    text-decoration-color: #dcd7d0;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+  }
+  .textlink:hover {
+    @apply text-ember-ink;
+    text-decoration-color: currentColor;
   }
 
   .nav-link {
-    @apply text-sm text-ink-dim transition-colors duration-200 hover:text-ink-text;
+    @apply text-[15px] font-medium text-ink-dim px-3 py-2 rounded-full no-underline transition-colors duration-150 hover:bg-ink-soft hover:text-ink-text;
   }
 
   .nav-link-active {
-    @apply text-ink-text;
+    @apply bg-ink-soft text-ink-text;
   }
 
   .tag-pill {
-    @apply px-3 py-1.5 rounded-full text-xs font-mono
-      border border-ink-line bg-ink-soft/50 text-ink-dim
-      transition-all duration-200 hover:border-ember/50 hover:text-ember;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[13px] font-semibold
+      bg-white border border-ink-line text-ink-dim transition-colors duration-200;
   }
 
+  /* ---------- the wall's two materials: notes and prints ---------- */
+  .note {
+    @apply relative flex flex-col gap-2.5 text-left text-ink-text shadow-note bg-note-peach;
+    padding: 18px 18px 16px;
+    border-radius: 4px 4px 4px 22px;
+    transform: rotate(var(--tilt, -2deg));
+    transition: transform 0.45s cubic-bezier(.16, 1, .3, 1), box-shadow 0.45s cubic-bezier(.16, 1, .3, 1);
+  }
+  a.note:hover,
+  button.note:hover,
+  a.note:focus-visible {
+    transform: rotate(0deg) translateY(-6px) scale(1.02);
+    box-shadow: 0 2px 2px rgba(28, 25, 23, 0.06), 0 26px 36px -16px rgba(28, 25, 23, 0.38);
+  }
+  .note-peach { @apply bg-note-peach; }
+  .note-butter { @apply bg-note-butter; }
+  .note-mint { @apply bg-note-mint; }
+  .note-sky { @apply bg-note-sky; }
+  .note-lilac { @apply bg-note-lilac; }
+  .note-white { @apply bg-white; }
+
+  .note-tag {
+    @apply flex items-center gap-1.5 text-[12.5px] font-semibold;
+    color: rgba(28, 25, 23, 0.68);
+  }
+  .note-idea {
+    @apply font-hand font-medium text-[19px] leading-snug;
+  }
+
+  .tape {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    width: 76px;
+    height: 24px;
+    margin-left: -38px;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    transform: rotate(-4deg);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+  }
+  .tape-left { left: 22%; transform: rotate(-7deg); }
+  .tape-right { left: 78%; transform: rotate(5deg); }
+
+  .print {
+    @apply relative m-0;
+  }
+  .print-frame {
+    @apply relative overflow-hidden rounded-[10px] shadow-print;
+    border: 6px solid #fff;
+    background: #0f0f10;
+  }
+  .print-frame > img,
+  .print-frame > video {
+    @apply block w-full h-full object-cover;
+  }
+  .print figcaption {
+    @apply flex items-center gap-2 mt-3 text-sm text-ink-muted;
+  }
+
+  /* small inline chips used on diagrams */
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-ink-soft text-[13px] font-medium text-ink-dim;
+  }
+
+  /* ---------- long-form ---------- */
   .prose-signal :where(h1, h2, h3) {
-    @apply font-display text-ink-text;
+    @apply font-display font-extrabold text-ink-text;
+    letter-spacing: -0.02em;
   }
 
   .prose-signal {
-    @apply prose prose-invert max-w-none;
-    --tw-prose-body: #9b9ba6;
-    --tw-prose-headings: #e8e6e3;
-    --tw-prose-links: #e8632a;
-    --tw-prose-bold: #e8e6e3;
+    @apply prose max-w-none;
+    --tw-prose-body: #3b3733;
+    --tw-prose-headings: #1c1917;
+    --tw-prose-links: #a93a0a;
+    --tw-prose-bold: #1c1917;
+    --tw-prose-quotes: #4f4a45;
+    --tw-prose-quote-borders: #fff0b0;
+    --tw-prose-code: #1c1917;
+    --tw-prose-pre-bg: #1c1917;
+    --tw-prose-hr: #ebe7e2;
+    --tw-prose-bullets: #c7450c;
+    --tw-prose-counters: #a93a0a;
+  }
+  .prose-signal :where(code):not(:where(pre *)) {
+    @apply bg-ink-soft rounded-md px-1.5 py-0.5 font-medium;
+  }
+  .prose-signal :where(code):not(:where(pre *))::before,
+  .prose-signal :where(code):not(:where(pre *))::after {
+    content: "";
   }
 }
 
 /* Resume timeline (cv component) */
 .time-line-container > div:last-child .education__time > .education__line {
   display: none;
-}
-
-/* Grain overlay */
-.grain::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @media (prefers-reduced-motion: reduce) {

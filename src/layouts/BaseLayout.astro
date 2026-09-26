@@ -21,7 +21,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="signal">
+<html lang="en" data-theme="wall">
   <head>
     <BaseHead
       title={title}
@@ -34,9 +34,9 @@ const {
     />
     {TRANSITION_API && <ViewTransitions />}
   </head>
-  <body class="grain min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col">
     <Nav activeId={sideBarActiveItemID} />
-    <main class:list={["flex-1 w-full mx-auto px-4 sm:px-6 pt-24 pb-20", wide ? "max-w-6xl" : "max-w-3xl"]}>
+    <main class:list={["flex-1 w-full mx-auto px-4 sm:px-6 pt-10 sm:pt-14", wide ? "max-w-6xl" : "max-w-3xl"]}>
       <slot />
     </main>
     <Footer />

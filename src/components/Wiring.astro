@@ -1,0 +1,228 @@
+---
+// A wiring diagram on the wall: columns of notes and cards, joined by
+// hand-drawn connectors. The connectors are measured and drawn in the browser
+// (see the script below); under 760px they give way to simple step arrows.
+import type { Wiring } from "../data/work";
+
+interface Props {
+  wiring: Wiring;
+  showHead?: boolean;
+}
+
+const { wiring, showHead = true } = Astro.props;
+const cols = wiring.columns.length;
+---
+
+<figure class="wiring-wrap m-0">
+  {
+    showHead && (
+      <figcaption class="mb-8 max-w-2xl">
+        <h3 class="display-title text-[clamp(24px,2.6vw,32px)]">{wiring.title}</h3>
+        <p class="mt-3 text-ink-dim text-[17px]">{wiring.lede}</p>
+      </figcaption>
+    )
+  }
+  <div class="sheet p-5 sm:p-8">
+    <div class="wiring" data-edges={JSON.stringify(wiring.edges)} style={`--cols:${cols}`}>
+      <svg class="wiring-lines" aria-hidden="true"></svg>
+      {
+        wiring.columns.map((col, ci) => (
+          <>
+            {ci > 0 && (
+              <p class="wire-step hand" aria-hidden="true">
+                then ↓
+              </p>
+            )}
+            <div class:list={["wire-col", col.group && "wire-group"]}>
+              <div class="wire-label">
+                <span>{col.label}</span>
+                {col.aside && <span class="hand wire-aside">{col.aside}</span>}
+              </div>
+              {col.nodes.map((n, ni) =>
+                n.kind === "box" ? (
+                  <div class="wire-node wire-box" data-node={n.id}>
+                    <b>{n.title}</b>
+                    {n.sub && <small>{n.sub}</small>}
+                  </div>
+                ) : (
+                  <div
+                    class={`wire-node note note-${n.tint ?? "butter"}`}
+                    data-node={n.id}
+                    style={`--tilt:${[-2, 1.5, -1, 2, -1.5][(ci + ni) % 5]}deg`}
+                  >
+                    <b class="note-idea !text-[17px]">{n.title}</b>
+                    {n.sub && <small>{n.sub}</small>}
+                  </div>
+                ),
+              )}
+            </div>
+          </>
+        ))
+      }
+    </div>
+    {wiring.foot && <p class="mt-7 pt-5 border-t border-ink-line text-sm text-ink-muted">{wiring.foot}</p>}
+  </div>
+</figure>
+
+<style>
+  .wiring {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 20px 64px;
+    align-items: center;
+  }
+  .wiring-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wire-col {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .wire-group {
+    padding: 14px;
+    border: 2px dashed #dcd7d0;
+    border-radius: 18px;
+    background: rgba(246, 245, 243, 0.7);
+  }
+  .wire-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #6f6962;
+  }
+  .wire-aside {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 15px;
+    color: #a93a0a;
+    transform: rotate(-2deg);
+    transform-origin: left;
+  }
+  .wire-node {
+    width: auto;
+    min-height: 0;
+    gap: 3px;
+  }
+  .wire-node.note {
+    padding: 12px 14px;
+    border-radius: 4px 4px 4px 16px;
+  }
+  .wire-node small {
+    font-size: 13px;
+    line-height: 1.35;
+    color: rgba(28, 25, 23, 0.66);
+  }
+  .wire-box {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 13px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #ebe7e2;
+    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.05), 0 3px 8px -3px rgba(28, 25, 23, 0.08);
+  }
+  .wire-box b {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .wire-step {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .wiring {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .wiring-lines {
+      display: none;
+    }
+    .wire-step {
+      display: block;
+      margin: 0 0 0 18px;
+      color: #a93a0a;
+      font-size: 17px;
+      transform: rotate(-3deg);
+    }
+  }
+</style>
+
+<script>
+  const NS = "http://www.w3.org/2000/svg";
+
+  function draw(root: HTMLElement) {
+    const svg = root.querySelector<SVGSVGElement>(".wiring-lines");
+    if (!svg || !root.offsetParent || getComputedStyle(svg).display === "none") return;
+    const edges: [string, string, string?][] = JSON.parse(root.dataset.edges || "[]");
+    const box = root.getBoundingClientRect();
+    const rect = (id: string) => root.querySelector(`[data-node="${id}"]`)?.getBoundingClientRect();
+
+    svg.replaceChildren();
+    const defs = document.createElementNS(NS, "defs");
+    const markerId = `ah-${Math.random().toString(36).slice(2, 8)}`;
+    defs.innerHTML = `<marker id="${markerId}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5L8.5 5L1 8.5" fill="none" stroke="#a93a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>`;
+    svg.appendChild(defs);
+
+    edges.forEach(([from, to, style], i) => {
+      const a = rect(from);
+      const b = rect(to);
+      if (!a || !b) return;
+      let d: string;
+      const wobble = ((i % 3) - 1) * 6;
+      if (b.left >= a.right - 4) {
+        // left to right: leave the source's right edge, enter the target's left
+        const x1 = a.right - box.left + 2, y1 = a.top + a.height / 2 - box.top;
+        const x2 = b.left - box.left - 6, y2 = b.top + b.height / 2 - box.top;
+        const dx = Math.max(28, (x2 - x1) * 0.5);
+        d = `M${x1},${y1} C${x1 + dx},${y1 + wobble} ${x2 - dx},${y2 - wobble} ${x2},${y2}`;
+      } else if (a.left >= b.right - 4) {
+        const x1 = a.left - box.left - 2, y1 = a.top + a.height / 2 - box.top;
+        const x2 = b.right - box.left + 6, y2 = b.top + b.height / 2 - box.top;
+        const dx = Math.max(28, (x1 - x2) * 0.5);
+        d = `M${x1},${y1} C${x1 - dx},${y1 + wobble} ${x2 + dx},${y2 - wobble} ${x2},${y2}`;
+      } else {
+        // same column: a short curve from bottom to top, bowed out to the right
+        const down = b.top >= a.bottom;
+        const x1 = a.left + a.width * 0.72 - box.left, y1 = (down ? a.bottom : a.top) - box.top;
+        const x2 = b.left + b.width * 0.72 - box.left, y2 = (down ? b.top - 5 : b.bottom + 5) - box.top;
+        const bow = 26 + Math.abs(y2 - y1) * 0.08;
+        d = `M${x1},${y1} C${x1 + bow},${(y1 + y2) / 2} ${x2 + bow},${(y1 + y2) / 2} ${x2},${y2}`;
+      }
+      const path = document.createElementNS(NS, "path");
+      path.setAttribute("d", d);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "#a93a0a");
+      path.setAttribute("stroke-opacity", style === "dashed" ? "0.55" : "0.8");
+      path.setAttribute("stroke-width", "1.7");
+      path.setAttribute("stroke-linecap", "round");
+      if (style === "dashed") path.setAttribute("stroke-dasharray", "4 6");
+      path.setAttribute("marker-end", `url(#${markerId})`);
+      svg.appendChild(path);
+    });
+  }
+
+  function drawAll() {
+    document.querySelectorAll<HTMLElement>(".wiring").forEach(draw);
+  }
+
+  const ro = new ResizeObserver(() => requestAnimationFrame(drawAll));
+  document.querySelectorAll<HTMLElement>(".wiring").forEach((w) => ro.observe(w));
+  addEventListener("wiring:redraw", drawAll);
+  document.fonts?.ready.then(drawAll);
+  drawAll();
+</script>

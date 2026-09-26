@@ -2,16 +2,33 @@
 const today = new Date();
 ---
 
-<footer class="border-t border-ink-line mt-auto">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-ink-muted">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-ember animate-pulse-slow"></span>
-      <span>© {today.getFullYear()} Danish Siddique</span>
-    </div>
-    <div class="flex items-center gap-6 font-mono text-xs">
-      <a href="https://github.com/danishs360" target="_blank" rel="noopener" class="hover:text-ember transition-colors">GitHub</a>
-      <a href="https://linkedin.com/in/danishs360" target="_blank" rel="noopener" class="hover:text-ember transition-colors">LinkedIn</a>
-      <a href="/rss.xml" class="hover:text-ember transition-colors">RSS</a>
-    </div>
+<footer class="max-w-6xl w-[calc(100%-32px)] sm:w-[calc(100%-48px)] mx-auto mt-24 py-8 border-t border-ink-line print:hidden">
+  <div class="flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-ink-muted">
+    <span class="flex items-center gap-3 mr-auto text-ink-text">
+      <span class="font-extrabold">Danish Siddique</span>
+      <span class="text-ink-muted">© {today.getFullYear()}</span>
+      <a href="https://soonbuilt.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[13px] text-ink-dim no-underline hover:text-ink-text">
+        runs
+        <svg viewBox="0 0 40 40" class="w-3.5 h-3.5" aria-hidden="true"
+          ><path fill="currentColor" d="M4 13a9 9 0 0 1 9-9h7v16h16v7a9 9 0 0 1-9 9H13a9 9 0 0 1-9-9z"></path><rect
+            x="24"
+            y="4"
+            width="12"
+            height="12"
+            rx="4"
+            fill="currentColor"></rect></svg
+        >
+        Soonbuilt
+      </a>
+    </span>
+    <span class="flex flex-wrap gap-5">
+      <a href="https://github.com/danishs360" target="_blank" rel="noopener" class="text-ink-dim no-underline hover:text-ink-text">GitHub</a>
+      <a href="https://linkedin.com/in/danishs360" target="_blank" rel="noopener" class="text-ink-dim no-underline hover:text-ink-text">LinkedIn</a>
+      <a href="/resume" class="text-ink-dim no-underline hover:text-ink-text">Resume</a>
+      <a href="/rss.xml" class="text-ink-dim no-underline hover:text-ink-text">RSS</a>
+    </span>
+    <span class="w-full text-[13px]">
+      Styled after the idea wall on <a href="https://tallyreel.com" target="_blank" rel="noopener" class="text-ink-dim">tallyreel.com</a>. Sample reels are real, unedited TallyReel renders; stock footage from Pexels.
+    </span>
   </div>
 </footer>

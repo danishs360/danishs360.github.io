@@ -36,36 +36,39 @@ import { PAGE_SEO } from "../config";
   <PageHeader
     label="Contact"
     title="Let's talk."
-    description="Open to senior full-stack and applied AI roles, or conversations about agents, RAG, and product engineering. Email is fastest."
+    description="Open to senior full-stack and applied AI roles, client builds through Soonbuilt, or a good conversation about agents, memory and on-device AI. Email is fastest."
   />
 
-  <div class="grid gap-3 mb-10">
+  <div class="grid sm:grid-cols-3 gap-7 mb-14 mt-4">
     {
-      contacts.map((c) => (
+      contacts.map((c, i) => (
         <a
           href={c.href}
           target={c.external ? "_blank" : undefined}
           rel={c.external ? "noopener noreferrer" : undefined}
-          class="bento-card glass-hover flex items-center gap-4 p-5 group"
+          class={`note note-${["butter", "sky", "mint"][i]} !p-6 no-underline`}
+          style={`--tilt:${[-2, 1.5, -1][i]}deg`}
         >
-          <div class="w-10 h-10 rounded-xl bg-ember-dim flex items-center justify-center text-ember shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
+          <span class="tape" aria-hidden="true"></span>
+          <span class="note-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor" aria-hidden="true">
               <path d={c.iconPath} />
             </svg>
-          </div>
-          <div class="flex-grow">
-            <div class="font-medium text-ink-text">{c.label}</div>
-            <div class="text-sm text-ink-dim">{c.value}</div>
-          </div>
-          <span class="text-ember opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            {c.label}
+          </span>
+          <span class="note-idea break-words">{c.value}</span>
         </a>
       ))
     }
   </div>
 
-  <div class="bento-card p-6">
-    <h3 class="font-display text-xl mb-2">Prefer a document?</h3>
-    <p class="text-sm text-ink-dim mb-4">Structured overview of experience, projects, and skills.</p>
-    <a href="/danish-siddique-resume.pdf" target="_blank" class="btn-ghost-line !text-sm">Download resume (PDF)</a>
+  <div class="sheet p-7 sm:p-8">
+    <p class="hand text-ember-ink text-lg -rotate-2 inline-block">prefer paper?</p>
+    <h2 class="text-2xl font-extrabold tracking-[-0.02em] mt-2">The resume, as a document</h2>
+    <p class="text-ink-dim mt-2 mb-6">Experience, products and skills on one page.</p>
+    <div class="flex flex-wrap gap-4 items-center">
+      <a href="/resume/print?auto=1" target="_blank" class="btn-ember">Save as PDF</a>
+      <a href="/resume" class="textlink">Read it here</a>
+    </div>
   </div>
 </BaseLayout>

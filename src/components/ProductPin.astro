@@ -1,0 +1,193 @@
+---
+// A product pinned to the wall: a taped print of the real thing, with the
+// pitch on a sticky note stuck to its corner and the facts written beside it.
+import type { Product } from "../data/work";
+
+interface Props {
+  product: Product;
+  flip?: boolean;
+  detail?: boolean;
+}
+
+const { product: p, flip = false, detail = false } = Astro.props;
+const statusTone = p.status === "Live" || p.status === "In production" ? "live" : "soon";
+---
+
+<article class:list={["pin-row", flip && "pin-flip"]} id={p.slug}>
+  <div class="pin-visual">
+    {
+      p.img ? (
+        <figure class="print pin-print">
+          <span class="tape tape-left" aria-hidden="true" />
+          <span class="tape tape-right" aria-hidden="true" />
+          <div class="print-frame !bg-white">
+            <img src={p.img} alt={p.imgAlt ?? p.name} loading="lazy" decoding="async" />
+          </div>
+        </figure>
+      ) : (
+        <div class="pin-blank sheet">
+          <span class="tape" aria-hidden="true" />
+          <p class="hand text-ember-ink text-lg -rotate-2">what's inside</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {p.stack.map((s) => (
+              <li class="chip">{s}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    <div class={`note note-${p.tint} pin-note`} style={`--tilt:${flip ? 3 : -3}deg`}>
+      <span class="tape" aria-hidden="true"></span>
+      <span class="note-tag">{p.kicker}</span>
+      <span class="note-idea">{p.line}</span>
+    </div>
+  </div>
+
+  <div class="pin-copy">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <h3 class="display-title text-[clamp(28px,3.2vw,40px)]">{p.name}</h3>
+      <span class:list={["status", statusTone]}>{p.status}</span>
+    </div>
+    <p class="text-ink-dim text-[17px] leading-relaxed">{p.body}</p>
+    <ul class="checks mt-5">
+      {
+        (detail ? p.facts : p.facts.slice(0, 3)).map((f) => (
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+            <span>{f}</span>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      p.img && (
+        <ul class="mt-5 flex flex-wrap gap-1.5">
+          {p.stack.map((s) => (
+            <li class="chip">{s}</li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      p.url && (
+        <a href={p.url} target="_blank" rel="noopener" class="textlink mt-6">
+          {p.urlText} ↗
+        </a>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .pin-row {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: 56px;
+    align-items: center;
+  }
+  .pin-flip .pin-visual {
+    order: 2;
+  }
+  .pin-visual {
+    position: relative;
+    padding: 16px 0 40px;
+  }
+  .pin-print {
+    transform: rotate(-1deg);
+  }
+  .pin-flip .pin-print {
+    transform: rotate(1deg);
+  }
+  .pin-print .print-frame {
+    aspect-ratio: 16 / 10;
+  }
+  .pin-print img {
+    object-position: top;
+  }
+  .pin-blank {
+    padding: 36px 30px 96px;
+    transform: rotate(-0.8deg);
+  }
+  .pin-note {
+    position: absolute;
+    width: 230px;
+    right: -18px;
+    bottom: 0;
+    z-index: 4;
+  }
+  .pin-flip .pin-note {
+    right: auto;
+    left: -18px;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 11px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .status.live {
+    background: #e3f4ea;
+    color: #16703c;
+  }
+  .status.soon {
+    background: #fff0b0;
+    color: #6b5310;
+  }
+  .checks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 9px;
+  }
+  .checks li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 15.5px;
+    line-height: 1.45;
+    color: #4f4a45;
+  }
+  .checks .ic {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    padding: 4px;
+    margin-top: -1px;
+    border-radius: 50%;
+    background: #fff0b0;
+    fill: none;
+    stroke: #a93a0a;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  @media (max-width: 900px) {
+    .pin-row {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .pin-flip .pin-visual {
+      order: 0;
+    }
+    .pin-note {
+      width: 200px;
+      right: 4px;
+    }
+    .pin-flip .pin-note {
+      left: 4px;
+    }
+  }
+</style>
