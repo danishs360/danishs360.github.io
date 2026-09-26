@@ -11,7 +11,7 @@ interface ChatMessage {
   content: string;
 }
 
-const MODEL = "llama-3.3-70b-versatile";
+const MODEL = "openai/gpt-oss-120b";
 const MAX_USER_CHARS = 2000;
 const MAX_HISTORY = 12;
 
