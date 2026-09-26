@@ -21,9 +21,9 @@ export const SOCIAL = {
 
 export const PAGE_SEO = {
   projects: {
-    title: "Work, and how it's wired · Danish Siddique",
+    title: "Work · Danish Siddique",
     description:
-      "TallyReel, Round Zero, Soonbuilt and Kindred Core, each with a diagram of how it's wired: on-device video, live voice AI, agent memory and engineering agents.",
+      "Kindred Workplace, Kindred Practice, TallyReel and Round Zero: what each product does for people, what Danish built, and how it works.",
   },
   blog: {
     title: "Blog · Danish Siddique",

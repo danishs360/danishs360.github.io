@@ -19,12 +19,13 @@ studio that has shipped TallyReel and Round Zero.
 - Studio: https://soonbuilt.com
 - Open to senior full-stack and applied AI roles.
 
-# Headline numbers
-- 5+ years shipping products
-- 3 products live through Soonbuilt (TallyReel, Round Zero, the Soonbuilt site)
-- 200+ therapists on Kindred Practice
-- 25 AI capabilities behind one key in Kindred Core
-- 15 social networks posted to from one TallyReel queue
+# Headline results
+- 8,300+ people across 21 companies on Kindred Workplace, which he builds
+- 200+ therapists run their practice on Kindred Practice; he is its top contributor
+  over three years (4,400+ commits)
+- 3 products launched on his own in 2026 through Soonbuilt
+- 30+ bugs and tickets a month fixed by the AI agents he built at Kindred
+- ~40% faster AI responses and ~30% lower AI costs on Kindred Practice
 
 # Soonbuilt — https://soonbuilt.com
 His studio: "AI that lives on your computer. Pay once. Keep it." It sells its own
@@ -97,9 +98,13 @@ base by a GitHub Action Danish built. One Inngest run is one Langfuse trace. A
 model-routing fix took the knowledge-match step from 412s to 63s.
 
 ## Kindred Workplace — https://kindredworkplace.com
-Emotional-intelligence platform for teams, his current product. Its coach works in
-text and voice; each turn pulls context from Kindred Core, and confirmed claims and
-check-ins flow back as memories and affect observations.
+Emotional-intelligence platform for companies, his main product now. 8,300+ people
+across 21 companies. People take an EQ assessment, get coached by Paige (chat and
+voice, also inside Slack and Microsoft Teams), run 360 feedback, and companies see
+team reports. Danish built Analyze from scratch (upload or record a real
+conversation and see how each person showed up, up to 90 minutes), made Paige
+context-aware with release-gating evals, built the Slack and Teams integrations,
+partner referrals and admin adoption dashboards, and took it to production on AWS.
 
 ## Kindred Practice (formerly Mynd) — https://kindredpractice.com
 AI practice management for 200+ therapists: live video sessions, automated notes

@@ -12,13 +12,11 @@ import {
   tallyreel,
   roundZero,
   soonbuilt,
-  kindredCore,
-  kindredMemory,
-  agentOps,
   kindredWorkplace,
   kindredPractice,
+  kindredCore,
+  agentOps,
   moreKindred,
-  agents,
   wirings,
 } from "../data/work";
 
@@ -27,14 +25,15 @@ const posts = (await getCollection("blog"))
   .slice(0, 3);
 
 const tally = [
-  { value: "3", label: "products live this year" },
-  { value: "200+", label: "therapists on Kindred Practice" },
-  { value: "25", label: "AI capabilities behind one key" },
-  { value: "15", label: "networks from one posting queue" },
+  { value: "8,300+", label: "people coached on Kindred Workplace" },
+  { value: "200+", label: "therapists run their practice on Kindred Practice" },
+  { value: "3", label: "products I launched on my own in 2026" },
+  { value: "30+", label: "bugs and tickets fixed by my agents each month" },
 ];
 
-const kindredNotes = [kindredCore, kindredMemory, agentOps];
-const kindredPrints = [kindredWorkplace, kindredPractice];
+const homeWirings = ["practice", "workplace", "core", "tallyreel", "roundzero", "agentops"].map(
+  (id) => wirings.find((w) => w.id === id)!,
+);
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -83,14 +82,14 @@ const personSchema = {
         I build the product, and the AI <span class="hand text-ember !tracking-[-0.02em]">underneath it.</span>
       </h1>
       <p class="mt-6 text-[clamp(18px,1.6vw,20px)] leading-normal text-ink-dim max-w-[31em]">
-        Senior full-stack engineer. At Kindred I lead the memory work in Kindred Core, the AI service every
-        product there calls. After hours I run Soonbuilt, which just shipped TallyReel and Round Zero.
+        Senior full-stack engineer. At Kindred I build Kindred Workplace and Kindred Practice, used by thousands
+        of people and hundreds of therapists. On my own, through Soonbuilt, I've launched TallyReel and Round Zero.
       </p>
       <div class="flex flex-wrap items-center gap-x-6 gap-y-3.5 mt-8">
-        <a href="#work" class="btn-ember !h-14 !px-7 !text-[17px]">See what's on the wall</a>
+        <a href="#kindred" class="btn-ember !h-14 !px-7 !text-[17px]">See what I've built</a>
         <a href="#wiring" class="textlink">
           <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"></path></svg>
-          <span>or see how it's wired</span>
+          <span>or see how it works</span>
         </a>
       </div>
       <p class="mt-5 text-[15px] text-ink-muted">Islamabad · remote · open to senior full-stack and applied AI roles</p>
@@ -128,14 +127,14 @@ const personSchema = {
         <figcaption>a real TallyReel render, unedited</figcaption>
       </figure>
 
-      <a href="#soonbuilt" class="note note-butter hw-2">
+      <a href="#kindred-workplace" class="note note-sky hw-2">
         <span class="tape" aria-hidden="true"></span>
-        <span class="note-tag">My studio</span>
-        <span class="note-idea">Soonbuilt: AI that runs on your computer</span>
+        <span class="note-tag">Kindred Workplace</span>
+        <span class="note-idea">EQ coaching for 8,300+ people</span>
       </a>
-      <a href="#kindred" class="note note-sky hw-3">
-        <span class="note-tag">At Kindred</span>
-        <span class="note-idea">Kindred Core: one AI service, every product</span>
+      <a href="#kindred-practice" class="note note-butter hw-3">
+        <span class="note-tag">Kindred Practice</span>
+        <span class="note-idea">200+ therapists, their notes written for them</span>
       </a>
       <a href="#round-zero" class="note note-mint hw-4">
         <span class="tape" aria-hidden="true"></span>
@@ -143,8 +142,8 @@ const personSchema = {
         <span class="note-idea">Round Zero: interviews with a voice AI</span>
       </a>
       <a href="#wiring" class="note note-lilac hw-5">
-        <span class="note-tag">Memory</span>
-        <span class="note-idea">Supersede, don't delete. Forget on request.</span>
+        <span class="note-tag">How it works</span>
+        <span class="note-idea">See the wiring behind each one</span>
       </a>
       <a href="#reels" class="mini-print hw-mp" aria-label="Watch more TallyReel videos">
         <span class="print-frame"><img src="/media/tallyreel/pompeii.jpg" alt="" width="540" height="960" /></span>
@@ -166,14 +165,66 @@ const personSchema = {
     </ul>
   </section>
 
-  <!-- ═══ PINNED WORK ═══ -->
+  <!-- ═══ KINDRED ═══ -->
+  <section class="block" id="kindred" aria-labelledby="kindred-h">
+    <div class="head-left">
+      <h2 id="kindred-h" class="display-title text-[clamp(32px,4.2vw,48px)]">At Kindred, since 2023</h2>
+      <p class="mt-4 text-ink-dim text-lg">
+        Kindred makes software that helps people understand each other: therapists and their clients, managers
+        and their teams. These are the two products I've spent most of my time on.
+      </p>
+      <p class="hand head-aside" aria-hidden="true">my day job</p>
+    </div>
+    <div class="grid gap-20 sm:gap-24 mt-14">
+      <ProductPin product={kindredWorkplace} />
+      <ProductPin product={kindredPractice} flip />
+    </div>
+
+    <div class="mt-24">
+      <h3 class="display-title text-[clamp(24px,2.8vw,32px)]">Underneath both products</h3>
+      <p class="mt-3 text-ink-dim text-[17px] max-w-2xl">The shared AI and tooling I work on, so each product team moves faster.</p>
+      <div class="grid md:grid-cols-2 gap-8 mt-10">
+        {
+          [kindredCore, agentOps].map((k, i) => (
+            <article class={`note note-${k.tint} kin-note`} style={`--tilt:${i ? 1 : -1.2}deg`}>
+              <span class="tape" aria-hidden="true" />
+              <span class="note-tag">{k.kicker}</span>
+              <h4 class="text-[24px] font-extrabold tracking-[-0.02em] leading-tight">{k.name}</h4>
+              <p class="note-idea !text-[18px]">{k.line}</p>
+              <p class="text-[15px] leading-relaxed text-[rgba(28,25,23,.78)]">{k.problem}</p>
+              <ul class="kin-results">
+                {k.results.map((r) => (
+                  <li>
+                    <b>{r.value}</b>
+                    <span>{r.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+      <ul class="grid md:grid-cols-3 gap-4 mt-10 list-none p-0">
+        {
+          moreKindred.map((m) => (
+            <li class="bento-card p-6">
+              <h4 class="text-lg font-extrabold tracking-[-0.01em]">{m.name}</h4>
+              <p class="mt-2 text-[15px] text-ink-dim leading-relaxed">{m.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ SOONBUILT ═══ -->
   <section class="block" id="work" aria-labelledby="work-h">
     <div class="head-left">
-      <h2 id="work-h" class="display-title text-[clamp(32px,4.2vw,48px)]">Three products on the wall. All live.</h2>
+      <h2 id="work-h" class="display-title text-[clamp(32px,4.2vw,48px)]">On my own: three products, all live</h2>
       <p class="mt-4 text-ink-dim text-lg">
-        Built and run through Soonbuilt, my studio: design, code, infrastructure, billing and the launch.
+        Built and run through Soonbuilt, my studio. Design, code, hosting, payments and the launch, start to finish.
       </p>
-      <p class="hand head-aside" aria-hidden="true">all mine, start to finish</p>
+      <p class="hand head-aside" aria-hidden="true">nights and weekends</p>
     </div>
     <div class="grid gap-20 sm:gap-24 mt-14">
       <ProductPin product={tallyreel} />
@@ -197,86 +248,21 @@ const personSchema = {
     </div>
   </section>
 
-  <!-- ═══ KINDRED ═══ -->
-  <section class="block" id="kindred" aria-labelledby="kindred-h">
-    <div class="head-left">
-      <h2 id="kindred-h" class="display-title text-[clamp(32px,4.2vw,48px)]">At Kindred: the AI underneath the products</h2>
-      <p class="mt-4 text-ink-dim text-lg">
-        Kindred makes mental-health and emotional-intelligence products. Since 2023 I've gone from building one of
-        them end to end to working on the shared layer they all stand on.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-7 mt-12">
-      {
-        kindredNotes.map((k, i) => (
-          <article class={`note note-${k.tint} kin-note`} style={`--tilt:${[-1.5, 1, -1][i]}deg`}>
-            <span class="tape" aria-hidden="true" />
-            <span class="note-tag">{k.kicker}</span>
-            <h3 class="text-[22px] font-extrabold tracking-[-0.02em] leading-tight">{k.name}</h3>
-            <p class="note-idea !text-[17px]">{k.line}</p>
-            <ul class="kin-facts">
-              {k.facts.slice(0, 3).map((f) => (
-                <li>{f}</li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-10 mt-16">
-      {
-        kindredPrints.map((k, i) => (
-          <a href={k.url} target="_blank" rel="noopener" class="group no-underline text-ink-text">
-            <figure class="print" style={`transform: rotate(${i ? 1 : -1}deg)`}>
-              <span class="tape" aria-hidden="true" />
-              <div class="print-frame !bg-white aspect-[16/10]">
-                <img src={k.img} alt={k.imgAlt} loading="lazy" class="object-top transition-transform duration-500 group-hover:scale-[1.02]" />
-              </div>
-            </figure>
-            <div class="mt-5 flex items-baseline gap-3 flex-wrap">
-              <h3 class="text-2xl font-extrabold tracking-[-0.02em]">{k.name}</h3>
-              <span class="text-sm text-ink-muted">{k.urlText} ↗</span>
-            </div>
-            <p class="mt-2 text-ink-dim text-[16px]">{k.body}</p>
-          </a>
-        ))
-      }
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-4 mt-14">
-      {
-        moreKindred.map((m) => (
-          <article class="bento-card p-6">
-            <h3 class="text-lg font-extrabold tracking-[-0.01em]">{m.name}</h3>
-            <p class="mt-2 text-[15px] text-ink-dim leading-relaxed">{m.body}</p>
-            <ul class="mt-4 flex flex-wrap gap-1.5">
-              {m.stack.map((s) => (
-                <li class="chip">{s}</li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
   <!-- ═══ WIRING ═══ -->
   <section class="block" id="wiring" aria-labelledby="wiring-h">
     <div class="head-left">
-      <h2 id="wiring-h" class="display-title text-[clamp(32px,4.2vw,48px)]">How it's wired</h2>
+      <h2 id="wiring-h" class="display-title text-[clamp(32px,4.2vw,48px)]">How it works</h2>
       <p class="mt-4 text-ink-dim text-lg">
-        The part a screenshot can't show. Pick a system to see what calls what, and where the guardrails sit.
+        The part a screenshot can't show: what happens between a person's first click and the result they get.
       </p>
       <p class="hand head-aside" aria-hidden="true">pick a note</p>
     </div>
 
-    <div class="wire-tabs" role="tablist" aria-label="Systems">
+    <div class="wire-tabs" role="tablist" aria-label="Products">
       {
-        wirings.map((w, i) => (
+        homeWirings.map((w, i) => (
           <button
-            class={`note note-${["sky", "lilac", "peach", "mint", "butter", "butter"][i]} wire-tab`}
+            class={`note note-${["mint", "sky", "lilac", "peach", "mint", "butter"][i]} wire-tab`}
             role="tab"
             id={`tab-${w.id}`}
             aria-controls={`panel-${w.id}`}
@@ -292,36 +278,12 @@ const personSchema = {
     </div>
 
     {
-      wirings.map((w, i) => (
+      homeWirings.map((w, i) => (
         <div role="tabpanel" id={`panel-${w.id}`} aria-labelledby={`tab-${w.id}`} hidden={i !== 0} class="wire-panel">
           <Wiring wiring={w} />
         </div>
       ))
     }
-  </section>
-
-  <!-- ═══ AGENTS ═══ -->
-  <section class="block" aria-labelledby="agents-h">
-    <div class="head-left">
-      <h2 id="agents-h" class="display-title text-[clamp(32px,4.2vw,48px)]">AI that runs in production</h2>
-      <p class="mt-4 text-ink-dim text-lg">
-        Not demos. Systems handling real users, real money and real clinical data, with guardrails, evals and
-        tracing on every call.
-      </p>
-    </div>
-    <div class="board mt-10">
-      {
-        agents.map((a) => (
-          <div class="board-col">
-            <b>{a.tag}</b>
-            <div class={`card note-${a.tint}`}>
-              <strong>{a.title}</strong>
-              <small>{a.desc}</small>
-            </div>
-          </div>
-        ))
-      }
-    </div>
   </section>
 
   <!-- ═══ EXPERIENCE ═══ -->
@@ -578,32 +540,31 @@ const personSchema = {
     padding: 26px 24px 24px;
     gap: 10px;
   }
-  .kin-facts {
+  .kin-results {
     list-style: none;
-    margin: 6px 0 0;
-    padding: 12px 0 0;
+    margin: 8px 0 0;
+    padding: 14px 0 0;
     border-top: 1px solid rgba(28, 25, 23, 0.12);
     display: grid;
-    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
   }
-  .kin-facts li {
-    font-size: 14.5px;
-    line-height: 1.45;
-    color: rgba(28, 25, 23, 0.74);
-    padding-left: 16px;
-    position: relative;
+  .kin-results li {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
-  .kin-facts li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #c7450c;
+  .kin-results b {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
   }
-
+  .kin-results span {
+    font-size: 13px;
+    line-height: 1.35;
+    color: rgba(28, 25, 23, 0.7);
+  }
   .wire-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -626,54 +587,6 @@ const personSchema = {
   }
   .wire-tab:hover {
     opacity: 1;
-  }
-
-  .board {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 12px;
-    padding: 22px;
-    border-radius: 26px;
-    background: #fff;
-    box-shadow: 0 2px 3px rgba(28, 25, 23, 0.08), 0 26px 44px -22px rgba(28, 25, 23, 0.45);
-  }
-  .board-col {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-height: 210px;
-    padding: 10px;
-    border-radius: 14px;
-    background: #f6f5f3;
-  }
-  .board-col > b {
-    font-size: 14px;
-    font-weight: 700;
-    color: #4f4a45;
-    padding-left: 4px;
-  }
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 12px;
-    border-radius: 4px 4px 4px 14px;
-    box-shadow: 0 1px 1px rgba(28, 25, 23, 0.06), 0 16px 26px -14px rgba(28, 25, 23, 0.32);
-    transform: rotate(-1.5deg);
-  }
-  .board-col:nth-child(even) .card {
-    transform: rotate(1.5deg);
-  }
-  .card strong {
-    font-family: "Shantell Sans", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.25;
-  }
-  .card small {
-    font-size: 13px;
-    line-height: 1.4;
-    color: rgba(28, 25, 23, 0.7);
   }
 
   .exp + .exp {
@@ -703,9 +616,6 @@ const personSchema = {
     }
     .hero-wall {
       justify-self: center;
-    }
-    .board {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   @media (max-width: 960px) {
@@ -749,13 +659,6 @@ const personSchema = {
     }
     .tally {
       grid-template-columns: 1fr 1fr;
-    }
-    .board {
-      grid-auto-flow: column;
-      grid-template-columns: none;
-      grid-auto-columns: 180px;
-      overflow-x: auto;
-      padding: 14px;
     }
     .block {
       padding-top: 88px;

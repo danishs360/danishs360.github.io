@@ -1,6 +1,7 @@
 ---
-// A product pinned to the wall: a taped print of the real thing, with the
-// pitch on a sticky note stuck to its corner and the facts written beside it.
+// A product pinned to the wall: a taped print of the real thing with its
+// promise on a sticky note, and beside it the problem, the results and what I
+// built. The stack is deliberately last and quiet.
 import type { Product } from "../data/work";
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
 }
 
 const { product: p, flip = false, detail = false } = Astro.props;
-const statusTone = p.status === "Live" || p.status === "In production" ? "live" : "soon";
+const statusTone = p.status === "Live" || p.status === "In production" || p.status === "Current" ? "live" : "soon";
+const built = detail ? p.built : p.built.slice(0, 3);
 ---
 
 <article class:list={["pin-row", flip && "pin-flip"]} id={p.slug}>
@@ -27,10 +29,13 @@ const statusTone = p.status === "Live" || p.status === "In production" ? "live" 
       ) : (
         <div class="pin-blank sheet">
           <span class="tape" aria-hidden="true" />
-          <p class="hand text-ember-ink text-lg -rotate-2">what's inside</p>
-          <ul class="mt-4 flex flex-wrap gap-2">
-            {p.stack.map((s) => (
-              <li class="chip">{s}</li>
+          <p class="hand text-ember-ink text-lg -rotate-2">{p.blankTitle ?? "what it does"}</p>
+          <ul class="mt-4 grid gap-2.5">
+            {(p.blankList ?? []).map((s) => (
+              <li class="flex gap-2.5 items-start text-[15.5px] text-ink-dim">
+                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-ember shrink-0" />
+                {s}
+              </li>
             ))}
           </ul>
         </div>
@@ -44,39 +49,50 @@ const statusTone = p.status === "Live" || p.status === "In production" ? "live" 
   </div>
 
   <div class="pin-copy">
-    <div class="flex flex-wrap items-center gap-3 mb-3">
+    <div class="flex flex-wrap items-center gap-3">
       <h3 class="display-title text-[clamp(28px,3.2vw,40px)]">{p.name}</h3>
       <span class:list={["status", statusTone]}>{p.status}</span>
     </div>
-    <p class="text-ink-dim text-[17px] leading-relaxed">{p.body}</p>
-    <ul class="checks mt-5">
-      {
-        (detail ? p.facts : p.facts.slice(0, 3)).map((f) => (
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12.5l4.5 4.5L19 7.5" />
-            </svg>
-            <span>{f}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <p class="hand text-ember-ink text-[17px] mt-1">{p.role}</p>
+    <p class="mt-4 text-ink-dim text-[17px] leading-relaxed">{p.problem}</p>
+
     {
-      p.img && (
-        <ul class="mt-5 flex flex-wrap gap-1.5">
-          {p.stack.map((s) => (
-            <li class="chip">{s}</li>
+      p.results.length > 0 && (
+        <ul class="results">
+          {p.results.map((r) => (
+            <li>
+              <b>{r.value}</b>
+              <span>{r.label}</span>
+            </li>
           ))}
         </ul>
       )
     }
-    {
-      p.url && (
-        <a href={p.url} target="_blank" rel="noopener" class="textlink mt-6">
-          {p.urlText} ↗
-        </a>
-      )
-    }
+
+    <p class="mt-6 text-[13px] font-bold uppercase tracking-[0.05em] text-ink-muted">What I built</p>
+    <ul class="checks mt-3">
+      {
+        built.map((f) => (
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+            <span set:html={f} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+      {
+        p.url && (
+          <a href={p.url} target="_blank" rel="noopener" class="textlink">
+            {p.urlText} ↗
+          </a>
+        )
+      }
+      <p class="text-[13px] text-ink-muted">{p.stack.join(" · ")}</p>
+    </div>
   </div>
 </article>
 
@@ -107,7 +123,7 @@ const statusTone = p.status === "Live" || p.status === "In production" ? "live" 
     object-position: top;
   }
   .pin-blank {
-    padding: 36px 30px 96px;
+    padding: 34px 30px 110px;
     transform: rotate(-0.8deg);
   }
   .pin-note {
@@ -145,6 +161,40 @@ const statusTone = p.status === "Live" || p.status === "In production" ? "live" 
     background: #fff0b0;
     color: #6b5310;
   }
+  .results {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .results li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 14px 12px;
+    border-radius: 4px 4px 4px 14px;
+    background: #fff0b0;
+    box-shadow: 0 1px 1px rgba(28, 25, 23, 0.06), 0 12px 20px -14px rgba(28, 25, 23, 0.3);
+  }
+  .results li:nth-child(2) {
+    background: #d7f1e0;
+  }
+  .results li:nth-child(3) {
+    background: #dde8ff;
+  }
+  .results b {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .results span {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: rgba(28, 25, 23, 0.72);
+  }
   .checks {
     list-style: none;
     margin: 0;
@@ -159,6 +209,10 @@ const statusTone = p.status === "Live" || p.status === "In production" ? "live" 
     font-size: 15.5px;
     line-height: 1.45;
     color: #4f4a45;
+  }
+  .checks li :global(b) {
+    color: #1c1917;
+    font-weight: 700;
   }
   .checks .ic {
     width: 22px;

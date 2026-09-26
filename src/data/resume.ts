@@ -116,13 +116,11 @@ export const baseResume: Resume = {
       stack:
         "TypeScript · NestJS · Node.js · Django · Postgres/pgvector · AWS · React · Claude · Langfuse · Inngest · Goose · LiveKit",
       bullets: [
-        `Lead the <b>memory system in Kindred Core</b>, the multi-tenant AI service every Kindred product calls: an append-only, bi-temporal store that supersedes instead of deleting, rebuilds by replay, supports per-subject erasure, and recalls with hybrid pgvector + full-text ranking.`,
-        `Built on <b>Kindred Core</b> (NestJS, Postgres RLS, 25 capabilities behind one tenant key): Claude with OpenAI failover, fail-closed guardrails, PII de-identification, and Langfuse tracing on every call; wired products into it with consent-gated events and erasure cascades.`,
-        `Built and scaled <b>Kindred Practice (formerly Mynd)</b>, an AI-driven practice-management platform, to <b>200+ therapists</b> and the <b>thousands of clients</b> they serve; owned scheduling, billing, clinical documentation, and AI features end-to-end.`,
-        `Architected an event-driven backend on Node.js (TypeScript), Django, and AWS Lambda, integrating real-time video, transcription, and chat via LiveKit, AWS Chime, and Deepgram to power live therapy sessions.`,
-        `Deployed multiple <b>production RAG pipelines</b> (pgvector, custom chunking, eval-driven iteration), cutting p95 response latency <b>~40%</b> and LLM/API spend <b>~30%</b> via prompt caching and model routing.`,
-        `Shipped <b>Agent Ops</b>: Sentry, Gleap, and Linear events start Inngest flows that run <b>Goose</b> agents in throwaway containers to research, plan, get human approval in Slack, and open pull requests across four product repos, auto-handling <b>30+ incidents and tickets a month</b>.`,
-        `Built an <b>in-app AI assistant</b> that takes real actions inside the product through tool calls, with structured outputs, scoped permissions, and per-call guardrails.`,
+        `Build <b>Kindred Workplace</b>, an emotional-intelligence platform used by <b>8,300+ people across 21 companies</b>: built its conversation-analysis feature from scratch, made the AI coach context-aware with release-gating evals, brought coaching into Slack and Teams, and took it to production on AWS.`,
+        `<b>Top contributor to Kindred Practice</b> (formerly Mynd) over three years (4,400+ commits), the practice-management platform <b>200+ therapists</b> run on: video sessions, AI-drafted session notes, an AI assistant over past sessions, scheduling and billing.`,
+        `Cut AI response latency <b>~40%</b> and model spend <b>~30%</b> across production RAG pipelines through caching, model routing and eval-driven iteration.`,
+        `Lead memory in <b>Kindred Core</b>, the shared AI platform behind Kindred's coaches: memory that updates instead of contradicting itself and deletes a person on request, with scrubbed private data and every AI call traced.`,
+        `Built <b>Agent Ops</b>: AI agents that turn crash alerts and tickets into plans a human approves, then pull requests, fixing <b>30+ issues a month</b> across four product teams.`,
       ],
     },
     {
