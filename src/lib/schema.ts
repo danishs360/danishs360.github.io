@@ -21,13 +21,12 @@ export const person = {
   url: `${SITE_URL}/`,
   image: `${SITE_URL}/profile.webp`,
   email: `mailto:${SITE_EMAIL}`,
-  jobTitle: "Senior Software Engineer",
+  jobTitle: "Senior Product Engineer",
   description: SITE_DESCRIPTION,
   address,
   homeLocation: { "@type": "Place", name: `${LOCATION.city}, ${LOCATION.country}`, address },
   nationality: { "@type": "Country", name: LOCATION.country },
-  worksFor: { "@type": "Organization", name: "Kindred", url: "https://kindredworkplace.com" },
-  founder: { "@type": "Organization", name: "Soonbuilt", url: "https://soonbuilt.com" },
+  worksFor: { "@type": "Organization", name: "Kindred AI", url: "https://kindredeq.com" },
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Air University",
@@ -36,13 +35,13 @@ export const person = {
   hasOccupation: [
     {
       "@type": "Occupation",
-      name: "Software Engineer",
+      name: "Senior Product Engineer",
       occupationLocation: { "@type": "City", name: LOCATION.city },
-      skills: "TypeScript, React, Node.js, Python, Django, PostgreSQL, AWS, LLM agents, RAG",
+      skills: "TypeScript, Python, Node.js, React, PostgreSQL, AWS, LLM agents, RAG, evals",
     },
     {
       "@type": "Occupation",
-      name: "Product Engineer",
+      name: "Software Engineer",
       occupationLocation: { "@type": "City", name: LOCATION.city },
     },
     {
@@ -71,14 +70,14 @@ export const person = {
     "PostgreSQL",
   ],
   knowsLanguage: ["English", "Urdu"],
-  sameAs: [SOCIAL.linkedin, SOCIAL.github, "https://soonbuilt.com"],
+  sameAs: [SOCIAL.linkedin, SOCIAL.github],
 };
 
 export const website = {
   "@type": "WebSite",
   "@id": WEBSITE_ID,
   name: "Danish Siddique",
-  alternateName: "Danish Siddique, Software Engineer",
+  alternateName: "Danish Siddique, Senior Product Engineer",
   url: `${SITE_URL}/`,
   inLanguage: "en",
   publisher: { "@id": PERSON_ID },

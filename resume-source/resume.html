@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Danish Siddique, Senior Product Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 11mm 13mm 10mm; }
+  :root { --ink:#15171c; --soft:#4b505b; --mute:#808591; --line:#e4e6ea; --tint:#f5f5f3; --accent:#e8590c; --link:#1f4fbf; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Instrument Sans", -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--ink);
+         font-size: 8.9pt; line-height: 1.4; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: none; }
+  a.u { color: var(--link); }
+  b { font-weight: 600; }
+
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16pt; }
+  h1 { font-size: 23pt; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+  .role { font-size: 10.6pt; font-weight: 500; color: var(--soft); margin-top: 3pt; }
+  .dot { color: var(--accent); margin: 0 5pt; font-weight: 700; }
+  .contact { text-align: right; font-size: 8.3pt; color: var(--soft); line-height: 1.6; }
+
+  .pitch { margin-top: 10pt; padding-top: 9pt; border-top: 1.2pt solid var(--ink); font-size: 9.5pt; line-height: 1.48; }
+
+
+  section { margin-top: 10pt; }
+  h2 { font-size: 7.7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--mute);
+       padding-bottom: 3pt; border-bottom: 0.6pt solid var(--line); margin-bottom: 6pt; break-after: avoid; }
+  h2 .note { text-transform: none; letter-spacing: 0; font-weight: 500; margin-left: 6pt; }
+
+  .job + .job { margin-top: 9pt; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; break-after: avoid; }
+  .job-title { font-size: 10.4pt; font-weight: 600; }
+  .sep { color: var(--mute); font-weight: 400; margin: 0 4pt; }
+  .when { font-size: 8.3pt; color: var(--soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .job-sub { font-size: 8.5pt; color: var(--soft); margin-top: 1pt; break-after: avoid; }
+
+  .product { margin-top: 5pt; break-inside: avoid; }
+  .product-name { font-size: 9.1pt; font-weight: 600; break-after: avoid; }
+  .product-name .meta { font-weight: 400; color: var(--soft); }
+
+  ul { list-style: disc outside; margin-top: 2pt; padding-left: 10pt; }
+  li { margin-top: 1.5pt; padding-left: 1pt; }
+  li::marker { font-size: 0.85em; color: var(--ink); }
+
+  .skills { display: grid; grid-template-columns: 96pt 1fr; row-gap: 3pt; column-gap: 8pt; font-size: 8.7pt; }
+  .skills dt { font-weight: 600; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
+  .soft { color: var(--soft); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Danish Siddique</h1>
+    <div class="role">Senior Product Engineer<span class="dot">•</span>AI Products</div>
+  </div>
+  <div class="contact">
+    <a href="mailto:idanishsiddique@gmail.com">idanishsiddique@gmail.com</a> · +92 311 5238087<br>
+    <a href="https://linkedin.com/in/danishs360">linkedin.com/in/danishs360</a> · <a href="https://github.com/danishs360">github.com/danishs360</a><br>
+    <a href="https://danishsiddique.com">danishsiddique.com</a> · Islamabad, Pakistan · Remote
+  </div>
+</header>
+
+<p class="pitch">
+  Senior product engineer with 6 years of turning real user problems into AI products that run in production.
+  Comfortable across the whole lifecycle: shaping the problem with product and design, then building the agents,
+  backend, apps and infrastructure, and owning reliability and cost after launch. At Kindred AI, works across
+  products used by <b>1,000+ therapists</b>, <b>8,300+ people at 21 companies</b> and <b>25,000+ Stellantis employees</b>, with a focus on the gap between an AI
+  demo and a product people trust: evals, memory, guardrails, latency and cost.
+</p>
+
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title"><a href="https://kindredeq.com">Kindred AI</a><span class="sep">/</span>Senior Product Engineer</div>
+      <div class="when">Sep 2023 – Present</div>
+    </div>
+    <div class="job-sub">Remote · AI products for mental-health care and workplace wellbeing, built on a shared AI platform · <a class="u" href="https://kindredeq.com">kindredeq.com</a></div>
+
+    <div class="product">
+      <div class="product-name">Kindred Workplace <span class="meta">· Emotional-intelligence platform with Paige, an AI coach, used by <b>8,300+ people across 21 companies</b> · <a class="u" href="https://kindredworkplace.com">kindredworkplace.com</a></span></div>
+      <ul>
+        <li>Built the <b>multi-agent backend</b> behind Paige, the AI coach: a supervisor that routes each message to specialist agents, streamed replies, and an eval suite of golden conversations that alerts the team when quality drops.</li>
+        <li>Shipped <b>Analyze</b>, which turns recorded conversations of up to 90 minutes into coaching feedback, and <b>Voice ID</b>, which recognises the member's own voice, with per-user usage limits to keep AI cost predictable and consent and GDPR deletion built in.</li>
+        <li>Took Paige beyond the web app into <b>Slack and Microsoft Teams</b> with scheduled check-ins, and connected the ElevenLabs voice agent to live product data securely.</li>
+      </ul>
+    </div>
+
+    <div class="product">
+      <div class="product-name">Kindred Practice <span class="meta">· HIPAA practice management and telehealth · <a class="u" href="https://kindredpractice.com">kindredpractice.com</a></span></div>
+      <ul>
+        <li>Product and engineering owner, working with product, design and clinical stakeholders as the platform grew to <b>1,000+ therapists</b>: scheduling, billing, clinical notes, live video sessions (LiveKit, AWS Chime, Deepgram) and AI features.</li>
+        <li>Took RAG from prototype to production with eval-driven iteration, cutting <b>p95 latency ~40%</b> and <b>LLM spend ~30%</b> through prompt caching and model routing.</li>
+        <li>Cut the monthly AWS production bill by <b>61%</b> by right-sizing instances and removing idle, duplicated and over-provisioned resources.</li>
+      </ul>
+    </div>
+
+    <div class="product">
+      <div class="product-name">Agent Ops <span class="meta">· Internal platform where AI agents take on engineering and support work</span></div>
+      <ul>
+        <li>Built coding agents that turn Sentry errors and tickets into ready-to-review pull requests, <b>30+ a month</b>, with a human approving each plan and a review agent checking every PR.</li>
+        <li>Built a support agent that drafts customer replies and hands off to the team when unsure, a pipeline that keeps help articles up to date, and a <b>scanner that blocks patient data and secrets</b> from agent changes.</li>
+        <li>Wrote the shared Claude Code skills and Cursor rules the engineering team builds with, cutting new-hire ramp from weeks to days.</li>
+      </ul>
+    </div>
+
+    <div class="product">
+      <div class="product-name">Kindred Core <span class="meta">· Multi-tenant AI platform shared by every Kindred product and partner</span></div>
+      <ul>
+        <li>Built the <b>long-term memory</b> that lets AI agents remember what users shared and when it was true, with full erasure on request. <b>Roughly doubled accuracy</b> on time-sensitive questions.</li>
+        <li>Tuned speaker recognition on real production audio so it identifies the right person across different microphones, reaching <b>24 of 24 correct decisions</b> in testing.</li>
+        <li>Built usage metering, billing credits and an audit log of every AI decision for partner companies, with per-partner data rules and complete deletion of a person's records on request.</li>
+        <li>Built the <b>evaluation system</b> that tests AI behaviour before every release: automated checks that can block a bad release, plus model-graded quality reviews across 24 simulated user personas.</li>
+      </ul>
+    </div>
+
+    <div class="product">
+      <div class="product-name">Client platforms</div>
+      <ul>
+        <li><b><a class="u" href="https://medimap.ca">Medimap</a></b> (4,200+ walk-in clinics across six provinces): rebuilt the platform after acquisition on Next.js and Payload CMS and launched online booking. <b>Revenue and users each grew 15%</b> in two months.</li>
+        <li><b><a class="u" href="https://pdtskillpulse.com">Stellantis Skills Platform</a></b> (25,000+ employees, 14 languages): delivered multi-rater skill assessments, SAML single sign-on and manager-based permissions, and set up AWS production with idle servers sleeping to cut cost.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title"><a href="https://extendly.com">Extendly</a><span class="sep">/</span>Full-Stack Developer</div>
+      <div class="when">Apr 2023 – May 2024</div>
+    </div>
+    <div class="job-sub">Remote · Services and integrations for agencies on GoHighLevel · <a class="u" href="https://extendly.com">extendly.com</a></div>
+    <ul>
+      <li>Built a retrieval-backed support assistant on OpenAI, FastAPI and PostgreSQL that answered <b>500–600 tickets a day</b> from the product knowledge base, freeing the support team for cases that needed judgment.</li>
+      <li>Built the customer-facing React apps and a serverless AWS Lambda layer that syncs GoHighLevel with third-party tools, so client workflows ran without anyone copying records by hand.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title"><a href="https://zaytrics.com">Zaytrics</a><span class="sep">/</span>Full-Stack Developer</div>
+      <div class="when">Sep 2020 – Apr 2023</div>
+    </div>
+    <div class="job-sub">Islamabad · Software and AI services · <a class="u" href="https://zaytrics.com">zaytrics.com</a></div>
+    <ul>
+      <li>Built a computer-vision system that detects trademark infringement in logos at <b>85%+ accuracy</b>, fed by a Selenium data pipeline, removing roughly <b>70% of the legal team's manual review</b>.</li>
+      <li>Redesigned PostgreSQL and MongoDB schemas that were slowing down as data grew, restoring query performance and leaving room to scale.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Independent Products<span class="note">Built and run outside full-time work</span></h2>
+
+  <div class="product">
+    <div class="product-name">TallyReel <span class="meta">· AI video creation and social scheduling · <a class="u" href="https://tallyreel.com">tallyreel.com</a></span></div>
+    <ul>
+      <li>Turns one line into a finished short video (stories, explainers, animated and 3D styles, AI presenters, quizzes, ads) and schedules it to <b>15 social networks</b>, across web (Next.js), iOS and Android (Expo) and a Mac and Windows desktop app.</li>
+      <li>Built a <b>remote MCP server with 52 tools</b> and OAuth so Claude and ChatGPT users can create, schedule and review videos, with the same permissions and plan limits as the app.</li>
+      <li>Built an in-app AI agent that plans and schedules content, with three autonomy levels so users choose how much it does alone, and per-video GPU cost tracking on Modal with daily model budgets.</li>
+    </ul>
+  </div>
+
+  <div class="product">
+    <div class="product-name">Round Zero <span class="meta">· AI interview practice · <a class="u" href="https://joinroundzero.com">joinroundzero.com</a></span></div>
+    <ul>
+      <li>Live AI voice interviewer on LiveKit that adapts follow-up questions in real time, scores answers against role-specific rubrics calibrated by seniority, and runs coding rounds.</li>
+    </ul>
+  </div>
+
+  <div class="product">
+    <div class="product-name">Smaller tools</div>
+    <ul>
+      <li><b><a class="u" href="https://blurt.soonbuilt.com">Blurt</a></b>: hold a key and talk, and clean text appears wherever you type, with on-device speech recognition in Rust for Mac and Windows.</li>
+      <li><b><a class="u" href="https://maina.soonbuilt.com">Maina</a></b>: voice cloning from 30 seconds of speech in English, Hindi and Urdu, with a built-in AI watermark and evals for word error rate and speaker similarity.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>Languages</dt><dd>TypeScript, JavaScript, Python, Rust, SQL</dd>
+    <dt>AI and LLMs</dt><dd>Claude, OpenAI, Gemini, DeepSeek, Claude Agent SDK, LangChain, MCP, RAG, graph RAG, multi-agent systems, tool calling, agent memory, LLM evals, Langfuse</dd>
+    <dt>Voice and ML</dt><dd>LiveKit, ElevenLabs, Deepgram, Whisper, speaker recognition, computer vision, MLX, llama.cpp, ONNX</dd>
+    <dt>Frontend and mobile</dt><dd>React, Next.js, Expo, React Native, Tailwind CSS, TanStack Query</dd>
+    <dt>Backend and data</dt><dd>Node.js, NestJS, Fastify, FastAPI, Django, PostgreSQL, pgvector, MongoDB, DynamoDB, Redis, Elasticsearch, Inngest</dd>
+    <dt>Cloud and DevOps</dt><dd>AWS, Azure, GCP, Cloudflare, Modal, Docker, Pulumi, GitHub Actions, CI/CD, Sentry, Jest</dd>
+    <dt>Auth and billing</dt><dd>SAML SSO, WorkOS, Clerk, RBAC, multi-tenancy, Stripe, RevenueCat, HIPAA, GDPR</dd>
+    <dt>AI dev tools</dt><dd>Claude Code, Cursor, Codex, GitHub Copilot</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">B.S. Computer Science<span class="sep">/</span>Air University, Islamabad</div>
+      <div class="when">2017 – 2021</div>
+    </div>
+    <ul>
+      <li><b>Final-year research:</b> deep-learning model that segments the liver and liver tumors in abdominal CT scans, an early start in applied machine learning on medical data.</li>
+      <li><b>Core coursework:</b> Data Structures and Algorithms, Database Systems, Operating Systems, Artificial Intelligence, Software Engineering.</li>
+    </ul>
+  </div>
+</section>
+
+</body>
+</html>

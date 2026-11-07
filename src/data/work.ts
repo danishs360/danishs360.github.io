@@ -1,6 +1,6 @@
 // Everything the portfolio says about the work, in one place.
 // Write for results: the problem, what changed for people, what I built.
-// Keep client and partner names out of this file: it is public.
+// It is public: only name clients and numbers that the resume (resume.ts) states.
 
 export type Tint = "peach" | "butter" | "mint" | "sky" | "lilac" | "white";
 
@@ -57,27 +57,26 @@ export interface Product {
   stack: string[];
 }
 
-/* ------------------------------------------------------------ Kindred */
+/* ------------------------------------------------------------ Kindred AI */
 
 export const kindredWorkplace: Product = {
   slug: "kindred-workplace",
   name: "Kindred Workplace",
-  kicker: "Kindred · emotional intelligence at work",
+  kicker: "Kindred AI · emotional intelligence at work",
   line: "Measure how a team works together. Then help everyone get better at it.",
-  role: "Senior engineer · AI coach, conversation analysis, integrations, production",
+  role: "Senior Product Engineer · AI coach backend, Analyze, Voice ID, Slack and Teams",
   problem:
     "The costliest problems at work live between people: the six meetings that replace one honest conversation. Kindred Workplace measures emotional intelligence across a company and coaches every person to grow it, in the app, by voice, and inside Slack and Teams.",
   results: [
     { value: "8,300+", label: "people on the platform" },
     { value: "21", label: "companies using it" },
-    { value: "2,400+", label: "people with an EQ profile" },
+    { value: "90 min", label: "conversations Analyze turns into coaching feedback" },
   ],
   built: [
-    "<b>Analyze, from scratch.</b> Upload or record a real conversation and see how you showed up, speaker by speaker, mapped to your EQ profile. Handles recordings up to 90 minutes.",
-    "<b>A coach people can trust.</b> Made Paige, the AI coach, remember context and send useful nudges, and put quality checks and failure monitoring behind every release.",
-    "<b>Coaching where people already work.</b> Paige inside Slack and Microsoft Teams, so growth happens in the flow of work, not in another tab.",
-    "<b>Growth for the business.</b> Partner referral codes and commissions, adoption dashboards for admins, and the path from free trial to paid for companies.",
-    "<b>Production that holds up.</b> Took the platform live on AWS with staging, automatic deploys, alarms and product analytics.",
+    "<b>A coach the team can trust.</b> The multi-agent backend behind Paige, the AI coach: a supervisor routes each message to specialist agents, replies stream back, and an eval suite of golden conversations alerts the team when quality drops.",
+    "<b>Analyze.</b> Turns a recorded conversation of up to 90 minutes into coaching feedback.",
+    "<b>Voice ID.</b> Recognises the member's own voice, with per-user usage limits that keep AI cost predictable, and consent and GDPR deletion built in.",
+    "<b>Coaching where people already work.</b> Paige inside Slack and Microsoft Teams with scheduled check-ins, and the ElevenLabs voice agent connected securely to live product data.",
   ],
   url: "https://kindredworkplace.com",
   urlText: "kindredworkplace.com",
@@ -85,28 +84,27 @@ export const kindredWorkplace: Product = {
   tint: "sky",
   img: "/media/kindred/kindredworkplace-site.png",
   imgAlt: "Kindred Workplace: six meetings because no one could have one honest conversation",
-  stack: ["React", "NestJS", "Postgres", "ElevenLabs voice", "Slack & Teams", "AWS"],
+  stack: ["TypeScript", "NestJS", "Postgres", "Claude", "ElevenLabs voice", "Slack & Teams"],
 };
 
 export const kindredPractice: Product = {
   slug: "kindred-practice",
   name: "Kindred Practice",
-  kicker: "Kindred · formerly Mynd",
+  kicker: "Kindred AI · formerly Mynd",
   line: "Therapists stay present with clients. The software handles the rest.",
-  role: "Top contributor for three years · sessions, AI notes, scheduling, billing",
+  role: "Product and engineering owner · sessions, notes, scheduling, billing, AI",
   problem:
-    "Therapists lose evenings to notes, scheduling and billing spread across a pile of tools. Kindred Practice puts sessions, notes, calendar and payments in one place, and Paige, its AI partner, does the writing.",
+    "Therapists lose evenings to notes, scheduling and billing spread across a pile of tools. Kindred Practice puts sessions, clinical notes, calendar and payments in one place, with AI features that take on the paperwork. I own its product and engineering, working with product, design and clinical stakeholders.",
   results: [
-    { value: "200+", label: "therapists run their practice on it" },
-    { value: "#1", label: "contributor, 4,400+ commits over 3 years" },
-    { value: "~40%", label: "faster AI answers, with ~30% lower AI costs" },
+    { value: "1,000+", label: "therapists run their practice on it" },
+    { value: "61%", label: "lower monthly AWS production bill" },
+    { value: "~40%", label: "faster AI answers at p95, with ~30% lower LLM spend" },
   ],
   built: [
-    "<b>Therapy without leaving the app.</b> Video sessions with a waiting room, guest join, consent and recording.",
-    "<b>Notes that write themselves.</b> Each session is transcribed and drafted into the therapist's own note template, ready to review and sign.",
-    "<b>Paige, the AI partner.</b> Therapists ask about past sessions in plain language and get answers grounded in their own history.",
-    "<b>The business side, handled.</b> Calendar sync, a booking widget, reminders, subscriptions, invoices and no-show fees.",
-    "<b>Less paperwork up front.</b> An AI form builder and e-signed intake forms, plus the move from Mynd to the Kindred Practice brand.",
+    "<b>Therapy without leaving the app.</b> Live video sessions on LiveKit and AWS Chime, with Deepgram transcription.",
+    "<b>The business side, handled.</b> Scheduling, billing and clinical notes in one place.",
+    "<b>AI answers therapists can rely on.</b> Took retrieval (RAG) from prototype to production with eval-driven iteration, cutting p95 latency ~40% and LLM spend ~30% through prompt caching and model routing.",
+    "<b>A leaner bill.</b> Cut the monthly AWS production bill 61% by right-sizing instances and removing idle, duplicated and over-provisioned resources.",
   ],
   url: "https://kindredpractice.com",
   urlText: "kindredpractice.com",
@@ -114,36 +112,36 @@ export const kindredPractice: Product = {
   tint: "mint",
   img: "/media/kindred/kindredpractice-site.png",
   imgAlt: "Kindred Practice: stay present with your clients, Kindred Practice handles the rest",
-  stack: ["React", "Django", "Node.js", "LiveKit video", "Deepgram", "Gemini & GPT", "Stripe"],
+  stack: ["Django", "Node.js", "Postgres", "LiveKit video", "AWS Chime", "Deepgram", "AWS"],
 };
 
 export const kindredCore: Product = {
   slug: "kindred-core",
   name: "Kindred Core",
-  kicker: "Kindred · shared AI platform",
+  kicker: "Kindred AI · shared AI platform",
   line: "Build an AI feature once, and every Kindred product gets it.",
-  role: "Lead on memory · product integrations",
+  role: "Memory, speaker recognition, metering and evals",
   problem:
-    "Every Kindred product was rebuilding the same hard AI pieces: memory, safety and model access. Kindred Core does them once, properly, so product teams can ship AI coaching without starting from zero.",
+    "Every Kindred product and partner needs the same hard AI pieces: memory, voice, billing and safety checks. Kindred Core is the multi-tenant platform that does them once, properly, so each product can ship AI without starting from zero.",
   results: [
-    { value: "1", label: "memory every Kindred coach shares" },
-    { value: "2", label: "AI providers, with automatic failover" },
-    { value: "100%", label: "of AI calls traced and replayable" },
+    { value: "~2×", label: "accuracy on time-sensitive memory questions" },
+    { value: "24/24", label: "correct speaker decisions in testing" },
+    { value: "24", label: "simulated personas in every pre-release review" },
   ],
   built: [
-    "<b>Memory for every coach.</b> It remembers what matters, updates facts when life changes instead of piling up contradictions, and forgets a person completely when they ask.",
-    "<b>Products plugged in.</b> Connected Kindred Workplace's coach and a diet-coaching app, with consent and deletion flowing all the way through.",
-    "<b>Safe by default.</b> Private details are scrubbed, each product only reaches what it's allowed to, and it fails safely rather than making something up.",
-    "<b>Cheaper to run.</b> Idle development servers now sleep and wake on the first request instead of running all day.",
+    "<b>Long-term memory.</b> AI agents remember what users shared and when it was true, with full erasure on request. Roughly doubled accuracy on time-sensitive questions.",
+    "<b>The right speaker, every time.</b> Tuned speaker recognition on real production audio so it identifies the right person across different microphones: 24 of 24 correct decisions in testing.",
+    "<b>Ready for partners.</b> Usage metering, billing credits and an audit log of every AI decision, with per-partner data rules and complete deletion of a person's records on request.",
+    "<b>Tested before every release.</b> Automated checks that can block a bad release, plus model-graded quality reviews across 24 simulated user personas.",
   ],
   status: "In production",
   tint: "lilac",
   blankTitle: "what it gives every product",
   blankList: [
-    "A coach that remembers each person",
-    "Emotion and conversation signals",
-    "Assessments and scoring",
-    "One safe door to Claude and GPT",
+    "Memory that knows when a fact was true",
+    "Speaker recognition across microphones",
+    "Usage metering and billing credits",
+    "Evals that can block a bad release",
   ],
   stack: ["NestJS", "Postgres", "pgvector", "Claude", "Langfuse", "Inngest"],
 };
@@ -151,63 +149,60 @@ export const kindredCore: Product = {
 export const agentOps: Product = {
   slug: "agent-ops",
   name: "Agent Ops",
-  kicker: "Kindred · engineering automation",
+  kicker: "Kindred AI · engineering automation",
   line: "Bug reports in. Reviewed fixes out.",
-  role: "Built the agent workflows and knowledge sync",
+  role: "Coding agents, support agent and team tooling",
   problem:
-    "Engineers were losing mornings to triaging alerts and small tickets. Agent Ops hands that work to AI agents that investigate, write a plan, wait for a human to approve it, then open the fix as a pull request.",
+    "Engineers were losing time to triaging errors and small tickets. Agent Ops hands that work to AI agents that investigate and write a plan; a person approves the plan, the agent opens the fix as a pull request, and a review agent checks it.",
   results: [
-    { value: "30+", label: "incidents and tickets fixed by agents each month" },
-    { value: "4", label: "product teams it works for" },
-    { value: "6×", label: "faster answers from company knowledge" },
+    { value: "30+", label: "ready-to-review pull requests from agents each month" },
+    { value: "Every", label: "plan approved by a person before code is written" },
+    { value: "Days", label: "for new hires to ramp up, down from weeks" },
   ],
   built: [
-    "<b>Alert to pull request.</b> Crashes and user reports go straight to an agent that reproduces the problem and proposes a fix.",
-    "<b>A human stays in charge.</b> Agents research and plan first; nothing is written until someone approves it in Slack.",
-    "<b>Agents that know the company.</b> A sync that keeps company docs and help articles in the agents' knowledge base.",
+    "<b>Error to pull request.</b> Coding agents turn Sentry errors and tickets into ready-to-review pull requests, with a human approving each plan and a review agent checking every PR.",
+    "<b>Support that knows when to ask.</b> A support agent drafts customer replies and hands off to the team when unsure, and a pipeline keeps help articles up to date.",
+    "<b>Safe by default.</b> A scanner blocks patient data and secrets from agent changes.",
+    "<b>Shared ways of working.</b> The Claude Code skills and Cursor rules the engineering team builds with, cutting new-hire ramp from weeks to days.",
   ],
   status: "In production",
   tint: "butter",
   blankTitle: "what it does for the team",
-  blankList: ["Triages new bugs", "Plans and ships small fixes", "Reviews pull requests", "Drafts support replies"],
-  stack: ["Inngest", "Goose agents", "Docker", "Claude", "Langfuse"],
+  blankList: ["Turns errors into fixes", "Drafts support replies", "Keeps help articles current", "Blocks patient data and secrets"],
+  stack: ["Claude", "Claude Code", "Cursor", "Sentry", "Inngest", "Langfuse"],
 };
 
 export const moreKindred = [
   {
-    name: "Enterprise skills platform",
-    body: "Skills assessments for a 25,000-person organization in 14 languages. I run its infrastructure.",
+    name: "Stellantis Skills Platform",
+    body: "Multi-rater skill assessments for 25,000+ employees in 14 languages. Delivered SAML single sign-on and manager-based permissions, and set up AWS production with idle servers sleeping to cut cost.",
   },
   {
-    name: "Diet-coaching app on Core",
-    body: "Connected a nutrition coaching app to Kindred Core so its coach remembers meals, with consent and deletion built in.",
-  },
-  {
-    name: "Test automation",
-    body: "End-to-end browser tests and deploy checks for Kindred Practice, so releases stop breaking what already works.",
+    name: "Medimap",
+    body: "Walk-in clinic finder covering 4,200+ clinics across six provinces. Rebuilt the platform after acquisition on Next.js and Payload CMS and launched online booking; revenue and users each grew 15% in two months.",
   },
 ];
 
-/* ---------------------------------------------------------- Soonbuilt */
+/* ------------------------------------------------------- side projects */
 
 export const tallyreel: Product = {
   slug: "tallyreel",
   name: "TallyReel",
-  kicker: "Soonbuilt · Mac, Windows, web, phone",
-  line: "One line in, a finished video out. $49 once.",
-  role: "Solo · design, build, launch",
+  kicker: "Side project · web, iOS, Android, Mac, Windows",
+  line: "One line in, a finished video out, scheduled to 15 networks.",
+  role: "Side project · design, build, launch",
   problem:
-    "Short-form video tools charge every month and meter you in credits. TallyReel makes the whole video on your own computer, script to voice to captions to music, then posts it to your channels at the time you pick, even with your laptop closed.",
+    "Posting short video every day means a script, a voice, footage, captions and a schedule across a dozen apps. TallyReel turns one line into a finished short video and schedules it to 15 social networks, from the web, a phone, a desktop app, or straight from Claude and ChatGPT.",
   results: [
-    { value: "~90s", label: "from one line to a finished Short on a Mac" },
-    { value: "15", label: "social networks it posts to" },
-    { value: "$0", label: "per video after one $49 purchase" },
+    { value: "15", label: "social networks it schedules to" },
+    { value: "52", label: "tools in its remote MCP server for Claude and ChatGPT" },
+    { value: "3", label: "autonomy levels for the in-app AI agent" },
   ],
   built: [
-    "<b>A studio that runs offline.</b> Script, voice, footage, captions and an original music track, all generated on the customer's own machine.",
-    "<b>You stay in control.</b> Read and edit the script before anything renders, or bring your own.",
-    "<b>Posting that runs itself.</b> Pin a video to a time slot and it goes out to TikTok, YouTube, Instagram and 12 more, from the web or a phone app.",
-    "<b>Made for more than English.</b> Hindi and Urdu narration, and desi and Sufi music moods.",
+    "<b>One line to a finished video.</b> Script, voice, footage and captions from a single line, then scheduled to TikTok, YouTube, Instagram and 12 more networks.",
+    "<b>Wherever you are.</b> Web (Next.js), iOS and Android (Expo), and a Mac and Windows desktop app.",
+    "<b>Works inside Claude and ChatGPT.</b> A remote MCP server with 52 tools and OAuth, so people can create, schedule and review videos from their AI assistant.",
+    "<b>An agent you set the leash on.</b> An in-app AI agent with three autonomy levels, and per-video GPU cost tracking on Modal.",
   ],
   url: "https://tallyreel.com",
   urlText: "tallyreel.com",
@@ -215,26 +210,26 @@ export const tallyreel: Product = {
   tint: "peach",
   img: "/media/soonbuilt/tallyreel-studio.webp",
   imgAlt: "The TallyReel site: sticky-note ideas pinned beside the videos they became",
-  stack: ["Python", "on-device AI", "ffmpeg", "Fastify", "Next.js", "Expo"],
+  stack: ["Next.js", "Expo", "MCP", "OAuth", "Modal"],
 };
 
 export const roundZero: Product = {
   slug: "round-zero",
   name: "Round Zero",
-  kicker: "Soonbuilt · web",
+  kicker: "Side project · web",
   line: "Practice out loud before the round that counts.",
-  role: "Solo · design, build, launch",
+  role: "Side project · design, build, launch",
   problem:
-    "Interview prep is question banks and resume puffery; almost nothing lets you rehearse the real conversation. Round Zero tailors your resume honestly, briefs you on the company, then interviews you by voice and shows you exactly where the answer broke.",
+    "Most interview prep is a question bank; almost nothing lets you rehearse the real conversation. Round Zero is a live AI voice interviewer that adapts its follow-up questions as you answer, scores you against a rubric for the role and level, and runs coding rounds too.",
   results: [
-    { value: "Live", label: "voice interviews that adapt and push back" },
-    { value: "100%", label: "of scorecard quotes checked against what you said" },
-    { value: "0", label: "invented resume claims; it only rewords" },
+    { value: "Live", label: "voice interviews that adapt follow-ups in real time" },
+    { value: "By level", label: "role-specific rubrics calibrated by seniority" },
+    { value: "Coding", label: "rounds as well as conversation" },
   ],
   built: [
-    "<b>A real interviewer, by voice.</b> It adapts to the role, pushes back like a panel, and waits while you think.",
-    "<b>Feedback you can trust.</b> Every point on the scorecard quotes you, and it's verified against the transcript before you see it.",
-    "<b>One calm place for the search.</b> Tailored resumes, cited company research, application tracking and progress over time, with a coach that remembers.",
+    "<b>A real interviewer, by voice.</b> Built on LiveKit, it listens and adapts its follow-up questions in real time.",
+    "<b>Fair scoring.</b> Answers are scored against role-specific rubrics calibrated by seniority.",
+    "<b>Coding rounds.</b> Practice the technical part of the loop, not just the talking.",
   ],
   url: "https://joinroundzero.com",
   urlText: "joinroundzero.com",
@@ -242,34 +237,26 @@ export const roundZero: Product = {
   tint: "mint",
   img: "/media/soonbuilt/round-zero.webp",
   imgAlt: "The Round Zero homepage: practice the interview before it counts",
-  stack: ["React", "LiveKit", "Deepgram", "Claude & GPT", "Postgres", "Cloudflare"],
+  stack: ["LiveKit", "Voice AI", "LLM evals"],
 };
 
-export const soonbuilt: Product = {
-  slug: "soonbuilt",
-  name: "Soonbuilt",
-  kicker: "My studio",
-  line: "A one-person studio that ships its own apps.",
-  role: "Founder",
-  problem:
-    "Soonbuilt makes AI apps that run on the customer's own computer (pay once, keep it) and builds apps for clients. Its free idea search checks every idea against what already exists before anyone spends a cent building it.",
-  results: [
-    { value: "3", label: "products launched in 2026" },
-    { value: "≤3", label: "ideas kept per search, each with proof of a gap" },
-  ],
-  built: [
-    "<b>An honest idea search.</b> It researches the web, throws out ideas that already exist, and never shows a link or number it can't source.",
-    "<b>A plan, not just a list.</b> Pick an idea and get a week-by-week build plan by email.",
-    "<b>Built to stay cheap.</b> Daily limits keep costs flat; overflow searches run overnight and arrive by email.",
-  ],
-  url: "https://soonbuilt.com",
-  urlText: "soonbuilt.com",
-  status: "Live",
-  tint: "butter",
-  img: "/media/soonbuilt/soonbuilt-site.png",
-  imgAlt: "The Soonbuilt homepage: AI that lives on your computer. Pay once. Keep it.",
-  stack: ["Astro", "Cloudflare Workers", "DeepSeek", "Web search"],
-};
+/** Smaller side projects, shown as cards. */
+export const sideProjects = [
+  {
+    name: "Blurt",
+    url: "https://blurt.soonbuilt.com",
+    urlText: "blurt.soonbuilt.com",
+    body: "Hold a key and talk, and clean text appears wherever you type, with on-device speech recognition in Rust for Mac and Windows.",
+    tint: "sky" as Tint,
+  },
+  {
+    name: "Maina",
+    url: "https://maina.soonbuilt.com",
+    urlText: "maina.soonbuilt.com",
+    body: "Voice cloning from 30 seconds of speech in English, Hindi and Urdu, with a built-in AI watermark and evals for word error rate and speaker similarity.",
+    tint: "lilac" as Tint,
+  },
+];
 
 /* ------------------------------------------------------------------ reels */
 
@@ -301,9 +288,9 @@ export const wirings: Wiring[] = [
         label: "The session",
         group: true,
         nodes: [
-          { id: "p-bk", title: "Booking + reminders", sub: "calendar sync, texts and emails", kind: "box" },
-          { id: "p-vd", title: "Video room", sub: "waiting room, consent, recording", kind: "box" },
-          { id: "p-tx", title: "Transcript", sub: "speech to text", kind: "box" },
+          { id: "p-bk", title: "Booking + reminders", sub: "scheduling and reminders", kind: "box" },
+          { id: "p-vd", title: "Video room", sub: "live video on LiveKit and AWS Chime", kind: "box" },
+          { id: "p-tx", title: "Transcript", sub: "speech to text with Deepgram", kind: "box" },
         ],
       },
       {
@@ -318,8 +305,8 @@ export const wirings: Wiring[] = [
       {
         label: "The business",
         nodes: [
-          { id: "p-bl", title: "Billing", sub: "subscriptions, invoices, no-show fees", tint: "butter" },
-          { id: "p-sg", title: "Review + sign", sub: "notes stay encrypted", tint: "sky" },
+          { id: "p-bl", title: "Billing", sub: "invoices and payments", tint: "butter" },
+          { id: "p-sg", title: "Review + sign", sub: "the therapist has the final say", tint: "sky" },
         ],
       },
     ],
@@ -345,15 +332,15 @@ export const wirings: Wiring[] = [
         nodes: [
           { id: "w-app", title: "The app", sub: "web and phone", tint: "sky" },
           { id: "w-sl", title: "Slack + Teams", sub: "coaching in the flow of work", tint: "lilac" },
-          { id: "w-rec", title: "A real conversation", sub: "uploaded or recorded", tint: "peach" },
+          { id: "w-rec", title: "A real conversation", sub: "recorded, with consent", tint: "peach" },
         ],
       },
       {
         label: "Measure",
         group: true,
         nodes: [
-          { id: "w-eq", title: "EQ assessment", sub: "15 elements of emotional intelligence", kind: "box" },
-          { id: "w-an", title: "Analyze", sub: "how each person showed up", kind: "box" },
+          { id: "w-eq", title: "EQ assessment", sub: "an emotional intelligence profile", kind: "box" },
+          { id: "w-an", title: "Analyze", sub: "recordings up to 90 minutes", kind: "box" },
           { id: "w-360", title: "360 feedback", sub: "from peers, in rounds", kind: "box" },
         ],
       },
@@ -390,69 +377,66 @@ export const wirings: Wiring[] = [
     id: "core",
     tab: "Kindred Core",
     title: "Kindred Core: the AI every product shares",
-    lede: "Products don't each build their own memory and safety. They ask Core, and Core answers the same careful way for all of them.",
+    lede: "Products don't each build their own memory, voice and billing. They ask Core, and Core answers the same careful way for all of them.",
     columns: [
       {
         label: "Products",
         nodes: [
-          { id: "c-wp", title: "Kindred Workplace", sub: "coach memory", tint: "sky" },
-          { id: "c-mc", title: "Diet-coaching app", sub: "remembers meals", tint: "mint" },
-          { id: "c-pa", title: "Partner pilots", sub: "assessments", tint: "butter" },
+          { id: "c-wp", title: "Kindred products", sub: "Workplace, Practice and more", tint: "sky" },
+          { id: "c-pa", title: "Partner companies", sub: "each with its own data rules", tint: "butter" },
         ],
       },
       {
         label: "Kindred Core",
         group: true,
         nodes: [
-          { id: "k-gate", title: "Access", sub: "each product gets only what it's allowed", kind: "box" },
-          { id: "k-safe", title: "Safety", sub: "private details scrubbed, fails safely", kind: "box" },
-          { id: "k-mem", title: "Memory", sub: "remembers, updates, forgets on request", kind: "box" },
-          { id: "k-llm", title: "Models", sub: "Claude first, OpenAI as backup", kind: "box" },
+          { id: "k-mem", title: "Memory", sub: "what was shared, and when it was true", kind: "box" },
+          { id: "k-spk", title: "Speaker recognition", sub: "the right person, any microphone", kind: "box" },
+          { id: "k-bill", title: "Metering + credits", sub: "usage and billing per partner", kind: "box" },
+          { id: "k-del", title: "Erasure", sub: "a person's records deleted on request", kind: "box" },
         ],
       },
       {
         label: "Always on",
         nodes: [
-          { id: "o-tr", title: "Tracing", sub: "every AI call can be replayed", tint: "lilac" },
-          { id: "o-ev", title: "Quality checks", sub: "run before every release", tint: "peach" },
+          { id: "o-au", title: "Audit log", sub: "every AI decision recorded", tint: "lilac" },
+          { id: "o-ev", title: "Evals", sub: "can block a bad release", tint: "peach" },
         ],
       },
     ],
     edges: [
-      ["c-wp", "k-gate"],
-      ["c-mc", "k-gate"],
-      ["c-pa", "k-gate"],
-      ["k-gate", "o-tr", "dashed"],
-      ["k-llm", "o-ev", "dashed"],
+      ["c-wp", "k-mem"],
+      ["c-pa", "k-bill"],
+      ["k-mem", "o-au", "dashed"],
+      ["k-bill", "o-au", "dashed"],
+      ["k-spk", "o-ev", "dashed"],
     ],
   },
   {
     id: "tallyreel",
     tab: "TallyReel",
-    title: "TallyReel: made on your laptop, posted from the cloud",
-    lede: "The expensive part, making the video, runs on the customer's own computer, so there's nothing to meter. Only posting runs on a server.",
+    title: "TallyReel: one line in, posted everywhere",
+    lede: "Start from the app, the desktop, or your AI assistant. TallyReel makes the video and posts it on schedule.",
     columns: [
       {
         label: "You",
         nodes: [{ id: "t-idea", title: "One line", sub: "“How deep the ocean really is”", tint: "peach" }],
       },
       {
-        label: "On your computer",
-        aside: "no cloud needed",
+        label: "Where you ask",
         group: true,
         nodes: [
-          { id: "t-scr", title: "Script", sub: "written in ~40s, you can edit it", kind: "box" },
-          { id: "t-voi", title: "Voice", sub: "13 voices, or your own", kind: "box" },
-          { id: "t-foo", title: "Footage + captions", sub: "word-by-word highlights", kind: "box" },
-          { id: "t-ren", title: "Music + render", sub: "an original track every time", kind: "box" },
+          { id: "t-app", title: "Web, phone, desktop", sub: "Next.js, Expo, Mac and Windows", kind: "box" },
+          { id: "t-mcp", title: "Claude or ChatGPT", sub: "remote MCP server, 52 tools, OAuth", kind: "box" },
+          { id: "t-agt", title: "In-app agent", sub: "three autonomy levels", kind: "box" },
         ],
       },
       {
-        label: "Posting",
+        label: "Make",
         group: true,
         nodes: [
-          { id: "t-q", title: "Your week", sub: "pin a video to a time slot", kind: "box" },
-          { id: "t-app", title: "Web + phone app", sub: "approve drafts anywhere", kind: "box" },
+          { id: "t-ren", title: "The video", sub: "script, voice, footage, captions", kind: "box" },
+          { id: "t-gpu", title: "GPU cost per video", sub: "tracked on Modal", kind: "box" },
         ],
       },
       {
@@ -461,94 +445,86 @@ export const wirings: Wiring[] = [
       },
     ],
     edges: [
-      ["t-idea", "t-scr"],
-      ["t-scr", "t-voi"],
-      ["t-voi", "t-foo"],
-      ["t-foo", "t-ren"],
-      ["t-ren", "t-q"],
-      ["t-q", "t-app"],
-      ["t-q", "t-net"],
+      ["t-idea", "t-app"],
+      ["t-idea", "t-mcp"],
+      ["t-app", "t-ren"],
+      ["t-mcp", "t-ren"],
+      ["t-agt", "t-ren"],
+      ["t-ren", "t-gpu", "dashed"],
+      ["t-ren", "t-net"],
     ],
   },
   {
     id: "roundzero",
     tab: "Round Zero",
-    title: "Round Zero: a live interviewer that can't make things up",
-    lede: "Prep is grounded in what you paste and what search finds; the interview happens by voice; the feedback is checked against what you said.",
+    title: "Round Zero: a live interviewer that adapts",
+    lede: "Pick the role and level; the interview happens by voice; you're scored against a rubric made for that role.",
     columns: [
       {
-        label: "Prep",
+        label: "Set up",
         nodes: [
-          { id: "r-jd", title: "Job + resume", tint: "peach" },
-          { id: "r-tai", title: "Honest tailoring", sub: "rewords, never invents", tint: "butter" },
-          { id: "r-co", title: "Company brief", sub: "every claim cited", tint: "mint" },
+          { id: "r-jd", title: "Role + seniority", tint: "peach" },
+          { id: "r-ru", title: "Rubric", sub: "role-specific, calibrated by level", tint: "butter" },
         ],
       },
       {
         label: "The interview",
         group: true,
         nodes: [
-          { id: "r-lk", title: "You speak", sub: "live, in the browser", kind: "box" },
-          { id: "r-ag", title: "The interviewer", sub: "adapts, pushes back, waits for you", kind: "box" },
+          { id: "r-lk", title: "You speak", sub: "live voice on LiveKit", kind: "box" },
+          { id: "r-ag", title: "The interviewer", sub: "adapts follow-ups in real time", kind: "box" },
+          { id: "r-cd", title: "Coding round", sub: "the technical part, too", kind: "box" },
         ],
       },
       {
         label: "After",
-        nodes: [
-          { id: "r-sc", title: "Scorecard", sub: "each point quotes you, verified", tint: "sky" },
-          { id: "r-mv", title: "Coach remembers", sub: "progress across sessions", tint: "lilac" },
-        ],
+        nodes: [{ id: "r-sc", title: "Scorecard", sub: "scored against the rubric", tint: "sky" }],
       },
     ],
     edges: [
-      ["r-jd", "r-tai"],
-      ["r-jd", "r-co"],
-      ["r-tai", "r-lk"],
-      ["r-co", "r-ag"],
+      ["r-jd", "r-ru"],
+      ["r-jd", "r-ag"],
       ["r-lk", "r-ag"],
       ["r-ag", "r-sc"],
-      ["r-sc", "r-mv"],
+      ["r-cd", "r-sc"],
+      ["r-ru", "r-sc", "dashed"],
     ],
   },
   {
     id: "agentops",
     tab: "Agent Ops",
-    title: "Agent Ops: from a bug report to a reviewed fix",
+    title: "Agent Ops: from an error to a reviewed fix",
     lede: "Agents do the digging and the first draft; people make the call.",
     columns: [
       {
         label: "Something breaks",
         nodes: [
-          { id: "a-se", title: "A crash alert", tint: "peach" },
-          { id: "a-gl", title: "A user report", tint: "butter" },
-          { id: "a-li", title: "A small ticket", tint: "sky" },
+          { id: "a-se", title: "A Sentry error", tint: "peach" },
+          { id: "a-li", title: "A ticket", tint: "sky" },
         ],
       },
       {
         label: "Agents",
         group: true,
         nodes: [
-          { id: "a-go", title: "Investigate", sub: "reproduce it, read the code", kind: "box" },
-          { id: "a-kb", title: "Company knowledge", sub: "docs and help articles", kind: "box" },
+          { id: "a-go", title: "Investigate", sub: "read the code, write a plan", kind: "box" },
+          { id: "a-kb", title: "Safety scan", sub: "blocks patient data and secrets", kind: "box" },
         ],
       },
       {
         label: "Loop",
         nodes: [
-          { id: "a-rp", title: "Plan", tint: "mint" },
-          { id: "a-ok", title: "A human approves", sub: "in Slack", tint: "lilac" },
-          { id: "a-pr", title: "Fix, as a pull request", sub: "reviewed, then merged", tint: "peach" },
+          { id: "a-ok", title: "A person approves", sub: "the plan, before any code", tint: "lilac" },
+          { id: "a-pr", title: "Pull request", sub: "checked by a review agent", tint: "mint" },
         ],
       },
     ],
     edges: [
       ["a-se", "a-go"],
-      ["a-gl", "a-go"],
       ["a-li", "a-go"],
-      ["a-kb", "a-go", "dashed"],
-      ["a-go", "a-rp"],
-      ["a-rp", "a-ok"],
+      ["a-go", "a-ok"],
       ["a-ok", "a-pr"],
+      ["a-kb", "a-pr", "dashed"],
     ],
   },
 ];

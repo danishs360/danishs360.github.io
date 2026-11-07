@@ -118,4 +118,4 @@ If you're searching right now — or you know someone who is — try it. Run one
 
 ---
 
-*Danish Siddique is a senior full-stack engineer and the builder of [Round Zero](https://joinroundzero.com). He writes about AI, agents, and building products that hold up in production at [danishs360.github.io](https://danishs360.github.io).*
+*Danish Siddique is a senior product engineer focused on AI products, and builds [Round Zero](https://joinroundzero.com) as a side project. He writes about AI, agents, and building products that hold up in production at [danishsiddique.com](https://danishsiddique.com).*

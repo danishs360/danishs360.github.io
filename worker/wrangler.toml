@@ -7,4 +7,4 @@ compatibility_date = "2025-05-01"
 
 # Optional: restrict which origins can call the API.
 # [vars]
-# ALLOWED_ORIGINS = "https://danishs360.github.io,http://localhost:4321"
+# ALLOWED_ORIGINS = "https://danishsiddique.com,https://www.danishsiddique.com,https://danishs360.github.io,http://localhost:4321"

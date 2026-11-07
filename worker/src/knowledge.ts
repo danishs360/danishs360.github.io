@@ -1,150 +1,155 @@
 // Single source of truth for what the chatbot knows about Danish & the site.
-// Kept as a plain string so it fits straight into the Gemini system instruction.
-// Update this when the portfolio content changes. Never add client or partner
-// names, internal hostnames or account ids: everything here is public.
+// Kept as a plain string so it fits straight into the system prompt.
+// Update this when the resume (src/data/resume.ts) changes. Only state what the
+// resume states; never add internal hostnames or account ids: everything here is public.
 
 export const KNOWLEDGE = `
 # About Danish Siddique
 
-Danish Siddique is a senior full-stack engineer with 5+ years of building
-products end to end, most recently the AI underneath them. He works at Kindred
-(formerly Mynd), where he leads the memory work in Kindred Core, the AI service
-every Kindred product calls. After hours he runs Soonbuilt, a one-person product
-studio that has shipped TallyReel and Round Zero.
+Danish Siddique is a Senior Product Engineer focused on AI products, with 6 years
+of turning real user problems into AI products that run in production. He works
+across the whole lifecycle: shaping the problem with product and design, building
+the agents, backend, apps and infrastructure, and owning reliability and cost
+after launch. He works at Kindred AI (kindredeq.com) on products used by 1,000+
+therapists, 8,300+ people at 21 companies and 25,000+ Stellantis employees. His
+focus is the gap between an AI demo and a product people trust: evals, memory,
+guardrails, latency and cost. Outside work he builds independent side projects
+(published under the Soonbuilt name): TallyReel, Round Zero, Blurt and Maina.
 
 - Location: Islamabad, Pakistan · works remotely
-- Email: idanishsiddique@gmail.com (also danish@kindredeq.com for work)
+- Email: idanishsiddique@gmail.com
+- Website: https://danishsiddique.com
 - LinkedIn: https://linkedin.com/in/danishs360
 - GitHub: https://github.com/danishs360
-- Studio: https://soonbuilt.com
-- Open to senior full-stack and applied AI roles.
+- Open to senior product engineering roles on AI products.
 
 # Headline results
-- 8,300+ people across 21 companies on Kindred Workplace, which he builds
-- 200+ therapists run their practice on Kindred Practice; he is its top contributor
-  over three years (4,400+ commits)
-- 3 products launched on his own in 2026 through Soonbuilt
-- 30+ bugs and tickets a month fixed by the AI agents he built at Kindred
-- ~40% faster AI responses and ~30% lower AI costs on Kindred Practice
-
-# Soonbuilt — https://soonbuilt.com
-His studio: "AI that lives on your computer. Pay once. Keep it." It sells its own
-local-AI apps and builds web, mobile, SaaS and AI products for clients (fixed
-quotes via a booked call). The site has a free idea search: DeepSeek drafts 6
-ideas for a field, Tavily runs 12 searches in parallel (competitors and real
-pain), a prior-art examiner drops ideas that already exist, and honesty guards in
-code remove any link search didn't return and any unsourced number. It runs on one
-Cloudflare Worker with D1, per-IP and global daily caps, and a nightly cron that
-runs queued searches and emails the report.
-
-## TallyReel — https://tallyreel.com
-"Put an idea on the wall. Wake up to a video." Write one line and TallyReel Studio
-makes a finished Short or a YouTube video up to 15 minutes on your own Mac or PC.
-TallyReel Post (formerly Chimepost, app.tallyreel.com, web plus iOS and Android)
-schedules it to 15 networks from the server, so posts go out with the laptop
-closed. $49 once (launch price), no credits; Post alone is free for 3 channels or
-$9 a month.
-Pipeline, all on-device: script by Qwen3.5 (MLX 4-bit on Apple silicon,
-llama.cpp on Windows, about 40 seconds, editable before rendering); voice by
-Kokoro ONNX (13 voices, Hindi and Urdu, optional voice cloning with Chatterbox);
-footage from Pexels or on-device SDXL Lightning images; captions from
-faster-whisper word timings; music composed in numpy (royalty-free, including desi
-and Sufi moods); render with ffmpeg plus a finishing pass.
-Post: Fastify API, Postgres, pg-boss queues, Cloudflare R2, Next.js web app, Expo
-mobile app, Docker and Caddy. Studio links to Post with an 8-character device code
-whose token can only upload media and create drafts. Refresh tokens rotate on every
-use; a reused token revokes the whole session family.
-
-## Round Zero — https://joinroundzero.com
-"Take the interview before the interview." Paste a job description, tailor your
-resume honestly (it never invents experience), get a cited company brief, then
-practice out loud with a live voice AI interviewer that adapts to the role and
-pushes back like a real panel. Every scorecard point quotes the candidate, and code
-checks each quote against the transcript. Maeve, the coach, remembers every
-session. Stack: React, LiveKit Agents, Deepgram, Claude or GPT, Neon Postgres with
-pgvector, Cloudflare, Paddle.
-
-# Kindred
-
-## Kindred Core (the shared AI service)
-A multi-tenant NestJS/Fastify API that gives every Kindred product the same AI
-building blocks: memory, affect signals, assessments, conversation analysis and
-interventions. 25 capabilities declared as data, gated per tenant key. Postgres
-row-level security (FORCE RLS) plus a guard that refuses unscoped writes. Claude
-is the primary model with an OpenAI failover through an in-process adapter on the
-Vercel AI SDK; one portable JSON schema works for both. Guardrails: PromptGuard 2,
-async PII de-identification (Presidio + GLiNER), a deterministic policy engine,
-budgets and rate limits. Fails closed: no model key means a 503, never synthetic
-output. Traced in Langfuse, captured in Inngest, recorded in Postgres, joined by
-one trace id. Infra with Pulumi.
-
-## Kindred Core memory (Danish leads this)
-Append-only ingest log as the source of truth; memories and embeddings are
-projections that can be rebuilt by replay. Bi-temporal facts (valid from / valid
-to), superseded rather than deleted, with provenance and speaker role. Semantic,
-episodic and procedural memories plus behavioral facts derived without an LLM.
-Hybrid recall: pgvector cosine fused with Postgres full-text rank, then time-aware
-"as of" ranking. Each turn gets an 800-token context block. Per-subject erasure
-cascades from the product that asked. There is a written memory-poisoning threat
-model and a mem0 baseline eval harness.
-
-## Agent Ops (engineering automation)
-Webhooks from Sentry, Gleap, Linear, GitHub and Slack start Inngest flows (77
-functions) that run Goose agents in short-lived Docker containers: bug triage,
-research → plan → human approval in Slack → implement → pull request, PR review,
-support-reply drafts and docs with real screenshots, across four product repos.
-Company knowledge lives in Cognee (graph + vectors), synced from the knowledge
-base by a GitHub Action Danish built. One Inngest run is one Langfuse trace. A
-model-routing fix took the knowledge-match step from 412s to 63s.
-
-## Kindred Workplace — https://kindredworkplace.com
-Emotional-intelligence platform for companies, his main product now. 8,300+ people
-across 21 companies. People take an EQ assessment, get coached by Paige (chat and
-voice, also inside Slack and Microsoft Teams), run 360 feedback, and companies see
-team reports. Danish built Analyze from scratch (upload or record a real
-conversation and see how each person showed up, up to 90 minutes), made Paige
-context-aware with release-gating evals, built the Slack and Teams integrations,
-partner referrals and admin adoption dashboards, and took it to production on AWS.
-
-## Kindred Practice (formerly Mynd) — https://kindredpractice.com
-AI practice management for 200+ therapists: live video sessions, automated notes
-with GPT and Gemini, RAG clinical chat, scheduling and billing. Node.js
-(TypeScript), Django, AWS Lambda, React, LiveKit, AWS Chime, Deepgram. RAG work cut
-p95 latency about 40% and model spend about 30%. Includes an in-app assistant that
-takes real actions through permissioned tool calls.
-
-## Other Kindred work
-- An enterprise skills-assessment platform for a 25,000-person organization in 14
-  languages; he owns its infrastructure.
-- Integrated a diet-coaching app with Core: consent-gated events, erasure
-  cascades, kill switch, 800 ms timeout.
-- "Doorman": a tiny proxy that stops idle dev servers after 15 minutes and wakes
-  them on the first request.
-
-# On the workbench
-voice-lab (on-device voice cloning in English, Hindi and Urdu), ClauseGuard (AI
-contract review with per-clause evals), DropChat (chat-with-your-docs widget),
-mcp-prod (production MCP server template), voice-agent-saas (LiveKit voice agent
-starter).
+- 1,000+ therapists on Kindred Practice, where he is product and engineering owner
+- 8,300+ people across 21 companies on Kindred Workplace
+- 25,000+ employees in 14 languages on the Stellantis Skills Platform
+- Cut the monthly AWS production bill for Kindred Practice by 61%
+- ~40% lower p95 latency and ~30% lower LLM spend on Kindred Practice's RAG
+- 30+ ready-to-review pull requests a month from the coding agents he built
+- Roughly doubled long-term memory accuracy on time-sensitive questions
+- 24 of 24 correct speaker-recognition decisions in testing
+- Medimap: revenue and users each grew 15% in the two months after relaunch
 
 # Experience
-- Kindred (formerly Mynd) — Senior Full-Stack Engineer, Sept 2023 to present, remote.
-- Extendly — Full-Stack Developer, Apr 2023 to May 2024, remote. RAG support
-  chatbot on OpenAI, FastAPI, PostgreSQL.
-- Zaytrics — Full-Stack Developer, Sep 2020 to Apr 2023, Islamabad. Logo-similarity
-  trademark detection at 85%+ accuracy, cut manual review about 70%.
+
+## Kindred AI (kindredeq.com) — Senior Product Engineer, Sep 2023 to present, remote
+Stack: TypeScript, Python, Node.js, NestJS, Django, PostgreSQL/pgvector, AWS,
+Pulumi, Inngest, LiveKit, ElevenLabs, Deepgram, Claude, Langfuse.
+
+### Kindred Workplace — https://kindredworkplace.com
+Emotional-intelligence coaching for companies, used by 8,300+ people across 21
+companies. Danish built the multi-agent backend behind Paige, the AI coach: a
+supervisor that routes each message to specialist agents, streamed replies, and an
+eval suite of golden conversations that alerts the team when quality drops. He
+shipped Analyze, which turns recorded conversations of up to 90 minutes into
+coaching feedback, and Voice ID, which recognises the member's own voice, with
+per-user usage limits to keep AI cost predictable and consent and GDPR deletion
+built in. He took Paige into Slack and Microsoft Teams with scheduled check-ins,
+and connected the ElevenLabs voice agent to live product data securely.
+
+### Kindred Practice (formerly Mynd) — https://kindredpractice.com
+Practice management for therapists, grown to 1,000+ therapists. Danish is product
+and engineering owner, working with product, design and clinical stakeholders:
+scheduling, billing, clinical notes, live video sessions (LiveKit, AWS Chime,
+Deepgram) and AI features. He took RAG from prototype to production with
+eval-driven iteration, cutting p95 latency ~40% and LLM spend ~30% through prompt
+caching and model routing, and cut the monthly AWS production bill by 61% by
+right-sizing instances and removing idle, duplicated and over-provisioned
+resources.
+
+### Agent Ops (engineering automation)
+Coding agents that turn Sentry errors and tickets into ready-to-review pull
+requests, 30+ a month, with a human approving each plan and a review agent checking
+every PR. A support agent that drafts customer replies and hands off to the team
+when unsure, a pipeline that keeps help articles up to date, and a scanner that
+blocks patient data and secrets from agent changes. He also wrote the shared Claude
+Code skills and Cursor rules the engineering team builds with, cutting new-hire
+ramp from weeks to days.
+
+### Kindred Core (multi-tenant AI platform shared by every Kindred product and partner)
+- Long-term memory that lets AI agents remember what users shared and when it was
+  true, with full erasure on request. Roughly doubled accuracy on time-sensitive
+  questions.
+- Speaker recognition tuned on real production audio so it identifies the right
+  person across different microphones: 24 of 24 correct decisions in testing.
+- Usage metering, billing credits and an audit log of every AI decision for partner
+  companies, with per-partner data rules and complete deletion of a person's
+  records on request.
+- An evaluation system that tests AI behaviour before every release: automated
+  checks that can block a bad release, plus model-graded quality reviews across 24
+  simulated user personas.
+
+### Medimap — https://medimap.ca
+4,200+ walk-in clinics across six provinces. Rebuilt the platform after
+acquisition on Next.js and Payload CMS and launched online booking. Revenue and
+users each grew 15% in two months.
+
+### Stellantis Skills Platform
+25,000+ employees, 14 languages. Delivered multi-rater skill assessments, SAML
+single sign-on and manager-based permissions, and set up AWS production with idle
+servers sleeping to cut cost.
+
+## Extendly (extendly.com) — Full-Stack Developer, Apr 2023 to May 2024, remote
+Built a retrieval-backed support assistant on OpenAI, FastAPI and PostgreSQL that
+answered 500–600 tickets a day from the product knowledge base. Built the
+customer-facing React apps and a serverless AWS Lambda layer that syncs GoHighLevel
+with third-party tools.
+
+## Zaytrics (zaytrics.com) — Full-Stack Developer, Sep 2020 to Apr 2023, Islamabad
+Built a computer-vision system that detects trademark infringement in logos at 85%+
+accuracy, fed by a Selenium data pipeline, removing roughly 70% of the legal team's
+manual review. Redesigned PostgreSQL and MongoDB schemas to restore query
+performance as data grew.
+
+# Side projects (independent products, not a job)
+
+## TallyReel — https://tallyreel.com
+AI video creation and social scheduling. Turns one line into a finished short video
+and schedules it to 15 social networks, across web (Next.js), iOS and Android (Expo)
+and a Mac and Windows desktop app. Includes a remote MCP server with 52 tools and
+OAuth so Claude and ChatGPT users can create, schedule and review videos, and an
+in-app AI agent with three autonomy levels and per-video GPU cost tracking on Modal.
+
+## Round Zero — https://joinroundzero.com
+AI interview practice. A live AI voice interviewer on LiveKit that adapts follow-up
+questions in real time, scores answers against role-specific rubrics calibrated by
+seniority, and runs coding rounds.
+
+## Blurt — https://blurt.soonbuilt.com
+Hold a key and talk, and clean text appears wherever you type, with on-device speech
+recognition in Rust for Mac and Windows.
+
+## Maina — https://maina.soonbuilt.com
+Voice cloning from 30 seconds of speech in English, Hindi and Urdu, with a built-in
+AI watermark and evals for word error rate and speaker similarity.
 
 # Education
-BS Computer Science, Air University, Islamabad, 2017 to 2021.
+BS Computer Science, Air University, Islamabad, Sep 2017 to Jun 2021. Final-year
+research: deep-learning segmentation of the liver and liver tumors in abdominal CT
+scans.
 
 # Skills
-TypeScript, Python, JavaScript · Node.js, NestJS, Fastify, Django, FastAPI ·
-React, Next.js, Expo · PostgreSQL, pgvector, Redis, Cloudflare D1 · AWS, Cloudflare,
-Docker, Pulumi · Claude, GPT, Gemini, local models (MLX, llama.cpp), LiveKit,
-Deepgram, Whisper, RAG, agent memory, evals, Langfuse, Inngest, Goose, MCP.
+- Languages: TypeScript, JavaScript, Python, Rust, SQL
+- AI and LLMs: Claude, OpenAI, Gemini, DeepSeek, Claude Agent SDK, LangChain, MCP,
+  RAG, graph RAG, multi-agent systems, tool calling, agent memory, LLM evals, Langfuse
+- Voice and ML: LiveKit, ElevenLabs, Deepgram, Whisper, speaker recognition,
+  computer vision, MLX, llama.cpp, ONNX
+- Frontend and mobile: React, Next.js, Expo, React Native, Tailwind CSS, TanStack Query
+- Backend and data: Node.js, NestJS, Fastify, FastAPI, Django, PostgreSQL, pgvector,
+  MongoDB, DynamoDB, Redis, Elasticsearch, Inngest
+- Cloud and DevOps: AWS, Azure, GCP, Cloudflare, Modal, Docker, Pulumi, GitHub
+  Actions, CI/CD, Sentry, Jest
+- Auth and billing: SAML SSO, WorkOS, Clerk, RBAC, multi-tenancy, Stripe,
+  RevenueCat, HIPAA, GDPR
+- AI dev tools: Claude Code, Cursor, Codex, GitHub Copilot
 
 # About this site
-Built with Astro and Tailwind, styled after the idea wall on tallyreel.com: sticky
-notes, taped prints and hand-drawn wiring diagrams. The chatbot runs on a
-Cloudflare Worker and uses Google Gemini Flash.
+https://danishsiddique.com. Built with Astro and Tailwind, styled after the idea
+wall on tallyreel.com: sticky notes, taped prints and hand-drawn wiring diagrams.
+The sample videos are real, unedited TallyReel renders. The chatbot runs on a
+Cloudflare Worker.
 `.trim();

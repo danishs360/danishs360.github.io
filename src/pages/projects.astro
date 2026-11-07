@@ -6,14 +6,13 @@ import { PAGE_SEO } from "../config";
 import {
   tallyreel,
   roundZero,
-  soonbuilt,
+  sideProjects,
   kindredCore,
   agentOps,
   kindredWorkplace,
   kindredPractice,
   moreKindred,
   wirings,
-  type Tint,
 } from "../data/work";
 
 const wire = (id: string) => wirings.find((w) => w.id === id)!;
@@ -21,7 +20,6 @@ const wire = (id: string) => wirings.find((w) => w.id === id)!;
 const studio = [
   { product: tallyreel, wiring: wire("tallyreel") },
   { product: roundZero, wiring: wire("roundzero") },
-  { product: soonbuilt },
 ];
 
 const kindred = [
@@ -31,53 +29,11 @@ const kindred = [
   { product: agentOps, wiring: wire("agentops") },
 ];
 
-const workbench: { name: string; body: string; stack: string; tint: Tint; status: string }[] = [
-  {
-    name: "voice-lab",
-    body: "Voice cloning on an Apple-silicon Mac in English, Hindi and Urdu, no API keys. Urdu is transliterated to Devanagari so the Hindi voice can speak it. The research behind TallyReel's cloned voices.",
-    stack: "Python · Chatterbox · pyloudnorm · ffmpeg",
-    tint: "peach",
-    status: "Prototype",
-  },
-  {
-    name: "ClauseGuard",
-    body: "Contract review for freelancers. Flags risky clauses and missing ones, explains them plainly and suggests redlines. Output held to a strict schema, with precision and recall evals per clause type.",
-    stack: "Fastify · React · Zod · evals",
-    tint: "butter",
-    status: "Building",
-  },
-  {
-    name: "DropChat",
-    body: "Chat with your docs from one script tag. Crawl, chunk and embed into pgvector; a Shadow-DOM widget streams cited answers over SSE.",
-    stack: "pgvector · SSE · vanilla JS",
-    tint: "mint",
-    status: "Building",
-  },
-  {
-    name: "mcp-prod",
-    body: "A production template for MCP servers in TypeScript: stdio and Streamable HTTP from one codebase, pluggable storage, tests and CI.",
-    stack: "TypeScript · MCP · Postgres · Vitest",
-    tint: "sky",
-    status: "Open source",
-  },
-  {
-    name: "voice-agent-saas",
-    body: "A deploy-anywhere starter for voice agents: LiveKit Agents, Deepgram and Silero turn detection, with transcripts in Postgres. The seed of Round Zero's voice loop.",
-    stack: "LiveKit · Deepgram · Postgres",
-    tint: "lilac",
-    status: "Open source",
-  },
-];
-
 const earlier = [
-  { name: "Medimap", body: "Find nearby walk-in clinics and urgent care in real time.", url: "https://medimap.ca/", img: "/projects/medimap.png" },
-  { name: "RAG support chatbot · Extendly", body: "Customer-support bot grounded in each customer's own docs. OpenAI, FastAPI, Postgres." },
-  { name: "Trademark infringement detection · Zaytrics", body: "Logo-similarity model at 85%+ accuracy that cut manual review about 70%." },
-  { name: "KindlMedia chat", body: "Real-time chat between clients and businesses with reliable delivery and presence.", url: "https://kb.mycrmsupport.com/kindlmedia1" },
-  { name: "TM Inspector", body: "Trademark monitoring: similarity search, watch lists and infringement alerts." },
-  { name: "ViseWealth", body: "Wealth and portfolio tracking with returns and allocation dashboards." },
-  { name: "WowNFT", body: "NFT marketplace with wallet auth, minting, listings and auctions." },
-  { name: "Liver tumor segmentation", body: "Final-year project: U-Net segmentation of liver and tumors in CT scans." },
+  { name: "Support assistant · Extendly", body: "Retrieval-backed assistant on OpenAI, FastAPI and PostgreSQL that answered 500–600 support tickets a day from the product knowledge base." },
+  { name: "GoHighLevel sync · Extendly", body: "Customer-facing React apps and a serverless AWS Lambda layer that syncs GoHighLevel with third-party tools, so nobody copies records by hand." },
+  { name: "Trademark infringement detection · Zaytrics", body: "Computer-vision system that spots infringing logos at 85%+ accuracy, removing roughly 70% of the legal team's manual review." },
+  { name: "Liver tumor segmentation", body: "Final-year research: deep-learning segmentation of the liver and liver tumors in abdominal CT scans." },
 ];
 ---
 
@@ -92,23 +48,24 @@ const earlier = [
     <p class="hand text-ember-ink text-lg -rotate-2 inline-block mb-3">the whole wall</p>
     <h1 class="display-title text-[clamp(40px,5.4vw,64px)]">What I've built, and what it did</h1>
     <p class="mt-5 text-lg text-ink-dim">
-      What each product does for the people using it, what I built, and a simple picture of how it works. Kindred
-      products were built with a team, and I say which parts are mine. Soonbuilt products are mine end to end.
+      What each product does for the people using it, what I built, and a simple picture of how it works. Kindred AI
+      products are built with a team of product, design and engineering colleagues, and I say which parts I owned.
+      The side projects are things I build outside work.
     </p>
     <nav class="flex flex-wrap gap-2 mt-7" aria-label="Sections">
-      <a href="#kindred" class="tag-pill no-underline hover:border-ink-muted">Kindred</a>
-      <a href="#studio" class="tag-pill no-underline hover:border-ink-muted">Soonbuilt</a>
-      <a href="#workbench" class="tag-pill no-underline hover:border-ink-muted">On the workbench</a>
+      <a href="#kindred" class="tag-pill no-underline hover:border-ink-muted">Kindred AI</a>
+      <a href="#studio" class="tag-pill no-underline hover:border-ink-muted">Side projects</a>
       <a href="#earlier" class="tag-pill no-underline hover:border-ink-muted">Earlier</a>
     </nav>
   </header>
 
   <!-- ═══ KINDRED ═══ -->
   <section id="kindred" class="pt-24" aria-labelledby="kindred-h">
-    <h2 id="kindred-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Kindred</h2>
+    <h2 id="kindred-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Kindred AI</h2>
     <p class="mt-3 text-ink-dim text-lg max-w-2xl">
-      Senior full-stack engineer since 2023. Kindred Workplace and Kindred Practice are the products I've spent
-      most of my time on; Kindred Core and Agent Ops are the shared AI and tooling underneath them.
+      Senior Product Engineer since September 2023, working remotely. Kindred Workplace and Kindred Practice are
+      the products I've spent most of my time on; Kindred Core and Agent Ops are the shared AI and tooling
+      underneath them, and I've also delivered Medimap and the Stellantis Skills Platform.
     </p>
 
     {
@@ -124,7 +81,7 @@ const earlier = [
       ))
     }
 
-    <div class="grid md:grid-cols-3 gap-4 mt-20">
+    <div class="grid md:grid-cols-2 gap-4 mt-20">
       {
         moreKindred.map((m) => (
           <article class="bento-card p-6">
@@ -148,10 +105,10 @@ const earlier = [
           rx="4"
           fill="currentColor"></rect></svg
       >
-      <h2 id="studio-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Soonbuilt</h2>
+      <h2 id="studio-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Side projects</h2>
     </div>
     <p class="text-ink-dim text-lg max-w-2xl">
-      My studio. Three live products, all designed, built, hosted and launched by me.
+      Independent products I design, build and launch outside my day job, under the Soonbuilt name.
     </p>
 
     {
@@ -185,21 +142,23 @@ const earlier = [
     </div>
   </section>
 
-  <!-- ═══ WORKBENCH ═══ -->
-  <section id="workbench" class="pt-32" aria-labelledby="bench-h">
+  <!-- ═══ MORE SIDE PROJECTS ═══ -->
+  <section id="more-side-projects" class="pt-32" aria-labelledby="bench-h">
     <div class="relative max-w-2xl">
-      <h2 id="bench-h" class="display-title text-[clamp(30px,3.8vw,44px)]">On the workbench</h2>
-      <p class="mt-3 text-ink-dim text-lg">Prototypes, starters and open-source pieces. Some become products.</p>
+      <h2 id="bench-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Smaller side projects</h2>
+      <p class="mt-3 text-ink-dim text-lg">Two more independent products, both live.</p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+    <div class="grid sm:grid-cols-2 gap-8 mt-12">
       {
-        workbench.map((w, i) => (
-          <article class={`note note-${w.tint} !p-6`} style={`--tilt:${[-1.5, 1.2, -0.8, 1.6, -1.2][i]}deg`}>
+        sideProjects.map((w, i) => (
+          <article class={`note note-${w.tint} !p-6`} style={`--tilt:${[-1.5, 1.2][i]}deg`}>
             <span class="tape" aria-hidden="true" />
-            <span class="note-tag">{w.status}</span>
+            <span class="note-tag">Live</span>
             <h3 class="note-idea !text-[22px]">{w.name}</h3>
             <p class="text-[15px] leading-relaxed text-[rgba(28,25,23,.78)]">{w.body}</p>
-            <p class="mt-auto pt-2 text-[13px] font-semibold text-[rgba(28,25,23,.6)]">{w.stack}</p>
+            <a href={w.url} target="_blank" rel="noopener" class="mt-auto pt-2 text-[13px] font-semibold text-[rgba(28,25,23,.7)]">
+              {w.urlText} ↗
+            </a>
           </article>
         ))
       }
@@ -209,7 +168,7 @@ const earlier = [
   <!-- ═══ EARLIER ═══ -->
   <section id="earlier" class="pt-32" aria-labelledby="earlier-h">
     <h2 id="earlier-h" class="display-title text-[clamp(30px,3.8vw,44px)]">Earlier</h2>
-    <p class="mt-3 text-ink-dim text-lg max-w-2xl">Client work and projects from Extendly, Zaytrics and university.</p>
+    <p class="mt-3 text-ink-dim text-lg max-w-2xl">Work from Extendly, Zaytrics and university.</p>
     <ul class="sheet list-none m-0 mt-10 p-4 sm:p-6 grid sm:grid-cols-2 gap-x-10">
       {
         earlier.map((e) => (

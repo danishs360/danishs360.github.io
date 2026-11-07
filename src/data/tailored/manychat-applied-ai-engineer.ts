@@ -1,5 +1,5 @@
 import { baseResume } from "../resume";
-import type { Resume } from "../resume";
+import type { Resume, SkillGroup } from "../resume";
 
 export const meta = {
   slug: "manychat-applied-ai-engineer",
@@ -12,48 +12,56 @@ export const meta = {
 // Honest tailoring: Manychat wants an Applied AI Engineer focused on AI agents,
 // agentic workflows, LLM orchestration, and automation pipelines wired into real
 // business systems, written in TypeScript/Node.js, with RAG, tool/function
-// calling, memory/state, evals, and reliable backend patterns (async, retries,
-// queues, idempotency). This is squarely Danish's day-to-day. So this variant
-// leads with the agent + automation work, the RAG/eval/monitoring, and the
-// orchestration backend, then ownership/scale, then the rest. Skills foreground
-// Agentic AI, TypeScript/Node, and the data/infra layers (pgvector, Redis,
-// PostgreSQL, Docker, CI/CD) the JD names. Nothing invented: no Temporal/n8n,
-// no NestJS, no Kafka claims that aren't true.
-const [kindred, ...restExperience] = baseResume.experience;
+// calling, memory/state, evals, and reliable backend patterns. This is close to
+// Danish's day-to-day. So this variant leads with the multi-agent coach, the
+// agent automations (coding, support, help articles), agents inside Slack and
+// Teams, long-term memory and evals, then RAG cost/latency and the platform
+// plumbing. Skills foreground AI, TypeScript/Node, and the data/infra layers
+// (pgvector, Redis, PostgreSQL, Docker, CI/CD) the JD names. Nothing invented:
+// no Temporal/n8n or Kafka claims.
+const kindred = baseResume.experience.find((e) => e.company === "Kindred AI")!;
+const restExperience = baseResume.experience.filter((e) => e !== kindred);
+const skill = (label: string): SkillGroup => {
+  const s = baseResume.skills.find((g) => g.label === label);
+  if (!s) throw new Error(`Unknown skill group: ${label}`);
+  return s;
+};
 
 export const resume: Resume = {
   ...baseResume,
-  role: "Software Engineer · AI Agents & Workflow Automation",
-  summary: `<p>I build AI agents and the backend systems that run them, with 5+ years shipping products end to end. Most of it in TypeScript and Node.js, with Python where it fits. At <span class="navy">Kindred</span> (formerly Mynd), a mental-health platform used by 200+ therapists and the thousands of clients they serve, I built the agentic features and the orchestration underneath them: an in-app assistant that takes real actions through tool calls, RAG grounded in real clinical context, and automation pipelines wired into the systems the business actually runs on.</p><p>I care about agents that hold up in production, so I lean on the unglamorous parts: retries, idempotency, queues, evals, and monitoring. I built a pipeline that turns a Sentry alert into a reviewed pull request, deployed RAG on pgvector with eval-driven iteration, and worked closely with product and domain experts to find the use cases worth building before writing the code. I use Claude Code and Cursor every day to move faster, but the judgment stays mine, and I still read every line before it ships.</p>`,
+  role: "Senior Product Engineer · AI Agents & Automation",
+  summary: `<p>Senior product engineer with 6 years of shipping products end to end, now focused on AI agents and the backend systems that run them, mostly in TypeScript and Node.js with Python where it fits. At <span class="navy">Kindred AI</span>, builds the multi-agent coach used by <b>8,300+ people at 21 companies</b>, agents that live inside Slack and Microsoft Teams, and automations that turn Sentry errors and tickets into <b>30+ reviewed pull requests a month</b> and draft support replies with a hand-off to the team. Cares about the parts that decide whether an agent holds up with real users: long-term memory, evals that can block a bad release, guardrails, latency and cost. Works closely with product and domain experts to find the use cases worth building first.</p>`,
   experience: [
     {
       ...kindred,
-      // Reordered for an Applied AI / agent-automation role: agents and
-      // tool-calling first, then agentic workflow automation tied into ticketing,
-      // then RAG/eval, then the orchestration backend (async, real-time
-      // integrations), then ownership/scale and full-stack delivery.
+      // Agents and agent automations first, then memory/evals/RAG, then the
+      // platform plumbing and product ownership.
       bullets: [
-        kindred.bullets[4], // in-app AI assistant: tool calls, structured outputs, scoped permissions, guardrails
-        kindred.bullets[5], // developer-loop automations: Sentry/Gleap -> Goose agents -> reviewed PRs
-        kindred.bullets[3], // production RAG pipelines on pgvector, eval-driven, latency/spend cuts
-        kindred.bullets[2], // event-driven backend (Node/TS, Django, Lambda), real-time video/transcription/chat
-        kindred.bullets[0], // scaled the platform to 200+ therapists, end-to-end ownership
-        kindred.bullets[1], // full-stack delivery of Kindred Workplace (React, Node/TS, Django)
-        kindred.bullets[6], // authored shared Cursor rules / Claude Code skills
+        `<b>Kindred Workplace</b> (kindredworkplace.com, used by <b>8,300+ people across 21 companies</b>): built the <b>multi-agent backend</b> behind Paige, the AI coach: a supervisor that routes each message to specialist agents, streamed replies, and an eval suite of golden conversations that alerts the team when quality drops.`,
+        `<b>Agent Ops:</b> built coding agents that turn Sentry errors and tickets into ready-to-review pull requests, <b>30+ a month</b>, with a human approving each plan and a review agent checking every PR.`,
+        `<b>Agent Ops:</b> built a support agent that drafts customer replies and hands off to the team when unsure, a pipeline that keeps help articles up to date, and a <b>scanner that blocks patient data and secrets</b> from agent changes.`,
+        `<b>Kindred Workplace:</b> took Paige beyond the web app into <b>Slack and Microsoft Teams</b> with scheduled check-ins, and connected the ElevenLabs voice agent to live product data securely.`,
+        `<b>Kindred Core</b> (multi-tenant AI platform shared by every Kindred product and partner): built the <b>long-term memory</b> that lets AI agents remember what users shared and when it was true, with full erasure on request. <b>Roughly doubled accuracy</b> on time-sensitive questions.`,
+        `<b>Kindred Core:</b> built the <b>evaluation system</b> that tests AI behaviour before every release: automated checks that can block a bad release, plus model-graded quality reviews across 24 simulated user personas.`,
+        `<b>Kindred Practice:</b> took RAG from prototype to production with eval-driven iteration, cutting <b>p95 latency ~40%</b> and <b>LLM spend ~30%</b> through prompt caching and model routing.`,
+        `<b>Kindred Workplace:</b> shipped <b>Analyze</b>, which turns recorded conversations of up to 90 minutes into coaching feedback, and <b>Voice ID</b>, which recognises the member's own voice, with per-user usage limits to keep AI cost predictable and consent and GDPR deletion built in.`,
+        `<b>Kindred Core:</b> built usage metering, billing credits and an audit log of every AI decision for partner companies, with per-partner data rules and complete deletion of a person's records on request.`,
+        `<b>Kindred Practice</b> (kindredpractice.com): product and engineering owner, working with product, design and clinical stakeholders as the platform grew to <b>1,000+ therapists</b>: scheduling, billing, clinical notes, live video sessions (LiveKit, AWS Chime, Deepgram) and AI features.`,
+        `<b>Agent Ops:</b> wrote the shared Claude Code skills and Cursor rules the engineering team builds with, cutting new-hire ramp from weeks to days.`,
       ],
     },
     ...restExperience,
   ],
-  // Agentic AI first, then the languages and backend the JD names, then the
-  // data and infra layers (pgvector, Redis, PostgreSQL, Docker, CI/CD), then
-  // frontend and testing.
+  // AI first, then languages, backend/data, cloud/DevOps,
+  // voice, frontend, auth, AI dev tools.
   skills: [
-    baseResume.skills[6], // Agentic AI
-    baseResume.skills[0], // Languages (TypeScript, Python)
-    baseResume.skills[1], // Backend (Node.js, ...)
-    baseResume.skills[4], // Data (PostgreSQL, Redis, pgvector, ...)
-    baseResume.skills[5], // Cloud & DevOps (Docker, CI/CD, ...)
-    baseResume.skills[2], // Frontend
-    baseResume.skills[3], // Testing
+    skill("AI and LLMs"),
+    skill("Languages"),
+    skill("Backend and data"),
+    skill("Cloud and DevOps"),
+    skill("Voice and ML"),
+    skill("Frontend and mobile"),
+    skill("Auth and billing"),
+    skill("AI dev tools"),
   ],
 };

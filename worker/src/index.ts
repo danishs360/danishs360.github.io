@@ -2,7 +2,8 @@ import { KNOWLEDGE } from "./knowledge";
 
 interface Env {
   GROQ_API_KEY: string;
-  // Comma-separated list, e.g. "https://danishs360.github.io,http://localhost:4321"
+  // Comma-separated list, e.g.
+  // "https://danishsiddique.com,https://www.danishsiddique.com,https://danishs360.github.io,http://localhost:4321"
   ALLOWED_ORIGINS?: string;
 }
 

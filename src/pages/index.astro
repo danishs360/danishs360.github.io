@@ -12,7 +12,7 @@ import { person, website } from "../lib/schema";
 import {
   tallyreel,
   roundZero,
-  soonbuilt,
+  sideProjects,
   kindredWorkplace,
   kindredPractice,
   kindredCore,
@@ -26,10 +26,10 @@ const posts = (await getCollection("blog"))
   .slice(0, 3);
 
 const tally = [
-  { value: "8,300+", label: "people coached on Kindred Workplace" },
-  { value: "200+", label: "therapists run their practice on Kindred Practice" },
-  { value: "3", label: "products I launched on my own in 2026" },
-  { value: "30+", label: "bugs and tickets fixed by my agents each month" },
+  { value: "1,000+", label: "therapists run their practice on Kindred Practice" },
+  { value: "8,300+", label: "people at 21 companies on Kindred Workplace" },
+  { value: "25,000+", label: "Stellantis employees on the Skills Platform" },
+  { value: "61%", label: "cut from the monthly AWS production bill" },
 ];
 
 const homeWirings = ["practice", "workplace", "core", "tallyreel", "roundzero", "agentops"].map(
@@ -63,15 +63,16 @@ const profileSchema = {
     <div class="hero-copy">
       <h1 id="hero-h">
         <span class="hand text-ember-ink text-[16px] -rotate-2 mb-4 inline-block font-medium tracking-normal">
-          Danish Siddique · software &amp; product engineer in Islamabad
+          Danish Siddique · senior product engineer, AI products
         </span>
         <span class="block display-title text-[clamp(44px,5.6vw,72px)] !tracking-[-0.04em] !leading-[1.02]">
           I build the product, and the AI <span class="hand text-ember !tracking-[-0.02em]">underneath it.</span>
         </span>
       </h1>
       <p class="mt-6 text-[clamp(18px,1.6vw,20px)] leading-normal text-ink-dim max-w-[31em]">
-        Senior full-stack engineer. At Kindred I build Kindred Workplace and Kindred Practice, used by thousands
-        of people and hundreds of therapists. On my own, through Soonbuilt, I've launched TallyReel and Round Zero.
+        Senior Product Engineer at Kindred AI, with 6 years of turning real user problems into AI products that run
+        in production. I work with product and design on Kindred Workplace and Kindred Practice, used by 8,300+ people
+        and 1,000+ therapists. Outside work I build side projects like TallyReel and Round Zero.
       </p>
       <div class="flex flex-wrap items-center gap-x-6 gap-y-3.5 mt-8">
         <a href="#kindred" class="btn-ember !h-14 !px-7 !text-[17px]">See what I've built</a>
@@ -81,16 +82,16 @@ const profileSchema = {
         </a>
       </div>
       <p class="mt-5 text-[15px] text-ink-muted">
-        Based in <a href="/software-engineer-islamabad/" class="text-ink-dim">Islamabad, Pakistan</a> · working remotely worldwide · open to senior full-stack and applied AI roles
+        Based in <a href="/software-engineer-islamabad/" class="text-ink-dim">Islamabad, Pakistan</a> · working remotely worldwide · open to senior product engineering roles in AI
       </p>
     </div>
 
     <div class="hero-wall" aria-label="What I've been working on">
-      <p class="hand hw-arrow" aria-hidden="true">made on a laptop →</p>
+      <p class="hand hw-arrow" aria-hidden="true">a side project →</p>
 
       <a href="#tallyreel" class="note note-peach hw-live">
         <span class="tape" aria-hidden="true"></span>
-        <span class="note-tag">Just shipped</span>
+        <span class="note-tag">Side project</span>
         <span class="note-idea">TallyReel: one line in, a finished video out</span>
         <span class="hw-go">See it <span aria-hidden="true">→</span></span>
       </a>
@@ -120,11 +121,11 @@ const profileSchema = {
       <a href="#kindred-workplace" class="note note-sky hw-2">
         <span class="tape" aria-hidden="true"></span>
         <span class="note-tag">Kindred Workplace</span>
-        <span class="note-idea">EQ coaching for 8,300+ people</span>
+        <span class="note-idea">AI coaching for 8,300+ people at 21 companies</span>
       </a>
       <a href="#kindred-practice" class="note note-butter hw-3">
         <span class="note-tag">Kindred Practice</span>
-        <span class="note-idea">200+ therapists, their notes written for them</span>
+        <span class="note-idea">1,000+ therapists run their practice on it</span>
       </a>
       <a href="#round-zero" class="note note-mint hw-4">
         <span class="tape" aria-hidden="true"></span>
@@ -158,10 +159,11 @@ const profileSchema = {
   <!-- ═══ KINDRED ═══ -->
   <section class="block" id="kindred" aria-labelledby="kindred-h">
     <div class="head-left">
-      <h2 id="kindred-h" class="display-title text-[clamp(32px,4.2vw,48px)]">At Kindred, since 2023</h2>
+      <h2 id="kindred-h" class="display-title text-[clamp(32px,4.2vw,48px)]">At Kindred AI, since 2023</h2>
       <p class="mt-4 text-ink-dim text-lg">
-        Kindred makes software that helps people understand each other: therapists and their clients, managers
-        and their teams. These are the two products I've spent most of my time on.
+        Kindred AI makes software that helps people understand each other: therapists and their clients, managers
+        and their teams. These are the two products I've spent most of my time on, built with a team of product,
+        design and engineering colleagues.
       </p>
       <p class="hand head-aside" aria-hidden="true">my day job</p>
     </div>
@@ -172,7 +174,7 @@ const profileSchema = {
 
     <div class="mt-24">
       <h3 class="display-title text-[clamp(24px,2.8vw,32px)]">Underneath both products</h3>
-      <p class="mt-3 text-ink-dim text-[17px] max-w-2xl">The shared AI and tooling I work on, so each product team moves faster.</p>
+      <p class="mt-3 text-ink-dim text-[17px] max-w-2xl">The shared AI and tooling I work on, so each product team moves faster, plus two more products I delivered.</p>
       <div class="grid md:grid-cols-2 gap-8 mt-10">
         {
           [kindredCore, agentOps].map((k, i) => (
@@ -194,7 +196,7 @@ const profileSchema = {
           ))
         }
       </div>
-      <ul class="grid md:grid-cols-3 gap-4 mt-10 list-none p-0">
+      <ul class="grid md:grid-cols-2 gap-4 mt-10 list-none p-0">
         {
           moreKindred.map((m) => (
             <li class="bento-card p-6">
@@ -210,17 +212,29 @@ const profileSchema = {
   <!-- ═══ SOONBUILT ═══ -->
   <section class="block" id="work" aria-labelledby="work-h">
     <div class="head-left">
-      <h2 id="work-h" class="display-title text-[clamp(32px,4.2vw,48px)]">On my own: three products, all live</h2>
+      <h2 id="work-h" class="display-title text-[clamp(32px,4.2vw,48px)]">Side projects, all live</h2>
       <p class="mt-4 text-ink-dim text-lg">
-        Built and run through Soonbuilt, my studio. Design, code, hosting, payments and the launch, start to finish.
+        Independent products I build outside my day job, from the first sketch to launch.
       </p>
       <p class="hand head-aside" aria-hidden="true">nights and weekends</p>
     </div>
     <div class="grid gap-20 sm:gap-24 mt-14">
       <ProductPin product={tallyreel} />
       <ProductPin product={roundZero} flip />
-      <ProductPin product={soonbuilt} />
     </div>
+    <ul class="grid md:grid-cols-2 gap-4 mt-16 list-none p-0">
+      {
+        sideProjects.map((m) => (
+          <li class="bento-card p-6">
+            <div class="flex items-baseline justify-between gap-3 flex-wrap">
+              <h3 class="text-lg font-extrabold tracking-[-0.01em]">{m.name}</h3>
+              <a href={m.url} target="_blank" rel="noopener" class="text-sm text-ink-muted">{m.urlText} ↗</a>
+            </div>
+            <p class="mt-2 text-[15px] text-ink-dim leading-relaxed">{m.body}</p>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <!-- ═══ REELS ═══ -->
@@ -228,7 +242,7 @@ const profileSchema = {
     <div class="head-left">
       <h2 id="reels-h" class="display-title text-[clamp(32px,4.2vw,48px)]">Every note here became a real video</h2>
       <p class="mt-4 text-ink-dim text-lg">
-        Each idea was typed into TallyReel as one line and rendered on a laptop without a single edit. Peel a note
+        Each idea was typed into TallyReel as one line and rendered without a single edit. Peel a note
         to watch what it turned into, with sound.
       </p>
       <p class="hand head-aside" aria-hidden="true">go on, peel one</p>
@@ -281,7 +295,7 @@ const profileSchema = {
     <div class="grid lg:grid-cols-[4fr_8fr] gap-10 lg:gap-14 items-start">
       <div>
         <h2 id="exp-h" class="display-title text-[clamp(32px,4vw,46px)]">Where I've built</h2>
-        <p class="mt-4 text-ink-dim">Five years of shipping, most of it with AI somewhere in the loop.</p>
+        <p class="mt-4 text-ink-dim">Six years of shipping, most of it with AI somewhere in the loop.</p>
         <a href="/resume/" class="textlink mt-6">Full resume →</a>
       </div>
       <ol class="sheet p-6 sm:p-8 list-none m-0">
@@ -341,8 +355,8 @@ const profileSchema = {
       <span class="tape" aria-hidden="true"></span>
       <h2 id="close-h" class="hand text-[clamp(32px,4.4vw,46px)] leading-tight">What should we build next?</h2>
       <p class="mt-3 text-lg text-[#5a4718]">
-        Open to senior full-stack and applied AI roles, and to good conversations about agents, memory and
-        on-device AI.
+        Open to senior product engineering roles on AI products, and to good conversations about agents, memory,
+        evals and what it takes to make AI people trust.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mt-7">
         <a href="/contact/" class="btn-ember !h-14 !px-7 !text-[17px]">Get in touch</a>

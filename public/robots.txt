@@ -8,4 +8,4 @@ Disallow: /resume/europass
 Disallow: /resume/tailored
 Disallow: /cover-letter/
 
-Sitemap: https://danishs360.github.io/sitemap.xml
+Sitemap: https://danishsiddique.com/sitemap.xml
